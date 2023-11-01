@@ -1,11 +1,10 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import { Dropdown, Layout, Menu } from "antd";
-import React, { useState } from "react";
+import React from "react";
 const { Sider, Content } = Layout;
 
 const Sidebar = ({ children }) => {
-  const [collapsed, setCollapsed] = useState(false);
   const items = [
     {
       label: (
@@ -64,15 +63,15 @@ const Sidebar = ({ children }) => {
         <div className="add-btn">+ </div>
       </div>
       <Layout>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider trigger={null} collapsible collapsed={false}>
           <div className="demo-logo-vertical" />
           <Dropdown menu={{ items }} trigger={["click"]}>
-            <a onClick={(e) => e.preventDefault()}>
+            <span onClick={(e) => e.preventDefault()}>
               <div className="dropdown-div">
                 Your Workspace
                 <DownOutlined />
               </div>
-            </a>
+            </span>
           </Dropdown>
           <div className="mt-5 menu-heading"> Menu</div>
           <Menu
