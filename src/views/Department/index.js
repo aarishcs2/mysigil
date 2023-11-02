@@ -1,8 +1,7 @@
 import { Icon } from "@iconify/react";
 import { Col, Row, Space, Tabs } from "antd";
 import React from "react";
-import Sidebar from "../../layouts/sidebar";
-export default function Home() {
+export default function Department() {
   const items = [
     {
       key: "1",
@@ -64,10 +63,8 @@ export default function Home() {
   ];
   return (
     <div>
-      <Sidebar>
-        <h2> Departments</h2>
+        <h2>Departments</h2>
         <Tabs defaultActiveKey="1" items={items} />
-      </Sidebar>
     </div>
   );
 }
