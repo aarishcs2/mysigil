@@ -5,7 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import AppRoute from "./routes";
 import Home from "./views/Home";
 function App() {
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(true);
   const updateToken = () => {
     setToken(true);
   };

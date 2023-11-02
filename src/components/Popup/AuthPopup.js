@@ -7,7 +7,7 @@ import GoogleLoginButton from "../GoogleLoginButton";
 
 const { Link } = Anchor;
 
-const AuthPopup = () => {
+const AuthPopup = ({updateToken}) => {
   const { popupType, setPopupType, setShowPopup } = useContext(AuthContext);
 
   const handleClosePopup = () => {
