@@ -1,7 +1,18 @@
+import { useState } from "react";
+import '../src/style/style.css';
 import "./App.css";
-import "./style/style.css";
+import { AuthProvider } from "./context/AuthContext";
 import AppRoute from "./routes";
+import Home from "./views/Home";
 function App() {
-  return <AppRoute />;
+  const [token, setToken] = useState(true);
+  const updateToken = () => {
+    setToken(true);
+  };
+  return (
+    <AuthProvider>
+      {token ? <AppRoute /> : <Home updateToken={updateToken} />}
+    </AuthProvider>
+  );
 }
 export default App;

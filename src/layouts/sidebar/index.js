@@ -8,49 +8,49 @@ const Sidebar = ({ children }) => {
   const items = [
     {
       label: (
-        <a href="/">
+        <Link to="/">
           {" "}
           <Icon icon="ant-design:user-outlined" />
           Account
-        </a>
+        </Link>
       ),
       key: "0",
     },
 
     {
       label: (
-        <a href="/">
+        <Link to="/">
           {" "}
           <Icon icon="material-symbols:help-outline" />
           Help Center
-        </a>
+        </Link>
       ),
       key: "1",
     },
     {
       label: (
-        <a href="/">
+        <Link to="/">
           {" "}
           <Icon icon="ic:outline-feedback" /> Send Feedback
-        </a>
+        </Link>
       ),
       key: "2",
     },
     {
       label: (
-        <a href="/">
+        <Link to="/">
           {" "}
           <Icon icon="mi:notification" /> Notification
-        </a>
+        </Link>
       ),
       key: "3",
     },
     {
       label: (
-        <a href="/">
+        <Link to="/">
           {" "}
           <Icon icon="ic:sharp-update" /> Update
-        </a>
+        </Link>
       ),
       key: "4",
     },
@@ -82,11 +82,11 @@ const Sidebar = ({ children }) => {
               {
                 key: "1",
                 label: (
-                  <a href="/">
+                  <Link to="/">
                     {" "}
                     <Icon icon="pajamas:chart" />
                     Dashboard
-                  </a>
+                  </Link>
                 ),
               },
               {
@@ -114,52 +114,52 @@ const Sidebar = ({ children }) => {
                 key: "4",
 
                 label: (
-                  <a href="/">
+                  <Link to="/">
                     {" "}
                     <Icon icon="ic:outline-contact-mail" />
                     Contact
-                  </a>
+                  </Link>
                 ),
               },
               {
                 key: "5",
 
                 label: (
-                  <a href="/">
+                  <Link to="/">
                     {" "}
                     <Icon icon="typcn:point-of-interest-outline" />
                     Interest
-                  </a>
+                  </Link>
                 ),
               },
               {
                 key: "6",
                 label: (
-                  <a href="/">
+                  <Link to="/">
                     {" "}
                     <Icon icon="solar:chart-2-linear" />
                     Analytic
-                  </a>
+                  </Link>
                 ),
               },
               {
                 key: "7",
                 label: (
-                  <a href="/">
+                  <Link to="/">
                     {" "}
                     <Icon icon="nimbus:marketing" />
                     Maketing
-                  </a>
+                  </Link>
                 ),
               },
               {
                 key: "8",
                 label: (
-                  <a href="/">
+                  <Link to="/settings">
                     {" "}
                     <Icon icon="uil:setting" />
                     Setting
-                  </a>
+                  </Link>
                 ),
               },
             ]}

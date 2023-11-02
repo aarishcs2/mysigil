@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
+import '../style/style.css'
 
 const GoogleLoginButton = () => {
   const handleGoogleLogin = () => {
