@@ -1,14 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "../views/Home";
-const Index = () => {
+import Department from "../views/Department";
+import Coworkers from "../views/CoWorker";
+import Sidebar from "../layouts/sidebar";
+const AppRoute = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <Sidebar>
+        <Routes>
+          <Route path="/" element={<Department />} />
+          <Route path="/co-worker" element={<Coworkers />} />
+        </Routes>
+      </Sidebar>
     </Router>
   );
 };
 
-export default Index;
+export default AppRoute;

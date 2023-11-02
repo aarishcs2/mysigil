@@ -2,8 +2,8 @@ import { DownOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import { Dropdown, Layout, Menu } from "antd";
 import React from "react";
+import { Link } from "react-router-dom";
 const { Sider, Content } = Layout;
-
 const Sidebar = ({ children }) => {
   const items = [
     {
@@ -92,22 +92,22 @@ const Sidebar = ({ children }) => {
               {
                 key: "2",
                 label: (
-                  <a href="/">
+                  <Link to="/">
                     {" "}
                     <Icon icon="ion:grid-outline" />
                     Department
-                  </a>
+                  </Link>
                 ),
               },
               {
                 key: "3",
 
                 label: (
-                  <a href="/">
+                  <Link to="/co-worker">
                     {" "}
                     <Icon icon="pepicons-pencil:people" />
                     Co-worker
-                  </a>
+                  </Link>
                 ),
               },
               {
