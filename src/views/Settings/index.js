@@ -1,8 +1,11 @@
 import { Icon } from "@iconify/react";
-import { Col, Row, Space, Tabs, Switch, Select } from "antd";
-import React ,{ useState } from "react";
+import { Col, Row, Space, Tabs, Tag, Switch, Select } from "antd";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined, PlusCircleTwoTone } from "@ant-design/icons";
+import AdminsTable from "../../components/Popup/AdminsTable";
+import DomainTable from "../../components/Popup/DomainTable";
+import Integrations from "./Integrations/Integrations";
 
 import { Button, message, Upload } from "antd";
 
@@ -43,17 +46,22 @@ export default function Settings() {
   const [isDisplayed1, setIsDisplayed1] = useState(false);
   const [ismodal1, setIsModal1] = useState(false);
   const [ismodal2, setIsModal2] = useState(false);
+  const [ismodal3, setIsModal3] = useState(false);
 
   const toggleModal1 = () => {
     setIsModal1(true);
   };
-  
+  const toggleModal3 = () => {
+    setIsModal3(true);
+  };
+
   const toggleDisplay = () => {
     setIsDisplayed(!isDisplayed);
   };
   const toggleDisplay1 = () => {
     setIsDisplayed1(!isDisplayed1);
   };
+
   const items = [
     {
       key: "1",
@@ -74,8 +82,7 @@ export default function Settings() {
                   <Col xs={4}>
                     <b
                       className="color-primary pointer"
-                      onClick={toggleDisplay}
-                    >
+                      onClick={toggleDisplay}>
                       Edit
                     </b>
                   </Col>
@@ -86,8 +93,7 @@ export default function Settings() {
                   <div className="form-group">
                     <div
                       className="image-drop-zone"
-                      style={{ width: 170, height: 170 }}
-                    >
+                      style={{ width: 170, height: 170 }}>
                       <Upload {...props}>
                         <div className="image-drop-zone-inner p-3">
                           <div className="d-flex flex-column align-items-center justify-content-end h-100 ">
@@ -118,8 +124,7 @@ export default function Settings() {
                     <a
                       href="#"
                       onClick={toggleDisplay}
-                      className="text-xs mr-5 color-content-dark me-2"
-                    >
+                      className="text-xs mr-5 color-content-dark me-2">
                       Cancel
                     </a>
                     <a href="#">Save</a>
@@ -130,8 +135,7 @@ export default function Settings() {
               <h4 className="mt-4 mb-2">Delete workspace</h4>
               <Link
                 className="color-red-link"
-                onClick={() => setIsModal2(true)}
-              >
+                onClick={() => setIsModal2(true)}>
                 <b>Delete My workspace </b>
               </Link>
             </Col>
@@ -163,17 +167,55 @@ export default function Settings() {
     {
       key: "2",
       label: "Admins",
-      children: <></>,
+      children: (
+        <>
+          <div className="mt-4 mb-2">
+            <h4> Admins</h4>
+            <p>
+              Admins have access to all features in Scribe while co-workers only
+              have access to their signature and analytics.
+            </p>
+          </div>
+          <a
+            className="text-decoration-none custom-link"
+            onClick={toggleModal3}
+            href="/">
+            <PlusCircleTwoTone className="me-2" />
+            Invite new admin
+          </a>
+          <AdminsTable />
+        </>
+      ),
     },
     {
       key: "3",
       label: "Integrations",
-      children: <></>,
+      children: <>
+      
+      
+      <Integrations />
+      </>,
     },
     {
       key: "4",
       label: "Domains",
-      children: <></>,
+      children: (
+        <>
+          <div className="mt-4 mb-2">
+            <h4> Domains</h4>
+            <p>
+              We automatically import you Google Workspace domains. Scribe will
+              import co-workers from all enabled domains <br />
+              You can configure<b> sending domains </b> to improve your emails
+              <b> deliverability.</b>
+            </p>
+          </div>
+          <div>
+           
+            <DomainTable />
+          </div>
+        </>
+      ),
     },
     {
       key: "5",
@@ -194,8 +236,7 @@ export default function Settings() {
                 type="button"
                 aria-haspopup="true"
                 aria-expanded="false"
-                class="mr-3 px-5 btn btn-primary no-radius"
-              >
+                class="mr-3 px-5 btn btn-primary no-radius">
                 <strong>Upgrade</strong>
               </button>
             </div>
@@ -324,8 +365,7 @@ export default function Settings() {
                           <a
                             href="#"
                             className="text-xs mr-5 color-content-dark flex-fill text-right me-3"
-                            onClick={toggleDisplay1}
-                          >
+                            onClick={toggleDisplay1}>
                             Cancel
                           </a>
                           <a href="#">Save</a>
@@ -372,8 +412,7 @@ export default function Settings() {
             aria-haspopup="true"
             aria-expanded="false"
             class="mr-3 btn btn-primary no-radius"
-            onClick={toggleModal1}
-          >
+            onClick={toggleModal1}>
             <strong> Activate single sign on</strong>
           </button>
         </>
@@ -403,8 +442,7 @@ export default function Settings() {
                 <span
                   className="emoji-in-circle emoji-in-circle-small mt-3 mb-3 mh-auto text-center"
                   role="img"
-                  aria-label="success"
-                >
+                  aria-label="success">
                   <div> 💌</div>
                 </span>
                 <div className="text-center">
@@ -418,8 +456,7 @@ export default function Settings() {
                     type="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    class="mr-3 px-5  btn btn-primary no-radius"
-                  >
+                    class="mr-3 px-5  btn btn-primary no-radius">
                     <strong>Upgrade</strong>
                   </button>
                 </div>
@@ -448,8 +485,7 @@ export default function Settings() {
                 <span
                   className="emoji-in-circle emoji-in-circle-small mt-3 mb-3 mh-auto text-center"
                   role="img"
-                  aria-label="success"
-                >
+                  aria-label="success">
                   <div> 💌</div>
                 </span>
                 <div className="text-center">
@@ -463,16 +499,85 @@ export default function Settings() {
                     name="text"
                     rows="5"
                     class="mt-2 mb-2 form-control"
-                    spellcheck="false"
-                  ></textarea>
+                    spellcheck="false"></textarea>
                   <button
                     type="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    class="mr-3 px-5 mt-2 btn  no-radius bg-red"
-                  >
+                    class="mr-3 px-5 mt-2 btn  no-radius bg-red">
                     <strong>Delete My work</strong>
                   </button>
+                </div>
+              </div>
+            </div>
+          </div>{" "}
+        </>
+      )}{" "}
+      {/* Modal 3 */}
+      {ismodal3 && (
+        <>
+          <div className="back-div">
+            {" "}
+            <div className="modal-body1 p-5">
+              <div className="div-cut">
+                <Icon
+                  icon="maki:cross"
+                  className="cross-btn"
+                  onClick={() => setIsModal3(false)}
+                />
+              </div>
+              <div className="px-md-4">
+                {" "}
+                <h2 className=" mb-3 text-center">Invite new admin</h2>
+                <span
+                  className="emoji-in-circle emoji-in-circle-small mt-3 mb-3 mh-auto text-center"
+                  role="img"
+                  aria-label="success">
+                  <div> 💌</div>
+                </span>
+                <div className="text-center">
+                  <p>
+                    {" "}
+                    Your new admin will receive an email <br />
+                    Cwith a link to accept your invitation
+                  </p>
+                  <br />
+                  <form>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control mb-3"
+                        id="firstName"
+                        placeholder="First Name"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control mb-3"
+                        id="lastName"
+                        placeholder="Last Name"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="email"
+                        className="form-control mb-3"
+                        id="email"
+                        placeholder="Email"
+                        required
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      className="mr-3 px-5 btn btn-primary no-radius">
+                      <strong>Invite</strong>
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
