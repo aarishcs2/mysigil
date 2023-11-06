@@ -4,6 +4,7 @@ import Sidebar from "../layouts/sidebar";
 import Coworkers from "../views/CoWorker";
 import Department from "../views/Department";
 import Settings from "../views/Settings";
+import Analytic from "../views/Analytic";
 const AppRoute = () => {
   return (
     <Router>
@@ -12,6 +13,7 @@ const AppRoute = () => {
           <Route path="/" element={<Department />} />
           <Route path="/co-worker" element={<Coworkers />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/analytic" element={<Analytic />} />
         </Routes>
       </Sidebar>
     </Router>

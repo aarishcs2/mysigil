@@ -185,7 +185,7 @@ function Coworkers() {
                       additional co-worker attributes from your email provider
                       to Scribe or choose Scribe as the default data source.
                     </span>
-                    <a href="##" target="##" rel="##">
+                    <a href="/" target="/" rel="/">
                       Learn More
                     </a>
                   </div>
