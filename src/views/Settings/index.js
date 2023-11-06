@@ -1,13 +1,13 @@
 import { Icon } from "@iconify/react";
-import { Col, Row, Space, Tabs, Tag, Switch, Select } from "antd";
+import { Col, Row,  Tabs,  Switch, Select } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { UploadOutlined, PlusCircleTwoTone } from "@ant-design/icons";
+import {PlusCircleTwoTone } from "@ant-design/icons";
 import AdminsTable from "../../components/Popup/AdminsTable";
 import DomainTable from "../../components/Popup/DomainTable";
 import Integrations from "./Integrations/Integrations";
 
-import { Button, message, Upload } from "antd";
+import {  message, Upload } from "antd";
 
 export default function Settings() {
   // upload file
@@ -122,12 +122,12 @@ export default function Settings() {
                   </div>
                   <div className="d-flex align-items-center justify-content-end mt-4">
                     <a
-                      href="#"
+                      href="/"
                       onClick={toggleDisplay}
                       className="text-xs mr-5 color-content-dark me-2">
                       Cancel
                     </a>
-                    <a href="#">Save</a>
+                    <a href="/">Save</a>
                   </div>
                 </div>
               )}
@@ -363,12 +363,12 @@ export default function Settings() {
                       <div className="d-flex align-items-center mt-4 justify-content-end">
                         <div className="mt-2">
                           <a
-                            href="#"
+                            href="/"
                             className="text-xs mr-5 color-content-dark flex-fill text-right me-3"
                             onClick={toggleDisplay1}>
                             Cancel
                           </a>
-                          <a href="#">Save</a>
+                          <a href="/">Save</a>
                         </div>
                       </div>
                     </form>

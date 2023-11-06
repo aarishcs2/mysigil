@@ -135,7 +135,7 @@ const Sidebar = ({ children }) => {
               {
                 key: "6",
                 label: (
-                  <Link to="/">
+                  <Link to="/analytic">
                     {" "}
                     <Icon icon="solar:chart-2-linear" />
                     Analytic

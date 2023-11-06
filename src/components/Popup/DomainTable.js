@@ -17,7 +17,7 @@ const columns = [
   {
     title: "Google Workspace domain",
     dataIndex: "workspace",
-    render: (text) => <a>{text}</a>,
+    render: (text) => <a href="/">{text}</a>,
   },
   {
     title: "Sending domain",
@@ -55,7 +55,7 @@ const DomainTable = () => {
         <a className="text-decoration-none custom-link" href="/">
           Refresh domains data
         </a>
-        <a className="text-decoration-none custom-link" href="#">
+        <a className="text-decoration-none custom-link" href="/">
           Learn more about DNS configuration
         </a>
       </div>
