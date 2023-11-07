@@ -121,13 +121,13 @@ export default function Settings() {
                     />
                   </div>
                   <div className="d-flex align-items-center justify-content-end mt-4">
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       onClick={toggleDisplay}
                       className="text-xs mr-5 color-content-dark me-2">
                       Cancel
-                    </a>
-                    <a href="/">Save</a>
+                    </Link>
+                    <Link to="/">Save</Link>
                   </div>
                 </div>
               )}
@@ -143,7 +143,7 @@ export default function Settings() {
               <h4 className="mt-4 mb-2">
                 Tracking pixel <Switch defaultChecked />
               </h4>
-              <p class="mb-3">
+              <p className="mb-3">
                 Turn off or turn on the tracking pixel in your email signature.
                 <br className="mb-2 mt-3" />
                 By turning off the pixel tracking you
@@ -156,7 +156,7 @@ export default function Settings() {
               <h4 className="mt-5 mb-2">
                 Scribe branding <Switch defaultChecked />
               </h4>
-              <p class="mb-3">
+              <p className="mb-3">
                 Turn off the Made with Scribe branding in your signature.
               </p>
             </Col>
@@ -176,13 +176,13 @@ export default function Settings() {
               have access to their signature and analytics.
             </p>
           </div>
-          <a
+          <Link
             className="text-decoration-none custom-link"
             onClick={toggleModal3}
-            href="/">
+            to="/">
             <PlusCircleTwoTone className="me-2" />
             Invite new admin
-          </a>
+          </Link>
           <AdminsTable />
         </>
       ),
@@ -222,13 +222,13 @@ export default function Settings() {
       label: "Subscription",
       children: (
         <>
-          <div class="row">
-            <div class="col-md-4">
+          <div className="row">
+            <div className="col-md-4">
               <h4 className="mt-4 mb-2">Scribe plans</h4>
-              <p class="mb-3">
+              <p className="mb-3">
                 Scribe free plan for maximum 5 co-workers with signature
                 <br />
-                <span class="color-primary mt-1">
+                <span className="color-primary mt-1">
                   0 co-workers with signature installed
                 </span>
               </p>
@@ -236,7 +236,7 @@ export default function Settings() {
                 type="button"
                 aria-haspopup="true"
                 aria-expanded="false"
-                class="mr-3 px-5 btn btn-primary no-radius">
+                className="mr-3 px-5 btn btn-primary no-radius">
                 <strong>Upgrade</strong>
               </button>
             </div>
@@ -362,13 +362,13 @@ export default function Settings() {
                       </div>
                       <div className="d-flex align-items-center mt-4 justify-content-end">
                         <div className="mt-2">
-                          <a
-                            href="/"
+                          <Link
+                            to="/"
                             className="text-xs mr-5 color-content-dark flex-fill text-right me-3"
                             onClick={toggleDisplay1}>
                             Cancel
-                          </a>
-                          <a href="/">Save</a>
+                          </Link>
+                          <Link to="/">Save</Link>
                         </div>
                       </div>
                     </form>
@@ -411,7 +411,7 @@ export default function Settings() {
             type="button"
             aria-haspopup="true"
             aria-expanded="false"
-            class="mr-3 btn btn-primary no-radius"
+            className="mr-3 btn btn-primary no-radius"
             onClick={toggleModal1}>
             <strong> Activate single sign on</strong>
           </button>
@@ -456,7 +456,7 @@ export default function Settings() {
                     type="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    class="mr-3 px-5  btn btn-primary no-radius">
+                    className="mr-3 px-5  btn btn-primary no-radius">
                     <strong>Upgrade</strong>
                   </button>
                 </div>
@@ -498,13 +498,13 @@ export default function Settings() {
                   <textarea
                     name="text"
                     rows="5"
-                    class="mt-2 mb-2 form-control"
+                    className="mt-2 mb-2 form-control"
                     spellcheck="false"></textarea>
                   <button
                     type="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    class="mr-3 px-5 mt-2 btn  no-radius bg-red">
+                    className="mr-3 px-5 mt-2 btn  no-radius bg-red">
                     <strong>Delete My work</strong>
                   </button>
                 </div>

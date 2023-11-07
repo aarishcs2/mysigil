@@ -1,6 +1,7 @@
-import React from "react";
-import { Space, Table, Tag, Dropdown, Menu, Button } from "antd";
 import { DownCircleTwoTone } from "@ant-design/icons";
+import { Dropdown, Menu, Space, Table, Tag } from "antd";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const menu = (
   <Menu>
@@ -15,7 +16,7 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    render: (text) => <Link to="/">{text}</Link>,
   },
   {
     title: "Job position",
@@ -27,13 +28,13 @@ const columns = [
     title: "Email",
     dataIndex: "email",
     key: "email",
-    render: (email) => <a>{email}</a>,
+    render: (email) => <Link>{email}</Link>,
   },
   {
     title: "Departments",
     dataIndex: "departments",
     key: "departments",
-    render: (departments) => <a>{departments}</a>,
+    render: (departments) => <Link>{departments}</Link>,
   },
   {
     title: "Role",
