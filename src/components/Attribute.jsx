@@ -1,6 +1,7 @@
 import { PlusCircleTwoTone } from "@ant-design/icons";
 import { Modal } from "antd";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 const Attribute = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -45,10 +46,10 @@ const Attribute = () => {
 
   return (
     <>
-      <a className="text-decoration-none custom-link" onClick={showModal} href="/">
+      <Link className="text-decoration-none custom-link" onClick={showModal} to="/">
         <PlusCircleTwoTone className="me-2" />
         Add co-worker attribute
-      </a>
+      </Link>
 
       <Modal
         title="Create co-worker attribute"
@@ -131,8 +132,8 @@ const Attribute = () => {
       key="action"
       render={(_, record) => (
         <Space size="middle">
-          <a>Invite {record.lastName}</a>
-          <a>Delete</a>
+          <Link>Invite {record.lastName}</Link>
+          <Link>Delete</Link>
         </Space>
       )}
     />

@@ -11,6 +11,7 @@ import React, { useRef, useState } from "react";
 import { Dropdown, Form, FormControl, InputGroup } from "react-bootstrap";
 import Attribute from "../../components/Attribute";
 import Data from "../../components/Data";
+import { Link } from "react-router-dom";
 
 const { Content, Footer, TabPane } = Layout;
 
@@ -28,7 +29,7 @@ function Coworkers() {
       "Sample,CSV,Data\nRow1,Data1,Data2\nRow2,Data3,Data4";
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
+    link.setAttribute("to", encodedUri);
     link.setAttribute("download", "sample.csv");
     document.body.appendChild(link);
     link.click();
@@ -85,18 +86,18 @@ function Coworkers() {
                     </span>
                   </div>
                   {/*co-workers , signatures , information */}
-                  <div class="d-flex p-3 gap-3 fs-2">
-                    <div class="d-flex flex-fill align-items-center p-3">
-                      <UsergroupAddOutlined class="fs-3" />
-                      <h6 class="mb-0 ms-2">co-workers</h6>
+                  <div className="d-flex p-3 gap-3 fs-2">
+                    <div className="d-flex flex-fill align-items-center p-3">
+                      <UsergroupAddOutlined className="fs-3" />
+                      <h6 className="mb-0 ms-2">co-workers</h6>
                     </div>
-                    <div class="d-flex flex-fill align-items-center p-3">
-                      <CheckCircleOutlined class="fs-3" />
-                      <h6 class="mb-0 ms-2">signatures installed</h6>
+                    <div className="d-flex flex-fill align-items-center p-3">
+                      <CheckCircleOutlined className="fs-3" />
+                      <h6 className="mb-0 ms-2">signatures installed</h6>
                     </div>
-                    <div class="d-flex flex-fill align-items-center p-3">
-                      <FileDoneOutlined class="fs-3" />
-                      <h6 class="mb-0 ms-2">personal information completed</h6>
+                    <div className="d-flex flex-fill align-items-center p-3">
+                      <FileDoneOutlined className="fs-3" />
+                      <h6 className="mb-0 ms-2">personal information completed</h6>
                     </div>
                   </div>
                   {/* search bar */}
@@ -185,9 +186,9 @@ function Coworkers() {
                       additional co-worker attributes from your email provider
                       to Scribe or choose Scribe as the default data source.
                     </span>
-                    <a href="/" target="/" rel="/">
+                    <Link to="/" target="/" rel="/">
                       Learn More
-                    </a>
+                    </Link>
                   </div>
                   <div className="mt-4 m-3">
                     <Attribute />
