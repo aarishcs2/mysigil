@@ -5,14 +5,15 @@ import { Button, Anchor, Flex, Input } from "antd";
 import { AuthContext } from "../../../context/AuthContext";
 import GoogleLoginButton from "../../GoogleLoginButton";
 import { accountLogin, accountRegister } from "../../../api";
+import { useNavigate } from "react-router-dom";
 
 const { Link } = Anchor;
 
-const AuthPopup = ({ updateToken }) => {
+const AuthPopup = () => {
   const { popupType, setPopupType, setShowPopup } = useContext(AuthContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
+  const navigate = useNavigate();
   const handleClosePopup = () => {
     setShowPopup(false);
   };
@@ -38,12 +39,13 @@ const AuthPopup = ({ updateToken }) => {
       const response = await accountLogin(data);
       if (response?.data?.token) {
         localStorage.setItem("access_token", response?.data?.token);
-        updateToken();
+        navigate("/dashboard");
       }
-      console.log(response);
     } else {
       const response = await accountRegister(data);
-      console.log(response);
+      if (response?.data?.token) {
+        navigate("/dashboard");
+      }
     }
   };
 

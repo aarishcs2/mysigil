@@ -8,7 +8,7 @@ const Sidebar = ({ children }) => {
   const items = [
     {
       label: (
-        <Link to="/">
+        <Link to="/dashboard">
           {" "}
           <Icon icon="ant-design:user-outlined" />
           Account
@@ -19,7 +19,7 @@ const Sidebar = ({ children }) => {
 
     {
       label: (
-        <Link to="/">
+        <Link to="/dashboard">
           {" "}
           <Icon icon="material-symbols:help-outline" />
           Help Center
@@ -29,7 +29,7 @@ const Sidebar = ({ children }) => {
     },
     {
       label: (
-        <Link to="/">
+        <Link to="/dashboard">
           {" "}
           <Icon icon="ic:outline-feedback" /> Send Feedback
         </Link>
@@ -38,7 +38,7 @@ const Sidebar = ({ children }) => {
     },
     {
       label: (
-        <Link to="/">
+        <Link to="/dashboard">
           {" "}
           <Icon icon="mi:notification" /> Notification
         </Link>
@@ -47,7 +47,7 @@ const Sidebar = ({ children }) => {
     },
     {
       label: (
-        <Link to="/">
+        <Link to="/dashboard">
           {" "}
           <Icon icon="ic:sharp-update" /> Update
         </Link>
@@ -82,7 +82,7 @@ const Sidebar = ({ children }) => {
               {
                 key: "1",
                 label: (
-                  <Link to="/">
+                  <Link to="/dashboard">
                     {" "}
                     <Icon icon="pajamas:chart" />
                     Dashboard
@@ -92,7 +92,7 @@ const Sidebar = ({ children }) => {
               {
                 key: "2",
                 label: (
-                  <Link to="/">
+                  <Link to="/dashboard">
                     {" "}
                     <Icon icon="ion:grid-outline" />
                     Department
@@ -103,7 +103,7 @@ const Sidebar = ({ children }) => {
                 key: "3",
 
                 label: (
-                  <Link to="/co-worker">
+                  <Link to="/dashboard/co-worker">
                     {" "}
                     <Icon icon="pepicons-pencil:people" />
                     Co-worker
@@ -114,7 +114,7 @@ const Sidebar = ({ children }) => {
                 key: "4",
 
                 label: (
-                  <Link to="/">
+                  <Link to="/dashboard">
                     {" "}
                     <Icon icon="ic:outline-contact-mail" />
                     Contact
@@ -125,7 +125,7 @@ const Sidebar = ({ children }) => {
                 key: "5",
 
                 label: (
-                  <Link to="/">
+                  <Link to="/dashboard">
                     {" "}
                     <Icon icon="typcn:point-of-interest-outline" />
                     Interest
@@ -135,7 +135,7 @@ const Sidebar = ({ children }) => {
               {
                 key: "6",
                 label: (
-                  <Link to="/analytic">
+                  <Link to="/dashboard/analytic">
                     {" "}
                     <Icon icon="solar:chart-2-linear" />
                     Analytic
@@ -145,7 +145,7 @@ const Sidebar = ({ children }) => {
               {
                 key: "7",
                 label: (
-                  <Link to="/">
+                  <Link to="/dashboard">
                     {" "}
                     <Icon icon="nimbus:marketing" />
                     Maketing
@@ -155,7 +155,7 @@ const Sidebar = ({ children }) => {
               {
                 key: "8",
                 label: (
-                  <Link to="/settings">
+                  <Link to="/dashboard/settings">
                     {" "}
                     <Icon icon="uil:setting" />
                     Setting
