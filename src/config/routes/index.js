@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Sidebar from "../../layouts/sidebar";
-import Coworkers from "../../views/CoWorker";
-import Department from "../../views/Department";
-import Settings from "../../views/Settings";
-import Analytic from "../../views/Analytic";
+import Home from "../../views/Home";
+import PrivateRoute from "./PrivateRoute";
+import { privateRoutes } from "./routes";
+import { AuthContext } from "../../context/AuthContext";
+
 const AppRoute = () => {
+  const { token } = useContext(AuthContext);
+  const access_token = localStorage.getItem("access_token") ?? token;
   return (
     <Router>
-      <Sidebar>
-        <Routes>
-          <Route path="/" element={<Department />} />
-          <Route path="/co-worker" element={<Coworkers />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/analytic" element={<Analytic />} />
-        </Routes>
-      </Sidebar>
+      <Routes>
+        <Route
+          path="/dashboard/*"
+          element={
+            <PrivateRoute
+              token={access_token}
+              children={
+                <Sidebar>
+                  <Routes>
+                    {privateRoutes.map(({ path, element }) => {
+                      return <Route path={path} element={element} />;
+                    })}
+                  </Routes>
+                </Sidebar>
+              }
+            />
+          }
+        />
+        <Route path="/" element={<Home />} />
+      </Routes>
     </Router>
   );
 };

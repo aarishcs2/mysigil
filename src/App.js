@@ -6,16 +6,14 @@ import AppRoute from "../src/config/routes";
 import Home from "./views/Home";
 function App() {
   const [token, setToken] = useState(false);
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
-  const updateToken = () => {
-    setToken(true);
-  };
+  // useEffect(() => {
+  //   const access_token = localStorage.getItem("access_token");
+  //   setToken(access_token);
+  // }, []);
+ 
   return (
     <AuthProvider>
-      {token ? <AppRoute /> : <Home updateToken={updateToken} />}
+      <AppRoute />
     </AuthProvider>
   );
 }

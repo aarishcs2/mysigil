@@ -6,12 +6,15 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupType, setPopupType] = useState("register");
+  const [token, setToken] = useState(false);
 
   const values = {
     setShowPopup,
     showPopup,
     popupType,
     setPopupType,
+    token,
+    setToken,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
