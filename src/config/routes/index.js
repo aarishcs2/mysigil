@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Sidebar from "../../layouts/sidebar";
 import Home from "../../views/Home";
 import PrivateRoute from "./PrivateRoute";
 import { privateRoutes } from "./routes";
+import { AuthContext } from "../../context/AuthContext";
 
 const AppRoute = () => {
-  const token = localStorage.getItem("access_token");
+  const { token } = useContext(AuthContext);
+  const access_token = localStorage.getItem("access_token") ?? token;
   return (
     <Router>
       <Routes>
@@ -14,7 +16,7 @@ const AppRoute = () => {
           path="/dashboard/*"
           element={
             <PrivateRoute
-              token={token}
+              token={access_token}
               children={
                 <Sidebar>
                   <Routes>

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const { Link } = Anchor;
 
 const AuthPopup = () => {
-  const { popupType, setPopupType, setShowPopup } = useContext(AuthContext);
+  const { popupType, setPopupType, setShowPopup, setToken } = useContext(AuthContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
@@ -37,8 +37,10 @@ const AuthPopup = () => {
     const data = { email, password };
     if (popupType === "login") {
       const response = await accountLogin(data);
+      console.log("response ==>",response)
       if (response?.data?.token) {
         localStorage.setItem("access_token", response?.data?.token);
+        setToken(true)
         navigate("/dashboard");
       }
     } else {
