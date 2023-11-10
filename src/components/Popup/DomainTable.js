@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Switch } from "antd";
 import { EditTwoTone } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 
 const columns = [
@@ -17,7 +18,7 @@ const columns = [
   {
     title: "Google Workspace domain",
     dataIndex: "workspace",
-    render: (text) => <a href="/">{text}</a>,
+    render: (text) => <Link to="/">{text}</Link>,
   },
   {
     title: "Sending domain",
@@ -52,12 +53,12 @@ const DomainTable = () => {
   return (
     <div className="mt-3" >
       <div className="d-flex justify-content-between mt-4">
-        <a className="text-decoration-none custom-link" href="/">
+        <Link className="text-decoration-none custom-link" to="/">
           Refresh domains data
-        </a>
-        <a className="text-decoration-none custom-link" href="/">
+        </Link>
+        <Link className="text-decoration-none custom-link" to="/">
           Learn more about DNS configuration
-        </a>
+        </Link>
       </div>
 
       <Table

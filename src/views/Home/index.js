@@ -1,6 +1,6 @@
 // src/App.js
 import React from "react";
-import AuthPopup from "../../components/Popup/AuthPopup";
+import AuthPopup from "../../components/Popup/auth";
 import Header from "../../components/Header";
 import MainContent from "../../components/MainContent";
 import { AuthContext } from "../../context/AuthContext";

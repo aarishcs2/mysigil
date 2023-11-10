@@ -1,6 +1,6 @@
 // src/AuthPopup.js
-import React, { useContext } from "react";
-import "./AuthPopup.css";
+import React, { useContext, useState } from "react";
+import "./styles.css";
 import { Button, Anchor, Flex, Input } from "antd";
 import { AuthContext } from "../../../context/AuthContext";
 import GoogleLoginButton from "../../GoogleLoginButton";
@@ -11,8 +11,7 @@ import { toast } from "react-toastify";
 const { Link } = Anchor;
 
 const AuthPopup = () => {
-  const { popupType, setPopupType, setShowPopup, setToken } =
-    useContext(AuthContext);
+  const { popupType, setPopupType, setShowPopup, setToken } = useContext(AuthContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
@@ -62,7 +61,6 @@ const AuthPopup = () => {
     <div className="overlay" onClick={handleOverlayClick}>
       <div className="popup">
         <div className="tabs" style={{ paddingBottom: "16px" }}>
-          {" "}
           {/* Adjusted this line */}
           <Anchor
             affix={false}
@@ -71,13 +69,13 @@ const AuthPopup = () => {
           >
             <Flex justify="space-around" style={{ width: "100%" }}>
               <Link
-                href="#register"
+                to="#register"
                 title="Register"
                 className={popupType === "register" ? "active" : ""}
                 style={{ width: "50%", textAlign: "center" }}
               />
               <Link
-                href="#login"
+                to="#login"
                 title="Login"
                 className={popupType === "login" ? "active" : ""}
                 style={{ width: "50%", textAlign: "center" }}
@@ -97,14 +95,20 @@ const AuthPopup = () => {
           className="input"
           type="email"
           placeholder="john.doe@companyname.com"
+          onChange={(event) => setEmail(event.target.value)}
         />
-        <Input.Password className="input" placeholder="6 characters minimum" />
+        <Input.Password
+          className="input"
+          placeholder="6 characters minimum"
+          onChange={(event) => setPassword(event.target.value)}
+        />
         <Flex direction="column" gap="small" style={{ width: "100%" }}>
           {" "}
           {/* Adjusted this line */}
           <Button
             type="primary"
             className="button primary"
+            onClick={handleSubmit}
             block // <-- Add this prop to make the button full-width
           >
             {popupType === "register" ? "Register" : "Login"}
