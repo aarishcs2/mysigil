@@ -2,14 +2,20 @@
 import React, { useContext } from "react";
 import "./AuthPopup.css";
 import { Button, Anchor, Flex, Input } from "antd";
-import { AuthContext } from "../../context/AuthContext";
-import GoogleLoginButton from "../GoogleLoginButton";
+import { AuthContext } from "../../../context/AuthContext";
+import GoogleLoginButton from "../../GoogleLoginButton";
+import { accountLogin, accountRegister } from "../../../api";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const { Link } = Anchor;
 
-const AuthPopup = ({updateToken}) => {
-  const { popupType, setPopupType, setShowPopup } = useContext(AuthContext);
-
+const AuthPopup = () => {
+  const { popupType, setPopupType, setShowPopup, setToken } =
+    useContext(AuthContext);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
   const handleClosePopup = () => {
     setShowPopup(false);
   };
@@ -26,6 +32,29 @@ const AuthPopup = ({updateToken}) => {
       setPopupType("register");
     } else if (link.title === "Login") {
       setPopupType("login");
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const data = { email, password };
+      if (popupType === "login") {
+        const response = await accountLogin(data);
+        if (response?.data?.token) {
+          toast("Account Logged");
+          localStorage.setItem("access_token", response?.data?.token);
+          setToken(true);
+          navigate("/dashboard");
+        }
+      } else {
+        const response = await accountRegister(data);
+        if (response) {
+          toast("Account Registered");
+          setPopupType("login");
+        }
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   };
 

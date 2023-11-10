@@ -4,6 +4,9 @@ import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 import AppRoute from "./routes";
 import Home from "./views/Home";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const [token, setToken] = useState(true);
   const updateToken = () => {
@@ -11,7 +14,8 @@ function App() {
   };
   return (
     <AuthProvider>
-      {token ? <AppRoute /> : <Home updateToken={updateToken} />}
+      <AppRoute />
+      <ToastContainer />
     </AuthProvider>
   );
 }
