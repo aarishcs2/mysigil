@@ -6,6 +6,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import GoogleLoginButton from "../../GoogleLoginButton";
 import { accountLogin, accountRegister } from "../../../api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const { Link } = Anchor;
 
@@ -34,20 +35,25 @@ const AuthPopup = () => {
   };
 
   const handleSubmit = async () => {
-    const data = { email, password };
-    if (popupType === "login") {
-      const response = await accountLogin(data);
-      console.log("response ==>",response)
-      if (response?.data?.token) {
-        localStorage.setItem("access_token", response?.data?.token);
-        setToken(true)
-        navigate("/dashboard");
+    try {
+      const data = { email, password };
+      if (popupType === "login") {
+        const response = await accountLogin(data);
+        if (response?.data?.token) {
+          toast("Account Logged");
+          localStorage.setItem("access_token", response?.data?.token);
+          setToken(true);
+          navigate("/dashboard");
+        }
+      } else {
+        const response = await accountRegister(data);
+        if (response) {
+          toast("Account Registered");
+          setPopupType("login");
+        }
       }
-    } else {
-      const response = await accountRegister(data);
-      if (response?.data?.token) {
-        navigate("/dashboard");
-      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
     }
   };
 
