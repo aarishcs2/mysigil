@@ -92,7 +92,7 @@ const Sidebar = ({ children }) => {
               {
                 key: "2",
                 label: (
-                  <Link to="/dashboard">
+                  <Link to="/dashboard/department">
                     {" "}
                     <Icon icon="ion:grid-outline" />
                     Department
