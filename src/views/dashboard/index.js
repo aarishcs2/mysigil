@@ -1,7 +1,5 @@
-import React from 'react'
-import { Col, Row, Space, Tabs } from "antd";
-import { Icon } from "@iconify/react";
-import Chart from "chart.js/auto";
+import { Tabs } from "antd";
+import React from 'react';
 import { Line } from "react-chartjs-2";
 
 const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
