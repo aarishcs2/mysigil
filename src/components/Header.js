@@ -5,14 +5,15 @@ import { AuthContext } from "../context/AuthContext";
 import "../views/Home/style.css";
 import logo from "../views/Home/img/logo.png";
 function Header() {
-  const { setShowPopup, setPopupType, token } = useContext(AuthContext);
-  const access_token = localStorage.getItem("access_token") ?? token;
+  const { setShowPopup, setPopupType } = useContext(AuthContext);
+  // const access_token = localStorage.getItem("access_token") ?? token;
   const handleButtonClick = (type) => {
     setShowPopup(true);
     setPopupType(type);
   };
   return (
     <header className="header">
+      <>
       {/* logo */}
       <div className="logo">
         <img src={logo} alt="logo" />
@@ -42,21 +43,7 @@ function Header() {
         <Button className="btn1" onClick={() => handleButtonClick("login")}>LOG IN </Button>
         <Button className="btn2" onClick={() => handleButtonClick("register")}>SIGN UP</Button>
       </div>
-
-
-      {!access_token ? (
-        <div className="buttons">
-          <Button type="link" onClick={() => handleButtonClick("login")}>
-            Login
-          </Button>
-          <Button type="primary" onClick={() => handleButtonClick("register")}>
-            Sign up
-          </Button>
-        </div>
-      ) : (
-        
-        <></>
-      )}
+</>
     </header>
   );
 }
