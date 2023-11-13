@@ -1,7 +1,5 @@
-import { Tabs } from "antd";
 import React from 'react';
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart, Line }            from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2';
 
 const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -39,8 +37,7 @@ const data = {
   ],
 };
 
-export default function dashboard() {
-    
+export default function Dashboard() {
   return (
     <>
         <h2>Dashboard</h2>

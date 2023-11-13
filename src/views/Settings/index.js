@@ -1,13 +1,13 @@
+import { PlusCircleTwoTone } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
-import { Col, Row,  Tabs,  Switch, Select } from "antd";
+import { Col, Row, Switch, Tabs } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {PlusCircleTwoTone } from "@ant-design/icons";
 import AdminsTable from "../../components/Popup/AdminsTable";
 import DomainTable from "../../components/Popup/DomainTable";
 import Integrations from "./Integrations/Integrations";
 
-import {  message, Upload } from "antd";
+import { message, Upload } from "antd";
 
 export default function Settings() {
   // upload file
@@ -29,17 +29,17 @@ export default function Settings() {
     },
   };
   // Select
-  const onChange = (value) => {
-    console.log(`selected ${value}`);
-  };
+  // const onChange = (value) => {
+  //   console.log(`selected ${value}`);
+  // };
 
-  const onSearch = (value) => {
-    console.log("search:", value);
-  };
+  // const onSearch = (value) => {
+  //   console.log("search:", value);
+  // };
 
   // Filter `option.label` match the user type `input`
-  const filterOption = (input, option) =>
-    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+  // const filterOption = (input, option) =>
+  //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
   // toggle displayed
   const [isDisplayed, setIsDisplayed] = useState(false);
@@ -336,28 +336,19 @@ export default function Settings() {
                           </div>
                         </div>
                         <div className="scribe-custom-select form-group mt-3">
-                          <Select
-                            showSearch
-                            placeholder="Country"
-                            optionFilterProp="children"
-                            onChange={onChange}
-                            onSearch={onSearch}
-                            filterOption={filterOption}
-                            options={[
-                              {
-                                value: "jack",
-                                label: "Jack",
-                              },
-                              {
-                                value: "lucy",
-                                label: "Lucy",
-                              },
-                              {
-                                value: "tom",
-                                label: "Tom",
-                              },
-                            ]}
-                          />
+                        
+                  <div className="form-group">
+                    <label>Country</label>
+                    <select
+                      name="country"
+                      id="country"
+                      className="form-control mb-3"
+                    >
+                      <option value="volvo">Aroba</option>
+                      <option value="saab">Pakitan</option>
+                      <option value="mercedes">U A E</option>
+                    </select>
+                  </div>
                         </div>
                       </div>
                       <div className="d-flex align-items-center mt-4 justify-content-end">
