@@ -10,28 +10,28 @@ const data = {
   datasets: [
     {
       label: "Impression",
-      backgroundColor: "rgb(15, 15, 97)",
+      backgroundColor: "red",
       borderColor: "red",
       tension: "0.4",
       data: [0, 10, 5, 2, 20, 30, 45, 40, 39, 43, 50, 60 ],
     },
     {
       label: "Views",
-      backgroundColor: "rgb(255, 99, 132)",
+      backgroundColor: "blue",
       borderColor: "blue",
       tension: "0.4",
       data: [3, 20, 8, 12, 17, 40, 65, 60, 60, 60, 61, 60],
     },
     {
       label: "Clicks",
-      backgroundColor: "rgb(255, 99, 132)",
+      backgroundColor: "green",
       borderColor: "green",
       tension: "0.4",  
       data: [10, 20, 15, 26, 38, 52, 25, 25, 30, 35, 36, 37],
     },
     {
       label: "CTR",
-      backgroundColor: "rgb(255, 99, 132)",
+      backgroundColor: "orange",
       borderColor: "orange",
       tension: "0.4",
       data: [7, 10, 50, 20, 44, 33, 35, 37, 40, 40, 39, 40 ],
@@ -46,33 +46,33 @@ export default function dashboard() {
         <h2>Dashboard</h2>
         <div className='row'>
           {/* card 1  */}
-          <div className='col-md-3'>
-            <div class="card" style={{borderColor: 'red'}}>
+          <div className='col-md-2'>
+            <div class="card" style={{border: 'none'}}>
               <div class="card-body">
-                <h5 class="card-title">Impressions</h5>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-face-smile"></i> 567</h6>
+                <h6 class="card-title">Co Workers</h6>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-person" style={{color: 'blue'}}></i> 567</h6>
                 {/* <p class="card-text">Some quick example.</p> */}
               </div>
             </div>
           </div>
 
           {/* card 2  */}
-          <div className='col-md-3'>
-            <div class="card" style={{borderColor: 'blue'}}>
+          <div className='col-md-2'>
+            <div class="card" style={{border: 'none'}}>
               <div class="card-body">
-                <h5 class="card-title">Views</h5>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-eye"></i> 2192</h6>
+                <h6 class="card-title">Contacts</h6>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-address-book" style={{color: 'blue'}}></i> 2192</h6>
                 {/* <p class="card-text">Some quick example.</p> */}
               </div>
             </div>
           </div>
 
           {/* card 3  */}
-          <div className='col-md-3'>
-            <div class="card" style={{borderColor: 'green'}}>
+          <div className='col-md-2'>
+            <div class="card" style={{border: 'none'}}>
               <div class="card-body">
-                <h5 class="card-title">Clicks</h5>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-computer-mouse"></i> 234</h6>
+                <h6 class="card-title">Departments</h6>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-group-arrows-rotate" style={{color: 'blue'}}></i> 234</h6>
                 {/* <p class="card-text">Some quick example.</p> */}
               </div>
             </div>
@@ -80,14 +80,26 @@ export default function dashboard() {
 
           {/* card 4  */}
           <div className='col-md-3'>
-            <div class="card" style={{borderColor: 'orange'}}>
+            <div class="card" style={{border: 'none'}}>
               <div class="card-body">
-                <h5 class="card-title">CTR</h5>
-                <h6 class="card-subtitle mb-2 text-muted">254</h6>
+                <h6 class="card-title">Signatures Installed</h6>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-signature" style={{color: 'blue'}}></i> 254</h6>
                 {/* <p class="card-text">Some quick example.</p> */}
               </div>
             </div>
           </div>
+
+          {/* card 5  */}
+          <div className='col-md-3'>
+            <div class="card" style={{border: 'none'}}>
+              <div class="card-body">
+                <h6 class="card-title">Completed Information</h6>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-circle-info" style={{color: 'blue'}}></i> 254</h6>
+                {/* <p class="card-text">Some quick example.</p> */}
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div style={{width: "100%", height: "50%"}}>
