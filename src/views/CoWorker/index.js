@@ -57,20 +57,21 @@ function Coworkers() {
         }}
       >
         {/* Content Header */}
-        <div className="mx-5">
+        <div className="">
           <div
             style={{
-              padding: 50,
-              minHeight: 700,
+              // padding: 50,
+              // minHeight: 700,
               //   background: colorBgContainer,
             }}
           >
             {/* Content Header tab */}
-            <div className="m-1 fs-2">Co-workers</div>
+            {/* <div className="m-1 fs-2">Co-workers</div> */}
 
             {/* tab Co-worker list && Co-worker attributes */}
 
-            <div className="mx-5 m-3 ">
+            <div className="">
+              <h2>Co-workers</h2>
               <Tabs defaultActiveKey="1">
                 {/* tab Co-worker list */}
                 <TabPane tab="Co-worker list" key="1">
