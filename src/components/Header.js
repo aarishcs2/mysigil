@@ -13,24 +13,45 @@ function Header() {
     setPopupType(type);
   };
   return (
-    <header>
-      <div className="logo">Scribe.</div>
-      {!access_token ? (
-        <div className="buttons">
-          <Button type="link" onClick={() => handleButtonClick("login")}>
-            Login
-          </Button>
-          <Button type="primary" onClick={() => handleButtonClick("register")}>
-            Sign up
-          </Button>
+    <header className="header">
+      <>
+        {/* logo */}
+        <div className="logo">
+          <img src={''} alt="logo" />
         </div>
-      ) : (
-        <div className="buttons">
-          <Button type="primary" onClick={() => navigate("/dashboard")}>
-            Go to workspace
-          </Button>
+
+        {/* Tab */}
+        <div className="tab">
+          <ul className="home">
+            <li>
+              <a href="/" onClick={() => ('HOME')}>HOME</a>
+            </li>
+            <li>
+              <a href="/" onClick={() => ('MYSIGIL')}>MYSIGIL</a>
+            </li>
+            <li>
+              <a href="/" onClick={() => ('COMMUNITY')}>COMMUNITY</a>
+            </li>
+            <li>
+              <a href="/" onClick={() => ('PLANS')}>PLANS</a>
+            </li>
+          </ul>
         </div>
-      )}
+
+        {/* Button */}
+        <div className="Btn-Header">
+          {!access_token ? (
+            <>
+              <Button className="btn1" onClick={() => handleButtonClick("login")}>LOG IN </Button>
+              <Button className="btn2" onClick={() => handleButtonClick("register")}>SIGN UP</Button>
+            </>
+          ) : (
+            <Button type="primary" onClick={() => navigate("/dashboard")}>
+              Go to workspace
+            </Button>
+          )}
+        </div>
+      </>
     </header>
   );
 }
