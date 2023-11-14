@@ -4,7 +4,8 @@ import AuthPopup from "../../components/Popup/auth";
 import Header from "../../components/Header";
 import MainContent from "./MainContent";
 import Benefit from "./Benefit";
-// import Mysigil from "./Mysigil";
+import Sigil from "./Sigil.js"
+// import Footer from "./Footer.js"
 import { AuthContext } from "../../context/AuthContext";
 
 
@@ -14,8 +15,10 @@ const Home = ({updateToken}) => {
       <Header />
       <MainContent />
       <br />
-      <Benefit /><br />
-      {/* <Mysigil /> */}
+      <Benefit />
+      <Sigil /> 
+
+      {/* <Footer /> */}
       <AuthContext.Consumer>
         {({ showPopup }) => showPopup && <AuthPopup updateToken={updateToken} />}
       </AuthContext.Consumer>

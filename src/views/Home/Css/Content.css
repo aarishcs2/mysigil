@@ -29,6 +29,12 @@ body {
     var(--col-green)
   ); 
 }
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
 
 .title {
   margin-top: 50px;
