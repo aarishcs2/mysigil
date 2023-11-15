@@ -1,0 +1,15 @@
+body{
+    margin: auto;
+    padding: auto;
+    font-family: "Outfit", sans-serif;
+
+}
+
+
+.footer {
+    background-color: rgba(120, 126, 255, 1);
+    width: 100%; /* This will make the element span the full width of its container */
+    padding-top: 5%; /* Adjust the percentage to maintain the desired aspect ratio */
+    position: relative; /* This makes it a positioning context for absolutely positioned children */
+    box-sizing: border-box;
+}
