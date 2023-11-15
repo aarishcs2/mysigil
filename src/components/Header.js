@@ -6,7 +6,6 @@ import "../views/Home/style.css";
 import logo from "../views/Home/img/logo.png";
 function Header() {
   const { setShowPopup, setPopupType } = useContext(AuthContext);
-  // const access_token = localStorage.getItem("access_token") ?? token;
   const handleButtonClick = (type) => {
     setShowPopup(true);
     setPopupType(type);
