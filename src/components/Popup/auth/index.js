@@ -7,16 +7,24 @@ import GoogleLoginButton from "../../GoogleLoginButton";
 import { accountLogin, accountRegister } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const { Link } = Anchor;
 
 const AuthPopup = () => {
-  const { popupType, setPopupType, setShowPopup, setToken } = useContext(AuthContext);
+  const { popupType, setPopupType, setShowPopup, setToken } =
+    useContext(AuthContext);
   const [email, setEmail] = useState();
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const handleClosePopup = () => {
     setShowPopup(false);
+  };
+  const override = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
   };
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains("overlay")) {
@@ -37,23 +45,29 @@ const AuthPopup = () => {
   const handleSubmit = async () => {
     try {
       const data = { email, password };
+      setLoading(true)
       if (popupType === "login") {
         const response = await accountLogin(data);
+        console.log("response ==>", response);
+        console.log("data ==>", data);
         if (response?.data?.token) {
           toast("Account Logged");
           localStorage.setItem("access_token", response?.data?.token);
           setToken(true);
+          setLoading(false)
           navigate("/dashboard");
         }
       } else {
         const response = await accountRegister(data);
         if (response) {
           toast("Account Registered");
+          setLoading(false)
           setPopupType("login");
         }
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message);
+      setLoading(false)
     }
   };
 
@@ -109,9 +123,23 @@ const AuthPopup = () => {
             type="primary"
             className="button primary"
             onClick={handleSubmit}
-            block // <-- Add this prop to make the button full-width
+            block
+            disabled={loading}
           >
-            {popupType === "register" ? "Register" : "Login"}
+            {loading ? (
+              <BeatLoader
+                color={"#fff"}
+                loading={loading}
+                cssOverride={override}
+                size={16}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : popupType === "register" ? (
+              "Register"
+            ) : (
+              "Login"
+            )}
           </Button>
           <Button
             type="primary"
