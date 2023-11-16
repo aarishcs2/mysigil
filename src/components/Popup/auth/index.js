@@ -8,6 +8,7 @@ import { accountLogin, accountRegister } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import BeatLoader from "react-spinners/BeatLoader";
+import { emailRegex } from "../../../constant/common";
 
 const { Link } = Anchor;
 
@@ -44,30 +45,42 @@ const AuthPopup = () => {
 
   const handleSubmit = async () => {
     try {
-      const data = { email, password };
-      setLoading(true)
-      if (popupType === "login") {
-        const response = await accountLogin(data);
-        console.log("response ==>", response);
-        console.log("data ==>", data);
-        if (response?.data?.token) {
-          toast("Account Logged");
-          localStorage.setItem("access_token", response?.data?.token);
-          setToken(true);
-          setLoading(false)
-          navigate("/dashboard");
-        }
+      setLoading(true);
+      if (!emailRegex.test(email)) {
+        toast("Enter valid email address");
+        setLoading(false);
+      } else if (password.length < 6) {
+        toast("Enter valid password");
+        setLoading(false);
       } else {
-        const response = await accountRegister(data);
-        if (response) {
-          toast("Account Registered");
-          setLoading(false)
-          setPopupType("login");
+        const data = { email, password };
+        if (popupType === "login") {
+          const response = await accountLogin(data);
+          if (response?.data?.token) {
+            toast("Account Logged");
+            localStorage.setItem("access_token", response?.data?.token);
+            setToken(true);
+            setLoading(false);
+            navigate("/dashboard");
+          } else {
+            toast(response?.data?.message);
+            setLoading(false);
+          }
+        } else {
+          const response = await accountRegister(data);
+          if (response?.data?.status) {
+            toast("Account Registered");
+            setLoading(false);
+            setPopupType("login");
+          } else {
+            toast(response?.data?.message);
+            setLoading(false);
+          }
         }
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
