@@ -1,17 +1,16 @@
 // src/AuthPopup.js
-import React, { useContext, useState } from "react";
-import "./styles.css";
-import { Button, Anchor, Flex, Input, Checkbox } from "antd";
-import { AuthContext } from "../../../context/AuthContext";
-import GoogleLoginButton from "../../GoogleLoginButton";
-import { accountLogin, accountRegister } from "../../../api";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import BeatLoader from "react-spinners/BeatLoader";
-import { emailRegex } from "../../../constant/common";
-import Login from "../../../assets/Images/login.png";
-import Account from "../../../assets/Images/account.png";
 import { Icon } from "@iconify/react";
+import { Anchor, Button, Checkbox, Input } from "antd";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import BeatLoader from "react-spinners/BeatLoader";
+import { toast } from "react-toastify";
+import { accountLogin, accountRegister } from "../../../api";
+import Account from "../../../assets/Images/account.png";
+import Login from "../../../assets/Images/login.png";
+import { emailRegex } from "../../../constant/common";
+import { AuthContext } from "../../../context/AuthContext";
+import "./styles.css";
 const { Link } = Anchor;
 
 const AuthPopup = () => {
@@ -40,31 +39,27 @@ const AuthPopup = () => {
     }
   };
 
-  const handleAnchorClick = (e, link) => {
-    e.preventDefault();
-    if (link.title === "Register") {
-      setPopupType("register");
-    } else if (link.title === "Login") {
-      setPopupType("login");
-    }
-  };
+  // const handleAnchorClick = (e, link) => {
+  //   e.preventDefault();
+  //   if (link.title === "Register") {
+  //     setPopupType("register");
+  //   } else if (link.title === "Login") {
+  //     setPopupType("login");
+  //   }
+  // };
 
   const handleSubmit = async () => {
     try {
-      const data = { email, password };
-      setLoading(true)
-      if (popupType === "login") {
-        const response = await accountLogin(data);
-        if (response?.data?.token) {
-          toast("Account Logged");
-          localStorage.setItem("access_token", response?.data?.token);
-          setToken(true);
-          setLoading(false)
-          navigate("/dashboard");
-        }
+      setLoading(true);
+      if (!emailRegex.test(email)) {
+        toast("Enter valid email address");
+        setLoading(false);
+      } else if (password.length < 6) {
+        toast("Enter valid password");
+        setLoading(false);
       } else {
+        const data = { email, password };
         if (popupType === "login") {
-          const data = { email, password };
           const response = await accountLogin(data);
           if (response?.data?.token) {
             toast("Account Logged");
@@ -99,7 +94,7 @@ const AuthPopup = () => {
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -221,15 +216,14 @@ const AuthPopup = () => {
               {popupType === "register" ? (
                 <>
                   Already have an account?{" "}
-                  <Link to="" className="u-blue">
-                    {" "}
+                  <span className="u-blue" onClick={()=> setPopupType("login")}>
                     Login{" "}
-                  </Link>
+                  </span>
                 </>
               ) : (
                 <>
                   Don’t have an account?{" "}
-                  <span className="u-blue"> Create an account</span>
+                  <span className="u-blue" onClick={()=> setPopupType("register")}> Create an account</span>
                 </>
               )}
             </p>
