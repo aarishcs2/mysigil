@@ -1,7 +1,7 @@
-import { Tabs } from "antd";
 import React from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart, Line }            from 'react-chartjs-2'
+import { Line }            from 'react-chartjs-2'
+import style from './style.css'
 
 const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -40,14 +40,30 @@ const data = {
 };
 
 export default function dashboard() {
+
+  const myStyles = {
+    boxShadow: "2px 2px 2px 10px white",
+    borderRadius: "1rem"
+  };
+
+  const myStyles2 = {
+    boxShadow: "2px 2px 2px 10px white",
+    borderRadius: "1rem",
+    width: "100%"
+  };
     
   return (
     <>
         <h2>Dashboard</h2>
-        <div className='row'>
+
+        <div className="" style={myStyles}>
+            <Line data={data} />
+        </div>
+
+        <div className='row mt-5'>
           {/* card 1  */}
-          <div className='col-md-2'>
-            <div class="card" style={{border: 'none'}}>
+          <div className='col-md-6'>
+            <div class="card" style={myStyles2}>
               <div class="card-body">
                 <h6 class="card-title">Co Workers</h6>
                 <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-person" style={{color: 'blue'}}></i> 567</h6>
@@ -57,8 +73,8 @@ export default function dashboard() {
           </div>
 
           {/* card 2  */}
-          <div className='col-md-2'>
-            <div class="card" style={{border: 'none'}}>
+          <div className='col-md-6'>
+            <div class="card" style={myStyles2}>
               <div class="card-body">
                 <h6 class="card-title">Contacts</h6>
                 <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-address-book" style={{color: 'blue'}}></i> 2192</h6>
@@ -67,9 +83,12 @@ export default function dashboard() {
             </div>
           </div>
 
+          </div>
+
+          <div className='row mt-3'>
           {/* card 3  */}
-          <div className='col-md-2'>
-            <div class="card" style={{border: 'none'}}>
+          <div className='col-md-4'>
+            <div class="card" style={myStyles2}>
               <div class="card-body">
                 <h6 class="card-title">Departments</h6>
                 <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-group-arrows-rotate" style={{color: 'blue'}}></i> 234</h6>
@@ -79,8 +98,8 @@ export default function dashboard() {
           </div>
 
           {/* card 4  */}
-          <div className='col-md-3'>
-            <div class="card" style={{border: 'none'}}>
+          <div className='col-md-4'>
+            <div class="card" style={myStyles2}>
               <div class="card-body">
                 <h6 class="card-title">Signatures Installed</h6>
                 <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-signature" style={{color: 'blue'}}></i> 254</h6>
@@ -90,8 +109,8 @@ export default function dashboard() {
           </div>
 
           {/* card 5  */}
-          <div className='col-md-3'>
-            <div class="card" style={{border: 'none'}}>
+          <div className='col-md-4'>
+            <div class="card" style={myStyles2}>
               <div class="card-body">
                 <h6 class="card-title">Completed Information</h6>
                 <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-circle-info" style={{color: 'blue'}}></i> 254</h6>
@@ -100,10 +119,6 @@ export default function dashboard() {
             </div>
           </div>
 
-        </div>
-
-        <div style={{width: "100%", height: "50%"}}>
-            <Line data={data} />
         </div>
     </>
   )
