@@ -20,14 +20,16 @@ body {
     var(--col-purplel),
     var(--col-2)
   ); */
-  background: linear-gradient(
+
+  
+  /* background: linear-gradient(
     to left,
     var(--col-bluel),
     var(--col-purpled),
     var(--col-1),
     var(--col-2),
     var(--col-green)
-  );
+  ); */
 }
 /* .container{
   display: flex;

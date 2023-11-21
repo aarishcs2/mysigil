@@ -11,6 +11,7 @@ import Setup from "./img/card-1.png";
 import Design from "./img/card-2.png";
 import Deploy from "./img/card-3.png";
 import update from "./img/card-4.png";
+import plane from "./img/card-5.png";
 import machine_1 from "./img/Machine_1.png";
 import machine_2 from "./img/Machine_2.png";
 import machine_3 from "./img/Machine_3.png";
@@ -182,6 +183,76 @@ function Sigil() {
             customers or upselling existing ones.
           </p>
         </div>
+
+        <div className="marketing">
+          The average click-through rate for paid <br /> marketing channels
+          across all industries
+        </div>
+        <div className="ads">
+          <div>
+            {" "}
+            <h6>Facebook ads</h6>
+            <h4>0.9%</h4>
+          </div>
+          <div>
+            {" "}
+            <h6>Google ads</h6>
+            <h4>3.2%</h4>
+          </div>
+          <div>
+            {" "}
+            <h6>Linkedin ads</h6>
+            <h4>0.35%</h4>
+          </div>
+          <div>
+            {" "}
+            <h6>Youtube ads</h6>
+            <h4>5%</h4>
+          </div>
+          <div>
+            {" "}
+            <strong>
+              <h6> My Sigil </h6>
+            </strong>
+            <h4>12%</h4>
+          </div>
+        </div>
+        <div className="marketing">
+          Calculate how many emails that company <br /> sends which could
+          beleveraged into revenue.
+        </div>
+        {/* Card */}
+        <div className="Card-Flex">
+          <div className="Card-Calculate">
+            <img src={Deploy} alt="" />
+            <h2>10</h2>
+            <h5></h5>
+            <p>Number of employees in your company</p>
+          </div>
+          <div className="Card-Calculate">
+            <img src={plane} alt="" />
+            <h2>30</h2>
+            <h5></h5>
+            <p>Average emails sent per employee per day</p>
+          </div>
+          <div className="Card-Calculate">
+            <img src={plane} alt="" />
+            <h2>300</h2>
+            <h5></h5>
+            <p>Total emails sent every day</p>
+          </div>
+          <div className="Card-Calculate">
+            <img src={plane} alt="" />
+            <h2>2100</h2>
+            <h5></h5>
+            <p>Total emails sent in 1 week</p>
+          </div>
+        </div>
+        <div className="appContainer">        <button className="customButton">
+            Be a cut above others
+        </button>
+        </div>
+
       </div>
     </>
   );
