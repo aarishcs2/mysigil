@@ -15,6 +15,14 @@ import plane from "./img/card-5.png";
 import machine_1 from "./img/Machine_1.png";
 import machine_2 from "./img/Machine_2.png";
 import machine_3 from "./img/Machine_3.png";
+import google from "./img/google.png";
+import load from "./img/load.png";
+import pc from "./img/pc.png";
+import social_1 from "./img/Social-1.png";
+import social_2 from "./img/Social-2.png";
+import social_3 from "./img/Social-3.png";
+import social_4 from "./img/Social-4.png";
+import logo_1 from "./img/logo-1.png";
 
 function Sigil() {
   const Card = ({ imageSrc, title }) => {
@@ -248,11 +256,115 @@ function Sigil() {
             <p>Total emails sent in 1 week</p>
           </div>
         </div>
-        <div className="appContainer">        <button className="customButton">
-            Be a cut above others
-        </button>
+        <div className="appContainer">
+          {" "}
+          <button className="customButton">Be a cut above others</button>
+        </div>
+      </div>
+      {/* Box coming soon google */}
+      <div class="rectangle-Integrate">
+        <h1>Integrate With Your Email Provider </h1>
+        <h6>Automatically install and update organization email signatures</h6>
+        <div className="Integrate">
+          <div class="Integrate-card">
+            <img src={google} alt="" />
+            <h6>G workspace</h6>
+          </div>
+          <div class="Integrate-card">
+            <img src={load} alt="" />
+            <h6>Comming Soon</h6>
+          </div>
+          <div class="Integrate-card">
+            <img src={load} alt="" />
+            <h6>Comming Soon</h6>
+          </div>
+        </div>
+      </div>
+      {/* End */}
+      {/*  */}
+      {/*  */}
+      {/* Copy Paste HTML code */}
+      <div>
+        <img src={pc} alt="" className="pc" />
+        <div className="Copy">
+          <h2 className="Copy-Paste">Copy Paste HTML code</h2>
+          <p>
+            We have got your covered for the <br /> mailing providers which do
+            not <br />
+            support integration in a few easy steps
+          </p>
+        </div>
+        <div className="step">
+          <div className="step-no">
+            <h6>STEP 1</h6>
+            <p>Simply import your co workers via Excel.</p>
+          </div>
+          <div className="step-no">
+            <h6>STEP 1</h6>
+            <p>Simply import your co workers via Excel.</p>
+          </div>
+          <div className="step-no">
+            <h6>STEP 1</h6>
+            <p>Simply import your co workers via Excel.</p>
+          </div>
+          <div className="step-no">
+            <h6>STEP 1</h6>
+            <p>Simply import your co workers via Excel.</p>
+          </div>
+
+          <div className="card-social">
+            <div className="social">
+              <img src={social_1} alt="" />
+              <h6>Gmail</h6>
+            </div>
+            <div className="social">
+              <img src={social_2} alt="" />
+              <h6>MacMail</h6>
+            </div>
+            <div className="social">
+              <img src={social_3} alt="" />
+              <h6>ThunderBird</h6>
+            </div>
+            <div className="social">
+              <img src={social_4} alt="" />
+              <h6>Yahoo</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="MY-SIGI">
+        <div>
+          <img src={logo_1} alt="" className="logo_1" />
         </div>
 
+        <h1 className="text-sigil">
+          See What <br /> People SayAbout <br /> MY SIGIL
+        </h1>
+
+        <div className="Client-card">
+          <div className="Client">
+            <p>
+              "Before using your system, I was spending hours trying to generate
+              leads on my own. But with your done-for-you system, I was able to
+              streamline my process and generate qualified leads faster than
+              ever before. I highly recommend it to anyone looking to grow their
+              business."
+            </p>
+          </div>
+          <div className="Client">
+            "I was skeptical at first, but after trying your funnel templates, I
+            was blown away by the results. Not only was I able to generate more
+            leads, but the quality of those leads was much higher. I've already
+            recommended it to several of my colleagues."
+          </div>
+          <div className="Client">
+            " Game-changing landing pages for my business. I was able to scale
+            my lead generation efforts quickly and easily, and I've seen a
+            significant increase in leads and sales as a result. Thank you for
+            making it so simple!" I've already recommended it to several of my
+            colleagues."
+          </div>
+        </div>
       </div>
     </>
   );
