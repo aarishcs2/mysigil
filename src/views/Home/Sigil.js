@@ -23,6 +23,8 @@ import social_2 from "./img/Social-2.png";
 import social_3 from "./img/Social-3.png";
 import social_4 from "./img/Social-4.png";
 import logo_1 from "./img/logo-1.png";
+import desktop from "./img/desktop.png";
+import Support_1 from "./img/Support_1.png";
 
 function Sigil() {
   const Card = ({ imageSrc, title }) => {
@@ -234,25 +236,25 @@ function Sigil() {
           <div className="Card-Calculate">
             <img src={Deploy} alt="" />
             <h2>10</h2>
-            <h5></h5>
+            {/* <h5></h5> */}
             <p>Number of employees in your company</p>
           </div>
           <div className="Card-Calculate">
             <img src={plane} alt="" />
             <h2>30</h2>
-            <h5></h5>
+            {/* <h5></h5> */}
             <p>Average emails sent per employee per day</p>
           </div>
           <div className="Card-Calculate">
             <img src={plane} alt="" />
             <h2>300</h2>
-            <h5></h5>
+            {/* <h5></h5> */}
             <p>Total emails sent every day</p>
           </div>
           <div className="Card-Calculate">
             <img src={plane} alt="" />
             <h2>2100</h2>
-            <h5></h5>
+            {/* <h5></h5> */}
             <p>Total emails sent in 1 week</p>
           </div>
         </div>
@@ -366,6 +368,59 @@ function Sigil() {
           </div>
         </div>
       </div>
+
+      {/* Your Success and Data Security are Important to us */}
+      <div className="Data-Security">
+        <img src={desktop} alt="" />
+        <h2>
+          Your Success and Data <br /> Security are Important to us
+        </h2>
+      </div>
+      {/*  */}
+      {/*  */}
+      {/*  */}
+
+      <div className="Colume">
+        <div className="Colume-1">
+          <img src={Support_1} alt="" />
+          <h4> Dedicated Tech Support</h4>
+          <p>
+            {" "}
+            Lorem ipsum dolor sit amet, consectetur adipiscing <br /> elit, sed
+            do eiusmod tempor incididunt ut labore <br />
+            et dolore magna aliqua. Ut enim ad minim veniam, <br /> quis nostrud
+          </p>
+        </div>
+        <div className="Colume-1">
+          <img src={Deploy} alt="" />
+          <h3>Integration and Onboarding</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing <br />
+            elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud
+          </p>
+        </div>
+        <div className="Colume-1">
+          <img src={plane} alt="" />
+          <h4>No Email Hosting</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud
+          </p>
+        </div>
+        <div className="Colume-1">
+          <img src={plane} alt="" />
+          <h4>GDPR & Compliances</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud
+          </p>
+        </div>
+      </div>
+      {/*  */}
+      {/*  */}
     </>
   );
 }
