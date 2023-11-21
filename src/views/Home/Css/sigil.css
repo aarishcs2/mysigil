@@ -405,7 +405,7 @@ body {
 
 .ads h6 {
   color: #545151;
-  font-family:"Outfit", sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 35px;
   font-style: normal;
   font-weight: 300;
@@ -413,15 +413,13 @@ body {
 }
 
 .ads h4 {
-  color: #B741FF;
-  font-family:"Outfit", sans-serif;
+  color: #b741ff;
+  font-family: "Outfit", sans-serif;
   font-size: 48px;
   font-style: normal;
   font-weight: 700;
-  line-height: 70px; 
-
+  line-height: 70px;
 }
-
 
 @media (max-width: 768px) {
   .marketing {
@@ -447,7 +445,7 @@ body {
 
 /* card */
 
-.Card-Flex{
+.Card-Flex {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -461,7 +459,7 @@ body {
   flex-shrink: 0;
   border-radius: 20px;
   border: 1px solid #000;
-  background: #F5F5F5;
+  background: #f5f5f5;
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
@@ -477,7 +475,7 @@ body {
 }
 
 .Card-Calculate h2 {
-  color: #B741FF;
+  color: #b741ff;
   font-family: "Outfit", sans-serif;
   font-size: 48px;
   font-style: normal;
@@ -489,7 +487,7 @@ body {
 .Card-Calculate h5 {
   width: 94px;
   height: 2px;
-  background-color: currentColor; 
+  background-color: currentColor;
   margin: 0;
 }
 
@@ -509,21 +507,18 @@ body {
 
 .appContainer {
   display: flex;
-  justify-content: center; 
-  align-items: flex-start; 
-
+  justify-content: center;
+  align-items: flex-start;
 }
-
-
 
 .customButton {
   width: 484px;
   height: 86px;
   flex-shrink: 0;
   border-radius: 30px;
-  background: #787EFF;
+  background: #787eff;
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.15);
-  color: #F5F5F5;
+  color: #f5f5f5;
   font-family: "Outfit", sans-serif;
   font-size: 32px;
   font-style: normal;
@@ -533,9 +528,8 @@ body {
   border: none;
   cursor: pointer;
   outline: none;
-  margin: 5% 5%; 
+  margin: 5% 5%;
 }
-
 
 @media (max-width: 768px) {
   /* Modify the styles here */
@@ -569,5 +563,288 @@ body {
     margin: 5% 0;
   }
 }
+/* Default styles */
 
+.rectangle-Integrate {
+  width: auto;
+  height: 524px;
+  background: linear-gradient(262deg, #8788fe 1.62%, #a160f7 96.4%);
+  box-shadow: 0px 100px 400px 0px rgba(0, 0, 0, 0.25) inset;
+}
 
+.rectangle-Integrate h1 {
+  color: #f5f5f5;
+  font-family: "Outfit", sans-serif;
+  text-align: center;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 1.28px;
+  padding-top: 5%;
+}
+
+.rectangle-Integrate h6 {
+  color: #f5f5f5;
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0.64px;
+}
+
+.Integrate {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-top: 5%;
+}
+
+.Integrate-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 224px;
+  height: 227px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.25);
+}
+
+.Integrate-card img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.Integrate-card h6 {
+  color: #545151;
+  font-family: "Outfit", sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 80px;
+  text-align: center;
+  margin: 0;
+}
+
+.pc {
+  width: 540px;
+  height: 540px;
+  flex-shrink: 0;
+  float: right;
+}
+
+.Copy {
+  padding-top: 5%;
+  margin-left: 5%;
+  font-family: "Outfit", sans-serif;
+}
+
+.Copy h2 {
+  color: #704ef9;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 75px;
+}
+
+.Copy p {
+  color: #414141;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 45px;
+  letter-spacing: 0.64px;
+}
+
+.step-no {
+  padding-left: 10%;
+}
+
+.step-no h6 {
+  display: flex;
+  color: #414141;
+  font-family: Outfit;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 45px;
+  letter-spacing: 0.64px;
+}
+
+.step-no p {
+  color: #656363;
+  font-family: Outfit;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 45px;
+  letter-spacing: 0.64px;
+  padding-bottom: 2%;
+}
+
+.card-social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-bottom: 5%;
+}
+
+.social {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 163px;
+  height: 163px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f5f5;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.social img {
+  width: 100px;
+  height: 79px;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+.social h6 {
+  color: #656363;
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 35px;
+  letter-spacing: 0.4px;
+  margin: 0;
+}
+
+.MY-SIGI {
+  width: auto;
+  height: 524px;
+  background: linear-gradient(262deg, #8788fe 1.62%, #a160f7 96.4%);
+  box-shadow: 0px 100px 400px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.logo_1 {
+  width: 386px;
+  height: 386px;
+  flex-shrink: 0;
+  float: right;
+}
+
+.text-sigil {
+  padding-top: 5%;
+  padding-left: 5%;
+  color: #fff;
+  font-family: Outfit;
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 75px;
+}
+
+.Client-card {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5%;
+}
+
+.Client {
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0;
+  border-radius: 32px;
+  background: #f5f5f5;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
+  margin: 5%;
+  padding: 0.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Media queries Responsive */ 
+
+@media (max-width: 768px) {
+  .rectangle-Integrate h1 {
+    font-size: 48px;
+    line-height: 30px;
+  }
+
+  .rectangle-Integrate h6 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .Integrate-card {
+    width: 180px;
+    height: 180px;
+  }
+
+  .Integrate-card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .Integrate-card h6 {
+    font-size: 24px;
+    line-height: 60px;
+  }
+
+  .Copy h2 {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  .Copy p {
+    font-size: 24px;
+    line-height: 35px;
+  }
+
+  .step-no h6 {
+    font-size: 24px;
+    line-height: 35px;
+  }
+
+  .step-no p {
+    font-size: 22px;
+    line-height: 35px;
+  }
+
+  .social {
+    width: 120px;
+    height: 120px;
+  }
+
+  .social img {
+    width: 80px;
+    height: 63px;
+  }
+
+  .social h6 {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .text-sigil {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  .Client {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+  }
+}
