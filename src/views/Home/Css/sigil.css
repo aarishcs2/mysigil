@@ -374,15 +374,200 @@ body {
     font-size: 30px;
     line-height: 30px;
   }
-  .machine_text_p{
-    
+  .machine_text_p {
     font-size: 12px;
     line-height: 20px;
   }
   .Machine-img {
-   display: none;
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
 }
+
+.marketing {
+  color: #704ef9;
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 50px; /* 100% */
+}
+.ads {
+  padding-top: 5%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ads h6 {
+  color: #545151;
+  font-family:"Outfit", sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 80px;
+}
+
+.ads h4 {
+  color: #B741FF;
+  font-family:"Outfit", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 70px; 
+
+}
+
+
+@media (max-width: 768px) {
+  .marketing {
+    font-size: 30px;
+    line-height: 30px;
+    margin-top: -10%;
+    padding: 5% 10%;
+    position: absolute;
+  }
+
+  .ads {
+    padding: 5% 10%;
+  }
+  .ads h6 {
+    font-size: 10px;
+    line-height: 10px;
+  }
+  .ads h4 {
+    font-size: 20px;
+    line-height: 20px;
+  }
+}
+
+/* card */
+
+.Card-Flex{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 5%;
+}
+
+.Card-Calculate {
+  width: 199px;
+  height: 199px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #000;
+  background: #F5F5F5;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.Card-Calculate img {
+  width: 70px;
+  height: 68px;
+  flex-shrink: 0;
+}
+
+.Card-Calculate h2 {
+  color: #B741FF;
+  font-family: "Outfit", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 70px; /* 145.833% */
+  margin: 0;
+}
+
+.Card-Calculate h5 {
+  width: 94px;
+  height: 2px;
+  background-color: currentColor; 
+  margin: 0;
+}
+
+.Card-Calculate p {
+  color: #545151;
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 15px; /* 107.143% */
+  letter-spacing: 0.28px;
+  margin: 0;
+}
+
+/* Button */
+
+.appContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start; 
+
+}
+
+
+
+.customButton {
+  width: 484px;
+  height: 86px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #787EFF;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.15);
+  color: #F5F5F5;
+  font-family: "Outfit", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 35px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin: 5% 5%; 
+}
+
+
+@media (max-width: 768px) {
+  /* Modify the styles here */
+  .Card-Calculate {
+    width: auto;
+    height: auto;
+    margin: 5% 0;
+  }
+
+  .Card-Calculate img {
+    width: 50px;
+    height: 48px;
+  }
+
+  .Card-Calculate h2 {
+    font-size: 32px;
+    line-height: 50px;
+  }
+
+  .Card-Calculate h5 {
+    width: 70px;
+  }
+
+  .Card-Calculate p {
+    font-size: 12px;
+    line-height: 13px;
+  }
+
+  .customButton {
+    width: 70%;
+    margin: 5% 0;
+  }
+}
+
+
