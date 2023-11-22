@@ -2,7 +2,8 @@ import React from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Line }            from 'react-chartjs-2'
 import style from './style.css'
-
+import { Checkbox, Avatar } from "antd";
+import Image from "../../assets/Images/com.png"
 const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const data = {
@@ -39,87 +40,124 @@ const data = {
   ],
 };
 
-export default function dashboard() {
-
-  const myStyles = {
-    boxShadow: "2px 2px 2px 10px white",
-    borderRadius: "1rem"
-  };
-
-  const myStyles2 = {
-    boxShadow: "2px 2px 2px 10px white",
-    borderRadius: "1rem",
-    width: "100%"
-  };
-    
+export default function Dashboard() {
   return (
     <>
-        <h2>Dashboard</h2>
+    
 
-        <div className="" style={myStyles}>
-            <Line data={data} />
+      <div className="chart-con p-3" >
+        <Line data={data} />
+      </div>
+
+      <div className="row mt-3">
+        <div className="col-md-3 ">
+          <div class="dashboard-card p-3">
+            <p>
+              Co Workers <span className="ms-3">234</span>
+            </p>
+          </div>
         </div>
-
-        <div className='row mt-5'>
-          {/* card 1  */}
-          <div className='col-md-6'>
-            <div class="card" style={myStyles2}>
-              <div class="card-body">
-                <h6 class="card-title">Co Workers</h6>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-person" style={{color: 'blue'}}></i> 567</h6>
-                {/* <p class="card-text">Some quick example.</p> */}
-              </div>
-            </div>
+        <div className="col-md-3 ">
+          <div class="dashboard-card p-3">
+            <p>
+              Contacts <span className="ms-3">234</span>
+            </p>
           </div>
-
-          {/* card 2  */}
-          <div className='col-md-6'>
-            <div class="card" style={myStyles2}>
-              <div class="card-body">
-                <h6 class="card-title">Contacts</h6>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-address-book" style={{color: 'blue'}}></i> 2192</h6>
-                {/* <p class="card-text">Some quick example.</p> */}
-              </div>
-            </div>
-          </div>
-
-          </div>
-
-          <div className='row mt-3'>
-          {/* card 3  */}
-          <div className='col-md-4'>
-            <div class="card" style={myStyles2}>
-              <div class="card-body">
-                <h6 class="card-title">Departments</h6>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-group-arrows-rotate" style={{color: 'blue'}}></i> 234</h6>
-                {/* <p class="card-text">Some quick example.</p> */}
-              </div>
-            </div>
-          </div>
-
-          {/* card 4  */}
-          <div className='col-md-4'>
-            <div class="card" style={myStyles2}>
-              <div class="card-body">
-                <h6 class="card-title">Signatures Installed</h6>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-signature" style={{color: 'blue'}}></i> 254</h6>
-                {/* <p class="card-text">Some quick example.</p> */}
-              </div>
-            </div>
-          </div>
-
-          {/* card 5  */}
-          <div className='col-md-4'>
-            <div class="card" style={myStyles2}>
-              <div class="card-body">
-                <h6 class="card-title">Completed Information</h6>
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-circle-info" style={{color: 'blue'}}></i> 254</h6>
-                {/* <p class="card-text">Some quick example.</p> */}
-              </div>
-            </div>
-          </div>
-
         </div>
+        <div className="col-md-3 ">
+          <div class="dashboard-card p-3">
+            <p>
+              Signatures Installed <span className="ms-3">277</span>
+            </p>
+          </div>
+        </div>
+        <div className="col-md-3 ">
+          <div class="dashboard-card p-3">
+            <p>
+              Completed Information <span className="ms-3">256</span>
+            </p>
+          </div>
+        </div>
+        <div className="col-md-6 mt-4">
+          <div className="dashboard-card-down p-3">
+            <h6 className="dashboard-card-down-h6 mb-0">Set-up</h6>
+            <p className="dashboard-card-down-para">
+              Complete the steps below to install on-brand email signatures.
+            </p>
+            <div className="row mt-3">
+              <div className="col-md-6 ">
+                <Checkbox className="mt-2">
+                  <span className="span-check ">Create your Signature</span>
+                </Checkbox>
+                <Checkbox className="mt-2">
+                  <span className="span-check ">Sync Co-Workers</span>
+                </Checkbox>
+                <Checkbox className="mt-2">
+                  <span className="span-check ">Autofill Signatures</span>
+                </Checkbox>
+                <Checkbox className="mt-2">
+                  <span className="span-check ">Create Department</span>
+                </Checkbox>
+              </div>
+              <div className="col-md-6 ">
+                <Checkbox className="mt-2">
+                  <span className="span-check ">Assign Co-Workers</span>
+                </Checkbox>
+                <Checkbox className="mt-2">
+                  <span className="span-check ">Install Signature</span>
+                </Checkbox>
+                <Checkbox className="mt-2">
+                  <span className="span-check ">Configure DNS</span>
+                </Checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6 mt-4">
+          <div className="dashboard-card-down p-3">
+            <h6 className="dashboard-card-down-h6 mb-0">Department</h6>
+            <p className="dashboard-card-down-para">
+              Manage Co-Workers Easily for each Department
+            </p>
+            <div className="d-flex justify-content-between mt-5">
+              <div>
+                <h6 className=" mb-0">Total Departments</h6>
+                <p
+                  className="mb-0"
+                  style={{ color: "#7E7E7E", fontSize: "18px" }}
+                >
+                  36
+                </p>
+              </div>
+              <div>
+                {" "}
+                <Avatar.Group>
+                  <Avatar
+                    src={Image}
+                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
+                  />
+                  <Avatar
+                    src={Image}
+                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
+                  />
+                  <Avatar
+                    src={Image}
+                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
+                  />
+                  <Avatar
+                    src={Image}
+                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
+                  />
+                  <Avatar
+                    src={Image}
+                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
+                  />
+                </Avatar.Group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
-  )
+  );
 }
