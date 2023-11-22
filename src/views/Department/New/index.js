@@ -1,8 +1,10 @@
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
-
+import Image from "../../../assets/Images/default.jpeg";
+import { Checkbox } from "antd/lib";
+import Signature from "../../../components/Card/Signature";
 export default function New() {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const handleNext = () => {
     setStep(step + 1);
@@ -13,110 +15,104 @@ export default function New() {
   };
   return (
     <div>
-      {/* create depart multi tep form */}
-      <div className="d-flex align-items-center w-100 d-flex justify-content-between bg-white py-3 px-3">
-        <div className="align-self-start mt-2">
-          {/* <Link to="/">
-            <img
-              src="https://app.scribe-mail.com/static/media/logo-medium.07f95266.svg"
-              alt="Scribe logo"
-              className="logo"
-            />
-          </Link> */}
-        </div>
-        <div className="text-start w-100 ps-5">
-          <h3  className="full-page-wizard-navigation-title mb-2">
-            Create department
-          </h3>
-          <div className="d-flex align-items-center">
-            <div className="">
-              <span
-                className="no-div"
-                style={{ backgroundColor: step === 1 ? "#192eee" : "" }}
-              >
-                1
-              </span>
-              <span
-                className="step-text"
-                style={{ color: step === 1 ? "#050505" : "" }}
-              >
-                Name{" "}
-              </span>
-              <span>
-                <Icon icon="la:angle-right" />
-              </span>
-            </div>
-            <div className="ms-3">
-              <span
-                className="no-div"
-                style={{ backgroundColor: step === 2 ? "#192eee" : "" }}
-              >
-                2
-              </span>
-              <span
-                className="step-text"
-                style={{ color: step === 2 ? "#050505" : "" }}
-              >
-                Co-workers{" "}
-              </span>
-              <span>
-                <Icon icon="la:angle-right" />
-              </span>
-            </div>
-            <div className="ms-3">
-              <span
-                className="no-div"
-                style={{ backgroundColor: step === 3 ? "#192eee" : "" }}
-              >
-                3
-              </span>
-              <span
-                className="step-text"
-                style={{ color: step === 3 ? "#050505" : "" }}
-              >
-                {" "}
-                Preview{" "}
-              </span>
+      <div className="p-3 create-depatment-header">
+        <div className="d-flex  w-100 d-flex justify-content-between ">
+          <div className="text-start w-100">
+            <h3 className="main-heading mb-0">Create department</h3>
+            <p className="para">Manage Co-Workers Easily for each Department</p>
+          </div>
+          <div className="full-page-wizard-navigation-buttons d-flex  ml-auto">
+            <div id="header-wizard-navigation-next-button-root" />
+            <div className="d-flex">
+              {step === 1 ? (
+                ""
+              ) : (
+                <>
+                  {" "}
+                  <div
+                    className="btn-primary-outline h-40 me-2"
+                    onClick={handlePrevious}
+                  >
+                    Back
+                  </div>
+                </>
+              )}
+              {step === 3 ? (
+                ""
+              ) : (
+                <>
+                  {" "}
+                  <button
+                    type="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    className=" btn-primary h-40 "
+                    onClick={handleNext}
+                  >
+                    <strong>Next</strong>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
-        <div className="full-page-wizard-navigation-buttons d-flex align-items-center ml-auto">
-          <div id="header-wizard-navigation-next-button-root" />
-          <div className="d-flex align-items-center ">
-            {step === 1 ? (
-              ""
-            ) : (
-              <>
-                {" "}
-                <div className="pointer " onClick={handlePrevious}>
-                  Back
-                </div>
-              </>
-            )}
-            {step === 3 ? (
-              ""
-            ) : (
-              <>
-                {" "}
-                <button
-                  type="button"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  className="mr-3 ms-2 px-5 btn btn-primary no-radius"
-                  onClick={handleNext}
-                >
-                  <strong>Next</strong>
-                </button>
-              </>
-            )}
+        <div className="d-flex align-items-center mt-3">
+          <div className="">
+            <span
+              className="no-div"
+              style={{ color: step === 1 ? " #065AD8" : "" }}
+            >
+              Step 1
+            </span>
+            <span
+              className="step-text ps-1"
+              style={{ color: step === 1 ? " #065AD8" : "" }}
+            >
+              Name Your Department
+            </span>
+            <span>
+              <Icon icon="la:angle-right" />
+            </span>
+          </div>
+          <div className="ms-3">
+            <span
+              className="no-div"
+              style={{ color: step === 2 ? " #065AD8" : "" }}
+            >
+              Step 2
+            </span>
+            <span
+              className="step-text ps-1"
+              style={{ color: step === 2 ? " #065AD8" : "" }}
+            >
+              Assign your Co-Workers
+            </span>
+            <span>
+              <Icon icon="la:angle-right" />
+            </span>
+          </div>
+          <div className="ms-3">
+            <span
+              className="no-div"
+              style={{ color: step === 3 ? " #065AD8" : "" }}
+            >
+              Step 3
+            </span>
+            <span
+              className="step-text ps-1"
+              style={{ color: step === 3 ? " #065AD8" : "" }}
+            >
+              {" "}
+              Select Signature and Preview
+            </span>
           </div>
         </div>
       </div>
       <div>
         {step === 1 && (
           <div>
-            <div className="row  justify-content-center my-5">
-              <div className="col-md-6 p-3 shadow-box mt-5">
+            <div className="row w-100  justify-content-center mt-3 step-div mx-2  py-lg-3 ">
+              <div className="col-md-6 p-3 shadow-box my-5">
                 <form className="name">
                   <div className="form-group">
                     <label>Name</label>
@@ -125,7 +121,7 @@ export default function New() {
                       // style={{ width:"150%"}}
                       className="form-control mb-3"
                       id="Unite Name"
-                      placeholder="Marketing"
+                      placeholder="Must be between 3 and 25 characters max."
                       required
                     />
                   </div>
@@ -134,6 +130,7 @@ export default function New() {
                     <select
                       name="country"
                       id="country"
+                      placeholder="Country"
                       className="form-control mb-3"
                     >
                       <option value="volvo">Aroba</option>
@@ -146,6 +143,7 @@ export default function New() {
                     <select
                       name="country"
                       id="country"
+                      placeholder="(GMT+5:30)"
                       className="form-control mb-3"
                     >
                       <option value="volvo"> Karachi (GMT+5)</option>
@@ -160,150 +158,110 @@ export default function New() {
         )}
         {step === 2 && (
           <div>
-            {open ? (
-              <div>
-                <div className="row">
-                  <p className="mb-5 mt-4">
-                    Drag and drop co-workers to add to <b>finance </b>{" "}
-                    department
-                  </p>
-                  <div className="col-6">
-                    <div className="inner-div py-1">
-                      <p>
-                        <b>Your company</b> co-workers emails
-                      </p>
-                      <b className="text-primary">
-                        {" "}
-                        <Icon icon="icons8:plus" className="me-2 mb-1 " />
-                        Add Email
-                      </b>
-                    </div>
-                    <div className="div-top px-2  pt-2">
-                      <div className="w-100">
-                        <form className="name ">
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              // style={{ width:"150%"}}
-                              className="form-control"
-                              id="Search..."
-                              placeholder="Search..."
-                              required
-                            />
-                          </div>
-                        </form>
-                      </div>
-                      <div className="filter-icon">
-                        {" "}
-                        <Icon icon="carbon:filter" />
-                      </div>
-                    </div>
-                    <div className="div-bottom mt-3">
-                      <div className="inner-div p-3">
-                        <p>No co-worker emails</p>
-                        <b>Add All</b>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-6">
-                    <div className="inner-div py-1">
-                      <p>
-                        <b>finance department</b> co-workers emails
-                      </p>
-                    </div>
-                    <div className="div-top px-2  pt-2">
-                      <div className="w-100">
-                        <form className="name ">
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              // style={{ width:"150%"}}
-                              className="form-control"
-                              id="Search..."
-                              placeholder="Search..."
-                              required
-                            />
-                          </div>
-                        </form>
-                      </div>
-                      <div className="filter-icon">
-                        {" "}
-                        <Icon icon="carbon:filter" />
-                      </div>
-                    </div>
-                    <div className="div-bottom-right mt-3">
-                      <div className="inner-div p-3">
-                        <p>No co-worker emails</p>
-                        <b className="text-primary">Remove All</b>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <h4 className="mt-4 mb-2">
-                  From where would you like to import your co-workers?
-                </h4>
+            <div className="mt-3 step-div p-3   ">
+              <p className="para">
+                Select Co-Worker’s Emails to Assign to (Dept name)
+              </p>
+              <input
+                type="search"
+                placeholder="Search email, job position, aliases"
+                className="input-search "
+              />
+              <div className="row mt-3">
+                <div className="col-6">
+                  <div className="scroll-y">
+                    <div className="d-flex px-3 py-2 pt-3">
+                      <Checkbox />
 
-                <p className="mb-3">
-                  Start to connect a main data-source with Scribe to sync your
-                  company co-workers emails and information. <br />
-                  This will allow you to automatically complete each of your
-                  co-workers signatures with their correct personal information.
-                </p>
-                <div className="row">
-                  <div className="col-10">
-                    <div className="row mt-3">
-                      <div className="col-6">
-                        <div className="import-card">
-                          <img src="https://cdn.scribe-mail.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2pZQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--73cea45538cc0849b02a63b30b4aca7c25a21c83/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RTNKbGMybDZaVjloYm1SZmNHRmtXd2hwQWZ4cEFmeDdCam9QWW1GamEyZHliM1Z1WkdrQSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--6c8dd3686ba98ef7860c3120b9f67ef1d22433b1/main_data_source_google_workspace.png" alt=""></img>
-                          <div class="ps-3 text-left ">
-                            <b class="mb-0">Google Workspace Directory</b>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-6">
-                        <div className="import-card">
-                          <img src="https://cdn.scribe-mail.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL3JZQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--9cd320cb3b36a0547303b3642fee52b2b58d1f3d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RTNKbGMybDZaVjloYm1SZmNHRmtXd2hwQWZ4cEFmeDdCam9QWW1GamEyZHliM1Z1WkdrQSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--6c8dd3686ba98ef7860c3120b9f67ef1d22433b1/main_data_source_azure.png" alt=""></img>
-                          <div class="ps-3 text-left ">
-                            <b class="mb-0">Microsoft Azure Active Directory</b>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-6 mt-3">
-                        <div
-                          className="import-card"
-                          onClick={() => setOpen(true)}
-                        >
-                          <img src="https://cdn.scribe-mail.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2pZQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--73cea45538cc0849b02a63b30b4aca7c25a21c83/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RTNKbGMybDZaVjloYm1SZmNHRmtXd2hwQWZ4cEFmeDdCam9QWW1GamEyZHliM1Z1WkdrQSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--6c8dd3686ba98ef7860c3120b9f67ef1d22433b1/main_data_source_google_workspace.png" alt=""></img>
-                          <div class="ps-3 text-left ">
-                            <b class="mb-0">Add co-workers manually</b>
-                          </div>
-                        </div>
+                      <input
+                        type="search"
+                        placeholder="Select All"
+                        className="input-select-all px-2 ms-2"
+                      />
+                    </div>
+                    <div className="d-flex px-3 py-2 mt-2 ">
+                      <Checkbox className="me-2" />
+                      <img src={Image} alt="" className="user" />
+                      <div className="ms-2">
+                        <p className="mt-1 name">Jay sethi</p>
+                        <span className="e-mail">jaysethi68@gmail.com</span>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div className="col-6">
+                  <div className="scroll-y">
+                    <p className="px-3 py-2 pt-3">
+                      5 Co-Workers Emails Selected
+                    </p>
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         )}
         {step === 3 && (
-          <div className="d-flex justify-content-center flex-column mt-5">
-            <h6 className="mt-5 mb-2 my-5 text-center">
-              Add co-worker emails to your department to preview their signature
-            </h6>
-            <div className="text-center">
-              <button
-                type="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                className="mr-3 mt-3 btn btn-primary no-radius"
-              >
-                <Icon icon="icons8:plus" className="me-2 mb-1 " />
-                <strong>Add co-workers to Finance department</strong>
-              </button>
+          <div>
+            <div className="mt-3 step-div p-3   ">
+              <div className="row mt-3">
+                <div className="col-6">
+                  <p className="para mb-0">
+                    Select the department's signature template
+                  </p>
+                  <p className="down-para">
+                    Choose an existing template now or create one later.All
+                    teammate signatures for this department will be create based
+                    on this signature template.
+                  </p>
+
+                  <div className="scroll-y p-3">
+                    <Signature />
+                  </div>
+                </div>
+                <div className="col-6">
+                  <p className="para mb-0">Preview your selected Template</p>
+                  <p className="down-para">
+                    Preview your selected template now or create one later. All
+                    teammate signatures for this department will be created
+                    based on this signature template.
+                  </p>
+                  <div className="scroll-y p-3 ">
+                    <Signature />
+                    <p className=" py-2 pt-3 down-para">
+                      ​ accounts@gnfinternational.com
+                    </p>{" "}
+                    <p className=" py-2 pt-3 down-para">
+                      Sadbhav Complex, 1st floor, Drive In Rd, Ahmedabad,
+                      Gujarat 380059 nal.com{" "}
+                    </p>
+                    <p className=" py-2 pt-3 down-para">
+                      The information contained in this electronic message and
+                      any other attachment to this message are intended solely
+                      for the addressee and may contain information that is
+                      confidential, privileged and exempt from disclosure under
+                      applicable law. If you are not the intended recipient, you
+                      are hereby formally notified that any use, copying or
+                      distribution of this e-mail, in whole or in part, is
+                      strictly prohibited. Please immediately notify the sender
+                      by return e-mail and delete all copies of this e-mail and
+                      any attachments from your system. Any views or opinions
+                      presented in this email are solely those of the author and
+                      do not necessarily represent those of the company.
+                    </p>
+                    <div className="d-flex justify-content-end w-100 pe-3">
+                      <button
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        className=" btn-primary h-40 "
+                        onClick={handleNext}
+                      >
+                        <strong>Deploy</strong>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}

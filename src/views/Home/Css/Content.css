@@ -20,23 +20,21 @@ body {
     var(--col-purplel),
     var(--col-2)
   ); */
-
-  
-  /* background: linear-gradient(
+  background: linear-gradient(
     to left,
     var(--col-bluel),
     var(--col-purpled),
     var(--col-1),
     var(--col-2),
     var(--col-green)
-  ); */
+  ); 
 }
-/* .container{
+.container{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 70vh;
-} */
+}
 
 .title {
   margin-top: 50px;
@@ -179,32 +177,4 @@ body {
   margin-right: 10px;
   line-height: 35px;
   margin-left: 32vb;
-}
-
-@media screen and (max-width: 768px) {
-  .container,
-  .title-2,
-  .title-3 {
-    display: none;
-  }
-  .title-1 {
-    font-size: 40px;
-    line-height: 40px;
-  }
-  .title{
-    font-size: 16px;
-    line-height: 16px;
-  }
-}
-
-@media screen and (max-width: 468px) {
-  .title-1 {
-    font-size: 30px;
-    line-height: 30px;
-  }
-  .title{
-    font-size: 12px;
-    line-height: 12px;
-   
-  }
 }
