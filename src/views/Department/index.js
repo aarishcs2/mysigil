@@ -26,10 +26,12 @@ export default function Department() {
       <input type="search" placeholder="Search" className="input-search" />
       <div className="row my-3">
         <div className="col-lg-6">
-          <div className="create-department-button font-weight-bold">
-            <Icon icon="icons8:plus" className="me-1 " />
-            Create department
-          </div>
+          <Link to={"/dashboard/department/new"}>
+            <div className="create-department-button font-weight-bold">
+              <Icon icon="icons8:plus" className="me-1 " />
+              Create department
+            </div>
+          </Link>
         </div>
         <div className="col-lg-6">
           <InfoCard />
