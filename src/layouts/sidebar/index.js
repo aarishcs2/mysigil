@@ -11,7 +11,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, theme, Dropdown, Space, Avatar } from "antd";
+import { Layout, Menu, Button, theme, Dropdown, Space, Avatar,Checkbox } from "antd";
 
 const { Header, Sider, Content } = Layout;
 const Sidebar = ({ children }) => {
@@ -22,68 +22,74 @@ const Sidebar = ({ children }) => {
   const items = [
     {
       label: (
-        <Link to="/dashboard">
-          {" "}
-          <Icon icon="ant-design:user-outlined" />
-          Account
-        </Link>
+        <>
+          <span>Workspace 1</span>{" "}
+          <Checkbox
+            className="ms-4"
+            // onChange={onChange}
+          />
+        </>
       ),
       key: "0",
     },
 
     {
       label: (
-        <Link to="/dashboard">
-          {" "}
-          <Icon icon="material-symbols:help-outline" />
-          Help Center
-        </Link>
+        <>
+          <span>Workspace 1</span>{" "}
+          <Checkbox
+            className="ms-4"
+            // onChange={onChange}
+          />
+        </>
       ),
       key: "1",
     },
     {
       label: (
-        <Link to="/dashboard">
-          {" "}
-          <Icon icon="ic:outline-feedback" /> Send Feedback
-        </Link>
+        <>
+          <span>Workspace 1</span>{" "}
+          <Checkbox
+            className="ms-4"
+            // onChange={onChange}
+          />
+        </>
       ),
       key: "2",
     },
     {
       label: (
-        <Link to="/dashboard">
-          {" "}
-          <Icon icon="mi:notification" /> Notification
-        </Link>
+        <>
+          <span>Workspace 1</span>{" "}
+          <Checkbox
+            className="ms-4"
+            // onChange={onChange}
+          />
+        </>
       ),
       key: "3",
     },
-    {
-      label: (
-        <Link to="/dashboard">
-          {" "}
-          <Icon icon="ic:sharp-update" /> Update
-        </Link>
-      ),
-      key: "4",
-    },
+   
   ];
 
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={false}>
         <div className="demo-logo-vertical" />
-        <Dropdown menu={{ items }} trigger={["click"]}>
+        <Dropdown menu={{ items }} trigger={["click"]} className="Workspace">
           <span onClick={(e) => e.preventDefault()}>
             <div className="dropdown-div">
               Your Workspace
-              <DownOutlined />
+              <span className="Workspace-icon ">
+                {" "}
+                <DownOutlined />
+              </span>
             </div>
           </span>
         </Dropdown>
-        <div className="mt-5 menu-heading"> Menu</div>
+
         <Menu
+          className="mt-5"
           theme="light"
           mode="inline"
           //   defaultSelectedKeys={["1"]}
@@ -93,7 +99,7 @@ const Sidebar = ({ children }) => {
               label: (
                 <Link to="/dashboard">
                   {" "}
-                  <Icon icon="pajamas:chart" />
+                  <Icon icon="material-symbols:dashboard-outline" />
                   Dashboard
                 </Link>
               ),
@@ -103,7 +109,7 @@ const Sidebar = ({ children }) => {
               label: (
                 <Link to="/dashboard/department">
                   {" "}
-                  <Icon icon="ion:grid-outline" />
+                  <Icon icon="iconamoon:home" />
                   Department
                 </Link>
               ),
@@ -114,7 +120,7 @@ const Sidebar = ({ children }) => {
               label: (
                 <Link to="/dashboard/co-worker">
                   {" "}
-                  <Icon icon="pepicons-pencil:people" />
+                  <Icon icon="heroicons:user-group" />
                   Co-worker
                 </Link>
               ),
@@ -136,7 +142,7 @@ const Sidebar = ({ children }) => {
               label: (
                 <Link to="/dashboard">
                   {" "}
-                  <Icon icon="typcn:point-of-interest-outline" />
+                  <Icon icon="typcn:point-of-interest" />
                   Interest
                 </Link>
               ),
@@ -146,7 +152,7 @@ const Sidebar = ({ children }) => {
               label: (
                 <Link to="/dashboard/analytic">
                   {" "}
-                  <Icon icon="solar:chart-2-linear" />
+                  <Icon icon="ion:analytics-sharp" />
                   Analytic
                 </Link>
               ),
