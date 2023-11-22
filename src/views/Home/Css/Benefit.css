@@ -14,14 +14,27 @@ body {
   margin: auto;
   padding: auto;
   font-family: "Outfit", sans-serif;
+
 }
 
 .container-2 {
-  height: 1078px;
+  height: 991px;
   width: auto;
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container-2 {
+    height: 600px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container-2 {
+    height: 400px;
+  }
 }
 
 .Benefit-text {
@@ -45,7 +58,7 @@ body {
 .Rectangle-Benfit {
   margin: -80px auto;
   width: 1100px;
-  height: 768px;
+  height: 678px;
   border-radius: 40px;
   background: var(--col-1);
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.25);
@@ -70,19 +83,24 @@ body {
   gap: 10px;
 }
 
-@media screen and (max-width: 768px) {
-  .Benefit-text {
-    /* display: none; */
+@media screen {
+  .text-style {
+    font-size: 28px;
+    line-height: 26px;
   }
 
-  .Rectangle-Benfit {
-    /* display: none; */
+  @media screen and (max-width: 768px) {
+    .text-style {
+      font-size: 24px;
+      line-height: 22px;
+    }
   }
-}
 
-@media screen and (max-width: 480px) {
-  .Benefit-text {
-    font-size: 20px;
-    line-height: 18px;
+  @media screen and (max-width: 480px) {
+    .text-style {
+      font-size: 20px;
+      line-height: 18px;
+    }
   }
 }
+  

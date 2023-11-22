@@ -8,7 +8,8 @@ import { AuthContext } from "../../context/AuthContext";
 
 const AppRoute = () => {
   const { token } = useContext(AuthContext);
-  const access_token = localStorage.getItem("access_token") ?? token;
+  // const access_token = localStorage.getItem("access_token") ?? token;
+  const access_token=true
   return (
     <Router>
       <Routes>
