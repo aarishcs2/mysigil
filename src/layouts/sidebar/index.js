@@ -1,7 +1,7 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 import {
@@ -11,10 +11,20 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, theme, Dropdown, Space, Avatar,Checkbox } from "antd";
+import {
+  Layout,
+  Menu,
+  Button,
+  theme,
+  Dropdown,
+  Space,
+  Avatar,
+  Checkbox,
+} from "antd";
 
 const { Header, Sider, Content } = Layout;
 const Sidebar = ({ children }) => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -69,12 +79,14 @@ const Sidebar = ({ children }) => {
       ),
       key: "3",
     },
-   
   ];
-
+  const handleLogout = async () => {
+    await localStorage.removeItem("access_token");
+    await navigate("/");
+  };
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={false}>
+      <Sider trigger={null} collapsible collapsed={false} className="">
         <div className="demo-logo-vertical" />
         <Dropdown menu={{ items }} trigger={["click"]} className="Workspace">
           <span onClick={(e) => e.preventDefault()}>
@@ -89,7 +101,7 @@ const Sidebar = ({ children }) => {
         </Dropdown>
 
         <Menu
-          className="mt-5"
+          className="mt-4"
           theme="light"
           mode="inline"
           //   defaultSelectedKeys={["1"]}
@@ -177,8 +189,37 @@ const Sidebar = ({ children }) => {
                 </Link>
               ),
             },
+            {
+              key: "9",
+              label: (
+                <span className="text-danger" onClick={handleLogout}>
+                  {" "}
+                  <Icon icon="nimbus:home" />
+                  Logout
+                </span>
+              ),
+            },
           ]}
         />
+        <div className="p-2 border-round mt-5">
+          <div className="d-flex justify-content-between">
+            <div>Free plan</div>
+            <div>5/5</div>
+          </div>
+          <button
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            className=" btn-primary my-1 "
+            style={{ height: "40px", fontSize: "14px" }}
+          >
+            <strong>Upgrade Plan</strong>
+          </button>
+        </div>
+        <p className="mt-1">
+          <Icon icon="clarity:help-line" className="me-1" />
+          Get Support
+        </p>
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>

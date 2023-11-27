@@ -5,11 +5,13 @@ import Home from "../../views/Home";
 import PrivateRoute from "./PrivateRoute";
 import { privateRoutes } from "./routes";
 import { AuthContext } from "../../context/AuthContext";
+import ForgotPassword from "../../views/ForgotPassword";
+import MailChecking from "../../views/CheckingMail";
+import ResetPassword from "../../views/ResetPassword";
 
 const AppRoute = () => {
   const { token } = useContext(AuthContext);
-  // const access_token = localStorage.getItem("access_token") ?? token;
-  const access_token=true
+  const access_token = localStorage.getItem("access_token") ?? token;
   return (
     <Router>
       <Routes>
@@ -31,6 +33,9 @@ const AppRoute = () => {
           }
         />
         <Route path="/" element={<Home />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/mail-checking" element={<MailChecking />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
     </Router>
   );
