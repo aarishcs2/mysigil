@@ -199,7 +199,7 @@ body {
   }
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 575px) {
   .rectangle-sigil-1 h1 {
     font-size: 30px;
     line-height: 35px;
@@ -284,9 +284,10 @@ body {
 }
 
 .Slides-back {
-  background-color: rgb(184, 183, 183) 3;
-  width: 100%;
+  background-color: rgb(249, 245, 245);
+  width: auto;
   height: auto;
+  padding-top: 10%;
   flex-shrink: 0;
 }
 
@@ -300,19 +301,23 @@ body {
 }
 
 @media (max-width: 768px) {
-  .Slides-back {
-    height: 80%;
-    width: 90%;
-    flex-shrink: 0;
-  }
-
+  .Slides-back,
   .slides-content {
     height: 80%;
-    width: 80%;
-    flex-shrink: 0;
-    margin-top: 10px;
+    width: 90%;
+    margin: 0 auto;
   }
 }
+
+@media (max-width: 575px) {
+  .Slides-back,
+  .slides-content {
+    height: 80%;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
 
 /* Community page */
 .Machine {

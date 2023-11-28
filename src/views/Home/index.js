@@ -1,7 +1,7 @@
 // src/App.js
 import React from "react";
 import AuthPopup from "../../components/Popup/auth";
-import Header from "../../components/Header";
+import Header from "./Header";
 import MainContent from "./MainContent";
 import Benefit from "./Benefit";
 import Sigil from "./Sigil.js"
@@ -11,10 +11,9 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Home = ({updateToken}) => {
   return (
-    <div className="App">
+    <div>
       <Header />
       <MainContent />
-      <br />
       <Benefit />
       <Sigil /> 
 
