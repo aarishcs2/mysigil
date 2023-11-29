@@ -5,7 +5,7 @@ import NewDepartment from "../../views/Department/New";
 import StatusDepartment from "../../views/Department/Status";
 import Settings from "../../views/Settings";
 import Dashboard from "../../views/dashboard";
-
+import EditProfile from "../../views/CoWorker/EditProfile";
 export const privateRoutes = [
   {
     path: "/",
@@ -26,6 +26,10 @@ export const privateRoutes = [
   {
     path: "co-worker",
     element: <Coworkers />,
+  },
+  {
+    path: "co-worker/edit-profile",
+    element: <EditProfile />,
   },
   {
     path: "settings",

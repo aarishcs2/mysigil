@@ -25,7 +25,7 @@ import {
 const { Header, Sider, Content } = Layout;
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -86,7 +86,12 @@ const Sidebar = ({ children }) => {
   };
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={false} className="">
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={false}
+        className={collapsed ? "res-class" : "res-class-0"}
+      >
         <div className="demo-logo-vertical" />
         <Dropdown menu={{ items }} trigger={["click"]} className="Workspace">
           <span onClick={(e) => e.preventDefault()}>
@@ -244,7 +249,9 @@ const Sidebar = ({ children }) => {
             </Space>
           </div>
         </Header>
-        <Content className="content-div">{children}</Content>
+        <Content className={`content-div ${collapsed && "ml-240"}`}>
+          {children}
+        </Content>
       </Layout>
     </Layout>
   );
