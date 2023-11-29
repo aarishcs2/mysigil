@@ -5,14 +5,21 @@ import {
   SearchOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import { Layout, Tabs } from "antd";
+import {
+  Layout,
+  Tabs,
+  Slider,
+  Switch,
+  Checkbox,
+  Button,
+  Dropdown,
+  Flex,
+} from "antd";
 import React, { useRef, useState } from "react";
-
-import { Dropdown, Form, FormControl, InputGroup } from "react-bootstrap";
 import Attribute from "../../components/Attribute";
 import Data from "../../components/Data";
 import { Link } from "react-router-dom";
-
+import Image from "../../assets/Images/default.jpeg";
 const { Content, Footer, TabPane } = Layout;
 
 function Coworkers() {
@@ -46,176 +53,108 @@ function Coworkers() {
       // Handle the file upload logic here
     }
   };
-
+  const onMenuClick = (e) => {
+    console.log("click", e);
+  };
+  const items = [
+    {
+      key: "1",
+      label: (
+        <>
+          <Link to="edit-profile"> Edit And Preview</Link>
+          <div className="plus-btn mt-3 ">+</div>
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <>
+          <Link to=""> Send Invitaion</Link>
+          <div className="plus-btn mt-3">+</div>
+        </>
+      ),
+    },
+  ];
   return (
-    <Layout>
-      {/* Content */}
-
-      <Content
-        style={{
-          margin: "0px 0px 0px",
-        }}
-      >
-        {/* Content Header */}
-        <div className="">
-          <div
-            style={{
-              // padding: 50,
-              // minHeight: 700,
-              //   background: colorBgContainer,
-            }}
-          >
-            {/* Content Header tab */}
-            {/* <div className="m-1 fs-2">Co-workers</div> */}
-
-            {/* tab Co-worker list && Co-worker attributes */}
-
-            <div className="">
-              <h2>Co-workers</h2>
-              <Tabs defaultActiveKey="1">
-                {/* tab Co-worker list */}
-                <TabPane tab="Co-worker list" key="1">
-                  <div>
-                    <span className="fw-bold fs-4 mb-2">
-                      Manage company co-workers
-                    </span>{" "}
-                    <br />
-                    <span className="fs-6">
-                      {" "}
-                      Edit the personal information of your co-workers manually
-                      or in bulk by uploading a CSV
-                    </span>
-                  </div>
-                  {/*co-workers , signatures , information */}
-                  <div className="d-flex p-3 gap-3 fs-2">
-                    <div className="d-flex flex-fill align-items-center p-3">
-                      <UsergroupAddOutlined className="fs-3" />
-                      <h6 className="mb-0 ms-2">co-workers</h6>
-                    </div>
-                    <div className="d-flex flex-fill align-items-center p-3">
-                      <CheckCircleOutlined className="fs-3" />
-                      <h6 className="mb-0 ms-2">signatures installed</h6>
-                    </div>
-                    <div className="d-flex flex-fill align-items-center p-3">
-                      <FileDoneOutlined className="fs-3" />
-                      <h6 className="mb-0 ms-2">personal information completed</h6>
-                    </div>
-                  </div>
-                  {/* search bar */}
-                  <InputGroup>
-                    <InputGroup.Text>
-                      <SearchOutlined />
-                    </InputGroup.Text>
-                    <FormControl
-                      type="text"
-                      className="form-control border-start-0"
-                      placeholder="Search..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    <Dropdown as={InputGroup.Prepend}>
-                      <Dropdown.Toggle variant="outline-secondary">
-                        <DownCircleOutlined />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Form.Check
-                          type="checkbox"
-                          label="Without Department"
-                          checked={withoutDepartment}
-                          onChange={() =>
-                            setWithoutDepartment(!withoutDepartment)
-                          }
-                        />
-                        <Form.Check
-                          type="checkbox"
-                          label="With Missing Attributes"
-                          checked={withMissingAttributes}
-                          onChange={() =>
-                            setWithMissingAttributes(!withMissingAttributes)
-                          }
-                        />
-                        <Form.Check
-                          type="checkbox"
-                          label="No Signature Installed"
-                          checked={noSignatureInstalled}
-                          onChange={() =>
-                            setNoSignatureInstalled(!noSignatureInstalled)
-                          }
-                        />
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </InputGroup>
-
-                  {/* button Download CSV && Upload CSV */}
-                  <div className="container mt-3">
-                    <button
-                      className="btn btn-primary me-2"
-                      onClick={handleDownloadCSV}
-                    >
-                      Download CSV
-                    </button>
-                    <button
-                      className="btn btn-secondary"
-                      onClick={handleUploadClick}
-                    >
-                      Upload CSV
-                    </button>
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      style={{ display: "none" }}
-                      accept=".csv"
-                      onChange={handleFileChange}
-                    />
-                  </div>
-                  <div>
-                    <Data />
-                  </div>
-                </TabPane>
-
-                {/* tab Co-worker attributes */}
-                <TabPane tab="Co-worker attributes" key="2">
-                  <div>
-                    <span className="fw-bold fs-4 mb-2">
-                      Manage co-worker attributes
-                    </span>{" "}
-                    <br />
-                    <span className="fs-6">
-                      {" "}
-                      The default data source synced with Scribe is your Google
-                      Workspace Directory (scraft.studio). Here you can sync
-                      additional co-worker attributes from your email provider
-                      to Scribe or choose Scribe as the default data source.
-                    </span>
-                    <Link to="/" target="/" rel="/">
-                      Learn More
-                    </Link>
-                  </div>
-                  <div className="mt-4 m-3">
-                    <Attribute />
-                  </div>
-                </TabPane>
-              </Tabs>
-            </div>
-          </div>
-          <div></div>
+    <div className="bg-light-gray p-3">
+      <div>
+        {" "}
+        <h2 className="main-heading mb-0">Co-workers</h2>
+        <p className="para">Check Your Co-Workers Information.</p>
+        <div className="installed-slider">
+          <Slider defaultValue={30} className="w-75" /> <span>26/100</span>
         </div>
+        <p className="para">26 Co workers have installed their signatures. </p>
+        <div className=" d-flex w-80 mt-5">
+          <input type="search" placeholder="Search" className="input-search" />
+          <button
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            className="btn-primary ms-3 "
+          >
+            Show Pending
+          </button>
+        </div>
+        <div className="shadow-box mt-5 p-3">
+          <table className="status-table ">
+            <thead>
+              <th></th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Department</th>
+              <th>Email</th>
+              <th>Signature Status</th>
+              <th>Interest</th>
+              <th>Actions</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <img src={Image} className="table-user" />
+                </td>
+                <td>Jay </td>
+                <td>Sethi</td>
+                <td>
+                  <Link>Scraft Marketing</Link>
+                </td>
+                <td>jaysethi68@gmail.com</td>
+                <td>
+                  <span className="tag">Installed</span>
+                </td>
+                <td>Marketing</td>
 
-        {/* Content Body tab */}
-
-        {/* pagination */}
-        {/* <div className="text-center">
-            <Pagination defaultCurrent={1} total={50} />
-          </div> */}
-      </Content>
-
-      {/* footer */}
-      <Footer
-        style={{
-          textAlign: "center",
-        }}
-      ></Footer>
-    </Layout>
+                <td className="px-4  ">
+                  <Dropdown menu={{ items }} trigger={["click"]}>
+                    <div className="three-dot-btn"> ...</div>
+                  </Dropdown>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className=" d-flex justify-content-end mt-3 ">
+          <button
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            className="btn-primary me-3 "
+          >
+            Invite All
+          </button>
+          <button
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            className="btn-primary  "
+            style={{ width: "288px" }}
+          >
+            Force All Signature Installation
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
