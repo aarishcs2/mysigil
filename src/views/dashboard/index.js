@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
-import "react-rangeslider/lib/index.css";
+// import "react-rangeslider/lib/index.css";
 import Image from "../../assets/Images/com.png";
 ChartJS.register(
   CategoryScale,

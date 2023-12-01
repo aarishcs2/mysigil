@@ -6,6 +6,8 @@ import StatusDepartment from "../../views/Department/Status";
 import Settings from "../../views/Settings";
 import Dashboard from "../../views/dashboard";
 import EditProfile from "../../views/CoWorker/EditProfile";
+import Emailtemplate from "../../views/Emailtemplates";
+import Templatedetail from "../../views/Emailtemplates/Templatedetail";
 export const privateRoutes = [
   {
     path: "/",
@@ -38,5 +40,13 @@ export const privateRoutes = [
   {
     path: "analytic",
     element: <Analytic />,
+  },
+  {
+    path: "templates",
+    element: <Emailtemplate />,
+  },
+  {
+    path: "templatedetail/:id",
+    element: <Templatedetail />,
   },
 ];
