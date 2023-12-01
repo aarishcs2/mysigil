@@ -40,30 +40,28 @@ export default function Templatedetail() {
 
   const saveTemplate = () => {
     // Here you can save modifiedContent to your backend
-    // For example:
-    // fetch('your_save_api_url', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ html: modifiedContent })
-    // })
-    // .then(response => {
-    //   // Handle response
-    // })
-    // .catch(error => {
-    //   console.error('Error saving template:', error);
-    // });
-
     // Placeholder alert for demonstration
     alert('Template saved with modifications!');
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleFontWeightChange = (e) => {
     setFontStyle({
       ...fontStyle,
-      [name]: value
+      fontWeight: e.target.value
+    });
+  };
+
+  const handleFontSizeChange = (e) => {
+    setFontStyle({
+      ...fontStyle,
+      fontSize: e.target.value
+    });
+  };
+
+  const handleColorChange = (e) => {
+    setFontStyle({
+      ...fontStyle,
+      color: e.target.value
     });
   };
 
@@ -74,15 +72,25 @@ export default function Templatedetail() {
           <h3>Template Editor</h3>
           <label>
             Font Weight:
-            <input type="text" name="fontWeight" value={fontStyle.fontWeight} onChange={handleInputChange} />
+            <select value={fontStyle.fontWeight} onChange={handleFontWeightChange}>
+              <option value="normal">Normal</option>
+              <option value="bold">Bold</option>
+              <option value="bolder">Bolder</option>
+              {/* Add more font-weight options as needed */}
+            </select>
           </label>
           <label>
             Font Size:
-            <input type="text" name="fontSize" value={fontStyle.fontSize} onChange={handleInputChange} />
+            <select value={fontStyle.fontSize} onChange={handleFontSizeChange}>
+              <option value="14px">14px</option>
+              <option value="16px">16px</option>
+              <option value="18px">18px</option>
+              {/* Add more font-size options as needed */}
+            </select>
           </label>
           <label>
             Color:
-            <input type="text" name="color" value={fontStyle.color} onChange={handleInputChange} />
+            <input type="color" value={fontStyle.color} onChange={handleColorChange} />
           </label>
           <button onClick={applyStyles}>Apply Styles</button>
           <button onClick={saveTemplate}>Save Template</button>
