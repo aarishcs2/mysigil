@@ -34,10 +34,7 @@ const Sidebar = ({ children }) => {
       label: (
         <>
           <span>Workspace 1</span>{" "}
-          <Checkbox
-            className="ms-4"
-            // onChange={onChange}
-          />
+         <Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "0",
@@ -46,11 +43,7 @@ const Sidebar = ({ children }) => {
     {
       label: (
         <>
-          <span>Workspace 1</span>{" "}
-          <Checkbox
-            className="ms-4"
-            // onChange={onChange}
-          />
+          <span>Workspace 1</span><Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "1",
@@ -58,11 +51,7 @@ const Sidebar = ({ children }) => {
     {
       label: (
         <>
-          <span>Workspace 1</span>{" "}
-          <Checkbox
-            className="ms-4"
-            // onChange={onChange}
-          />
+          <span>Workspace 1</span><Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "2",
@@ -70,11 +59,7 @@ const Sidebar = ({ children }) => {
     {
       label: (
         <>
-          <span>Workspace 1</span>{" "}
-          <Checkbox
-            className="ms-4"
-            // onChange={onChange}
-          />
+          <span>Workspace 1</span><Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "3",
