@@ -11,7 +11,7 @@ function Benefit() {
           <p className="text-style">
             {" "}
             <img src={dot} alt="dot" />
-            Update Email signatures in 1 click
+            Update Email signatures in 1 click.
           </p>{" "}
           <p className="text-style">
             {" "}
