@@ -25,3 +25,9 @@ export const verifyToken = (payload) => {
 export const resetPassword = (payload) => {
   return instance.put(`/updateuserPassword/${payload.id}`, payload);
 };
+export const Coutries = () => {
+  return instance.get("https://restcountries.com/v3.1/all");
+};
+export const TimeZone = () => {
+  return instance.get(`http://worldtimeapi.org/api/timezone`);
+};
