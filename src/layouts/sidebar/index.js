@@ -34,7 +34,7 @@ const Sidebar = ({ children }) => {
       label: (
         <>
           <span>Workspace 1</span>{" "}
-         <Icon icon="ic:outline-check" className="text-primary" />
+          <Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "0",
@@ -43,7 +43,8 @@ const Sidebar = ({ children }) => {
     {
       label: (
         <>
-          <span>Workspace 1</span><Icon icon="ic:outline-check" className="text-primary" />
+          <span>Workspace 1</span>
+          <Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "1",
@@ -51,7 +52,8 @@ const Sidebar = ({ children }) => {
     {
       label: (
         <>
-          <span>Workspace 1</span><Icon icon="ic:outline-check" className="text-primary" />
+          <span>Workspace 1</span>
+          <Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "2",
@@ -59,7 +61,8 @@ const Sidebar = ({ children }) => {
     {
       label: (
         <>
-          <span>Workspace 1</span><Icon icon="ic:outline-check" className="text-primary" />
+          <span>Workspace 1</span>
+          <Icon icon="ic:outline-check" className="text-primary" />
         </>
       ),
       key: "3",
@@ -151,6 +154,17 @@ const Sidebar = ({ children }) => {
             },
             {
               key: "6",
+
+              label: (
+                <Link to="/dashboard/signaturebuilder">
+                  {" "}
+                  <Icon icon="material-symbols-light:signature-outline-rounded" />
+                  Signature-Builder
+                </Link>
+              ),
+            },
+            {
+              key: "7",
               label: (
                 <Link to="/dashboard/analytic">
                   {" "}
@@ -160,7 +174,7 @@ const Sidebar = ({ children }) => {
               ),
             },
             {
-              key: "7",
+              key: "8",
               label: (
                 <Link to="/dashboard">
                   {" "}
@@ -170,7 +184,7 @@ const Sidebar = ({ children }) => {
               ),
             },
             {
-              key: "8",
+              key: "9",
               label: (
                 <Link to="/dashboard/settings">
                   {" "}
@@ -180,7 +194,7 @@ const Sidebar = ({ children }) => {
               ),
             },
             {
-              key: "9",
+              key: "10",
               label: (
                 <span className="text-danger" onClick={handleLogout}>
                   {" "}
