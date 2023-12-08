@@ -13,7 +13,7 @@ export default function New() {
   const [nameError, setNameError] = useState("");
   const [countries, setCountries] = useState([]);
   const [countriesValue, setCountriesValue] = useState("");
-  const [countryError, setCountryError] = useState('');
+  const [countryError, setCountryError] = useState("");
   const [isChecked, setChecked] = useState(false);
   const [filterData, setFilterData] = useState([]);
   const [timeZoneError, setTimeZoneError] = useState("");
@@ -67,7 +67,7 @@ export default function New() {
   const [data, setData] = useState(listdata);
   const [timzone, setTimezone] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [emailCoValidation, setEmailCoValidation] = useState('');
+  const [emailCoValidation, setEmailCoValidation] = useState("");
   const handletimzone = async () => {
     axios.get(`http://worldtimeapi.org/api/timezone`).then((res, e) => {
       setTimezone(res.data);
@@ -95,13 +95,13 @@ export default function New() {
   };
   const handleNext = () => {
     if (inputValue.length < 3 || inputValue.length > 25) {
-      // setInputValue("");
-      setNameError("Name should be a minimum of 3 letters and a maximum of 25 characters.");
+      setNameError(
+        "Name should be a minimum of 3 letters and a maximum of 25 characters."
+      );
     } else if (countriesValue.length === 0) {
       setCountryError("Select Country");
       setNameError("");
-    }
-    else if (timezoneVal.length === 0) {
+    } else if (timezoneVal.length === 0) {
       setTimeZoneError("Select timezone");
       setCountryError("");
       setNameError("");
@@ -132,7 +132,7 @@ export default function New() {
   const handleSelectAllChange = () => {
     setSelectedItems((prevData) => [...prevData, ...data]);
     setData([]);
-  }
+  };
 
   return (
     <div>
@@ -140,9 +140,7 @@ export default function New() {
         <div className="d-flex  w-100 d-flex justify-content-between ">
           <div className="text-start w-100">
             <h3 className="main-heading mb-0">Create department</h3>
-            <p className="para">
-              Manage Co-Workers Easily for each Department
-            </p>
+            <p className="para">Manage Co-Workers Easily for each Department</p>
           </div>
           <div className="full-page-wizard-navigation-buttons d-flex  ml-auto">
             <div id="header-wizard-navigation-next-button-root" />
@@ -265,10 +263,7 @@ export default function New() {
                       className="form-control mb-3"
                     >
                       {countries.map((country) => (
-                        <option
-                          key={country.cca2}
-                          value={country.name.common}
-                        >
+                        <option key={country.cca2} value={country.name.common}>
                           {country.name.common}
                         </option>
                       ))}
@@ -342,70 +337,68 @@ export default function New() {
                     </div>
                     {filterData.length > 0
                       ? filterData.map((item, i) => {
-                        return (
-                          <div className="d-flex px-3 py-2 mt-2 ">
-                            <Checkbox
-                              id={item.id}
-                              // checked={selectedItems.some(
-                              //   (selectedItem) => selectedItem.id === item.id
-                              // )}
-                              // onChange={() =>
-                              //   handleCheckboxChange(
-                              //     item.id,
-                              //     item.name,
-                              //     item.Email,
-                              //     item.Image
-                              //   )
-                              // }
-                              checked={selectedItems.some(
-                                (selectedItem) =>
-                                  selectedItem.id === item.id
-                              )}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  item.id,
-                                  item.name,
-                                  item.Email,
-                                  item.Image
-                                )
-                              }
-                              className="me-2"
-                            />
-                            <img src={item.Image} alt="" className="user" />
-                            <div className="ms-2">
-                              <p className="mt-1 name">{item.name}</p>
-                              <span className="e-mail">{item.Email}</span>
+                          return (
+                            <div className="d-flex px-3 py-2 mt-2 ">
+                              <Checkbox
+                                id={item.id}
+                                // checked={selectedItems.some(
+                                //   (selectedItem) => selectedItem.id === item.id
+                                // )}
+                                // onChange={() =>
+                                //   handleCheckboxChange(
+                                //     item.id,
+                                //     item.name,
+                                //     item.Email,
+                                //     item.Image
+                                //   )
+                                // }
+                                checked={selectedItems.some(
+                                  (selectedItem) => selectedItem.id === item.id
+                                )}
+                                onChange={() =>
+                                  handleCheckboxChange(
+                                    item.id,
+                                    item.name,
+                                    item.Email,
+                                    item.Image
+                                  )
+                                }
+                                className="me-2"
+                              />
+                              <img src={item.Image} alt="" className="user" />
+                              <div className="ms-2">
+                                <p className="mt-1 name">{item.name}</p>
+                                <span className="e-mail">{item.Email}</span>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })
+                          );
+                        })
                       : data.map((item, i) => {
-                        return (
-                          <div className="d-flex px-3 py-2 mt-2 ">
-                            <Checkbox
-                              id={item.id}
-                              checked={selectedItems.some(
-                                (selectedItem) =>
-                                  selectedItem.id === item.id
-                              )}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  item.id,
-                                  item.name,
-                                  item.Email,
-                                  item.Image
-                                )
-                              }
-                              className="me-2"
-                            />
-                            <img src={item.Image} alt="" className="user" />
-                            <div className="ms-2">
-                              <p className="mt-1 name">{item.name}</p>
-                              <span className="e-mail">{item.Email}</span>
+                          return (
+                            <div className="d-flex px-3 py-2 mt-2 ">
+                              <Checkbox
+                                id={item.id}
+                                checked={selectedItems.some(
+                                  (selectedItem) => selectedItem.id === item.id
+                                )}
+                                onChange={() =>
+                                  handleCheckboxChange(
+                                    item.id,
+                                    item.name,
+                                    item.Email,
+                                    item.Image
+                                  )
+                                }
+                                className="me-2"
+                              />
+                              <img src={item.Image} alt="" className="user" />
+                              <div className="ms-2">
+                                <p className="mt-1 name">{item.name}</p>
+                                <span className="e-mail">{item.Email}</span>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
                   </div>
                 </div>
                 <div className="col-6">
@@ -460,8 +453,8 @@ export default function New() {
                   </p>
                   <p className="down-para">
                     Choose an existing template now or create one later.All
-                    teammate signatures for this department will be create
-                    based on this signature template.
+                    teammate signatures for this department will be create based
+                    on this signature template.
                   </p>
 
                   <div className="scroll-y p-3">
@@ -471,9 +464,9 @@ export default function New() {
                 <div className="col-6">
                   <p className="para mb-0">Preview your selected Template</p>
                   <p className="down-para">
-                    Preview your selected template now or create one later.
-                    All teammate signatures for this department will be
-                    created based on this signature template.
+                    Preview your selected template now or create one later. All
+                    teammate signatures for this department will be created
+                    based on this signature template.
                   </p>
                   <div className="scroll-y p-3 ">
                     <Signature />
@@ -488,16 +481,15 @@ export default function New() {
                       The information contained in this electronic message and
                       any other attachment to this message are intended solely
                       for the addressee and may contain information that is
-                      confidential, privileged and exempt from disclosure
-                      under applicable law. If you are not the intended
-                      recipient, you are hereby formally notified that any
-                      use, copying or distribution of this e-mail, in whole or
-                      in part, is strictly prohibited. Please immediately
-                      notify the sender by return e-mail and delete all copies
-                      of this e-mail and any attachments from your system. Any
-                      views or opinions presented in this email are solely
-                      those of the author and do not necessarily represent
-                      those of the company.
+                      confidential, privileged and exempt from disclosure under
+                      applicable law. If you are not the intended recipient, you
+                      are hereby formally notified that any use, copying or
+                      distribution of this e-mail, in whole or in part, is
+                      strictly prohibited. Please immediately notify the sender
+                      by return e-mail and delete all copies of this e-mail and
+                      any attachments from your system. Any views or opinions
+                      presented in this email are solely those of the author and
+                      do not necessarily represent those of the company.
                     </p>
                     <div className="d-flex justify-content-end w-100 pe-3">
                       <button

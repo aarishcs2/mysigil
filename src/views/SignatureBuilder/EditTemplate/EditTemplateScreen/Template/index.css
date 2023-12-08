@@ -1,0 +1,23 @@
+.box {
+  border-radius: 7px;
+  background: rgba(6, 90, 216, 0.1);
+  width: 163px;
+  height: 123px;
+  flex-shrink: 0;
+  margin-bottom: 9px;
+  margin-right: 14px;
+  padding-right: 0px !important;
+}
+.mainscreen {
+  width: 1145px;
+  height: 918px;
+  flex-shrink: 0;
+  border-radius: 15px 0px 0px 15px;
+  background: #ededed;
+}
+.flexMethod {
+  width: 360px;
+  height: 918px;
+  display: flex;
+  flex-wrap: wrap;
+}

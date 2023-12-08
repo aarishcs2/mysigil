@@ -3,11 +3,12 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Sidebar from "../../layouts/sidebar";
 import Home from "../../views/Home";
 import PrivateRoute from "./PrivateRoute";
-import { privateRoutes } from "./routes";
+import { SignatureBuilderPrivateRoute, privateRoutes } from "./routes";
 import { AuthContext } from "../../context/AuthContext";
 import ForgotPassword from "../../views/ForgotPassword";
 import MailChecking from "../../views/CheckingMail";
 import ResetPassword from "../../views/ResetPassword";
+import SignatureBuilder from "../../views/SignatureBuilder";
 
 const AppRoute = () => {
   const { token } = useContext(AuthContext);
@@ -32,6 +33,22 @@ const AppRoute = () => {
             />
           }
         />
+        <Route
+          path="/SignatureBuilder/*"
+          element={
+            <PrivateRoute
+              token={access_token}
+              children={
+                <Routes>
+                  {SignatureBuilderPrivateRoute.map(({ path, element }) => {
+                    return <Route path={path} element={element} />;
+                  })}
+                </Routes>
+              }
+            />
+          }
+        />
+
         <Route path="/" element={<Home />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/mail-checking" element={<MailChecking />} />

@@ -1,0 +1,91 @@
+.DetailMain {
+  border-radius: 15px 0px 0px 15px;
+  background: #fff;
+  width: 385px;
+  height: 918px;
+  flex-shrink: 0;
+  padding: 2px 0px 0px 9px !important;
+}
+.SignatureDetail {
+  color: #444;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.Circle {
+  width: 106px;
+  height: 106px;
+  flex-shrink: 0;
+  fill: #fff;
+  stroke-width: 2px;
+  stroke: #ededed;
+  border-radius: 53px;
+  border: 2px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0px 0px 7px;
+}
+.ProfilePicture {
+  color: #7e7e7e;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.inputbox {
+  padding-top: 33px;
+}
+.inp {
+  width: 343px;
+  height: 47px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  border: 2px solid #ededed;
+  background: #fff;
+  outline: none;
+  color: #7e7e7e;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 12px 0 12px 14px;
+}
+.AddTxtbox {
+  padding-top: 25px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.AddTxt {
+  color: #065ad8;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.CircleButton {
+  width: 16px;
+  gap: 10px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #065ad8;
+  border-radius: 8px;
+  border: 1px solid #065ad8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mainScreen {
+  width: 1100px;
+  height: 918px;
+  flex-shrink: 0;
+  border-radius: 15px 0px 0px 15px;
+  background: #ededed;
+}
