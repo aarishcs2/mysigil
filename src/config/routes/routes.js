@@ -5,6 +5,7 @@ import NewDepartment from "../../views/Department/New";
 import StatusDepartment from "../../views/Department/Status";
 import Settings from "../../views/Settings";
 import Dashboard from "../../views/dashboard";
+import Builder from "../../views/builder";
 import EditProfile from "../../views/CoWorker/EditProfile";
 import Emailtemplate from "../../views/Emailtemplates";
 import Templatedetail from "../../views/Emailtemplates/Templatedetail";
@@ -44,6 +45,10 @@ export const privateRoutes = [
   {
     path: "templates",
     element: <Emailtemplate />,
+  },
+  {
+    path: "builder",
+    element: <Builder />,
   },
   {
     path: "templatedetail/:id",

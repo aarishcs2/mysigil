@@ -29,8 +29,8 @@ export default function Index() {
           <div className='col-md-6' key={template._id}>
             <Link to={`/dashboard/templatedetail/${template._id}`}>
             <div className="card w-100" onClick={() => console.log(`Clicked on template ID: ${template._id}`)}>
-                    <div className="card-body" dangerouslySetInnerHTML={{ __html: template.html }} />
-                </div>
+                <div className="card-body w-100" dangerouslySetInnerHTML={{ __html: template.html }} />
+            </div>
             </Link>
           </div>
         ))}
