@@ -6,7 +6,7 @@
   flex-shrink: 0;
   padding: 2px 2px 9px;
 }
-.imageTitle {
+.socialtitle {
   color: #444;
   font-family: Poppins;
   font-size: 16px;
@@ -37,6 +37,7 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
+  margin: auto !important;
 }
 .circleAddGallery {
   width: 16px;
@@ -72,6 +73,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  margin: auto !important;
 }
 .AddTxt {
   color: #065ad8;
@@ -100,4 +102,47 @@
   flex-shrink: 0;
   border-radius: 15px 0px 0px 15px;
   background: #ededed;
+}
+.center {
+  text-align: center !important;
+}
+.inputDiv {
+  display: flex;
+  align-items: center;
+  gap: 15px !important;
+  margin-top: 25px;
+}
+.socialinput {
+  width: 276px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  text-align: center;
+  border-radius: 7px;
+  border: 2px solid #ededed;
+  background: #fff;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* border: ; */
+  outline: none;
+}
+.showIconlist {
+  width: 357px;
+  /* overflow-x: scroll; */
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.ViewlessButton {
+  color: #065ad8;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding-top: 20px;
+  gap: 10px;
 }
