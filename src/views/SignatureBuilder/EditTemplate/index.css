@@ -54,9 +54,11 @@
   background: #065ad8;
   padding-top: 5px;
   margin-right: 12px;
+  padding: 34px 0px 0px 0px;
 }
 .sidebarlist {
-  padding: 34px 0px 0px 0px;
+  height: 62px;
+  margin-top: 20px;
 }
 .listName {
   color: #fff;
@@ -67,10 +69,14 @@
   line-height: normal;
 }
 .selected {
+  margin-top: 20px;
   height: 62px;
   margin-top: 4px;
   background-color: white;
-  padding: 2px;
+  /* padding: 2px; */
+  /* padding: 0px !important; */
+  padding-top: 6px;
+  /* margin: 2px; */
 }
 .listNameselected {
   color: #065ad8;

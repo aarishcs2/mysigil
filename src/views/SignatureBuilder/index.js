@@ -1,8 +1,8 @@
 import "./index.css";
 import { Icon } from "@iconify/react";
 import SignatureCard from "../../components/SignatureCard/SignatureCard";
-import CreateSignaturePopup from "../../components/Popup/CreateSignature/CreateSignaturePopup";
 import { useState } from "react";
+import CreatePopup from "../../components/Popup/Createpopup/CreatePopup";
 
 function SignatureBuilder() {
   const arr = [
@@ -99,7 +99,12 @@ function SignatureBuilder() {
   return (
     <>
       {popupOpen ? (
-        <CreateSignaturePopup onClick={() => setPopupOpen(false)} />
+        <CreatePopup
+          popupheading="Create New Template"
+          popuspera="Choose your signature template name"
+          popusinputplaceholdername="Signature Template name"
+          onClick={() => setPopupOpen(false)}
+        />
       ) : null}
       <div className="SignatureBuilder__Main">
         <div className="Flex__Setting">

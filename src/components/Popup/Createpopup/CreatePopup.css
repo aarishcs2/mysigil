@@ -1,0 +1,110 @@
+.popupbackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* transform: scale(0.8);
+   */
+}
+.popupMainBox {
+  width: 589px;
+  height: 303px;
+  padding: 5px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+.popupContent {
+  padding: 24px 0px 0px 26px;
+}
+.CloseButton {
+  float: right;
+}
+.PopusHeading {
+  color: #444;
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.poppPera {
+  color: #444;
+  font-family: Poppins;
+  padding-top: 5px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.popupValidation {
+  color: #7e7e7e;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.input {
+  margin-top: 23px;
+  width: 353px;
+  height: 51px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  border: 1px solid #7e7e7e;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  outline: none;
+  color: #7e7e7e;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+.buttonbox {
+  padding-top: 21px;
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+}
+.buttonCreate {
+  width: 166px;
+  height: 51px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: #065ad8;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: none;
+  transition: all ease-in-out 2s;
+  outline: none;
+}
+.buttonCancel {
+  width: 166px;
+  height: 51px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  border: 1px solid #7e7e7e;
+  padding: 12px;
+  color: #7e7e7e;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}

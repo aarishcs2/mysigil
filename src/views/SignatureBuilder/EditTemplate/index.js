@@ -5,6 +5,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Template from "./EditTemplateScreen/Template";
 import Detail from "./EditTemplateScreen/Detail";
 import Image from "./EditTemplateScreen/Image/Index";
+import Social from "./EditTemplateScreen/Socail";
+import Marketing from "./EditTemplateScreen/Marketing";
 
 export default function EditTemplate() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -36,14 +38,16 @@ export default function EditTemplate() {
       listName: "Socials",
       listIcon: "/images/shareIcon.png",
       selectedIcon: "/images/shareSelectedIcon.png",
+      path: "/signaturebuilder/Edit-template/Social",
     },
     {
       listName: "Marketing",
       listIcon: "/images/marketingIcon.png",
       selectedIcon: "/images/marketingselectedicon.png",
+      path: "/signaturebuilder/Edit-template/Marketing",
     },
     {
-      listName: "Marketing",
+      listName: "Design",
       listIcon: "/images/designicon.png",
       selectedIcon: "/images/designselectedIcon.png",
     },
@@ -110,6 +114,8 @@ export default function EditTemplate() {
               <Route path="Template" element={<Template />} />
               <Route path="Detail" element={<Detail />} />
               <Route path="Image" element={<Image />} />
+              <Route path="Social" element={<Social />} />
+              <Route path="Marketing" element={<Marketing />} />
             </Routes>
           </div>
         </div>
