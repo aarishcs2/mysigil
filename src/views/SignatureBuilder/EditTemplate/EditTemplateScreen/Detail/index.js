@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./index.css";
 
 function Detail() {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef();
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    console.log(selectedFile);
+  };
+
+  const handleDivClick = () => {
+    fileInputRef.current.click();
+  };
   return (
     <div className="d-flex">
       <div className="DetailMain">
         <div className="SignatureDetail">Signature Details</div>
-        <div className="Circle">
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
+        <div onClick={handleDivClick} className="Circle">
           <div className="text-center">
             <img src="/images/arrow.png" alt="" />
             <div className="ProfilePicture">Profile Picture</div>

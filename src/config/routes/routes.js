@@ -8,6 +8,7 @@ import Dashboard from "../../views/dashboard";
 import EditProfile from "../../views/CoWorker/EditProfile";
 import SignatureBuilder from "../../views/SignatureBuilder";
 import EditTemplate from "../../views/SignatureBuilder/EditTemplate";
+import AddProfile from "../../views/CoWorker/AddProfile";
 export const privateRoutes = [
   {
     path: "/",
@@ -30,8 +31,12 @@ export const privateRoutes = [
     element: <Coworkers />,
   },
   {
-    path: "co-worker/edit-profile",
+    path: "co-worker/edit/:id",
     element: <EditProfile />,
+  },
+  {
+    path: "co-worker/add",
+    element: <AddProfile />,
   },
   {
     path: "settings",

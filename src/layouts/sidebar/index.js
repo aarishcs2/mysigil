@@ -4,7 +4,7 @@ import "./index.css";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -23,42 +23,52 @@ import {
   Checkbox,
 } from "antd";
 import CreatePopup from "../../components/Popup/Createpopup/CreatePopup";
+import { createWorkSpace, fetchWorkSpaces } from "../../api";
+import { AuthContext } from "../../context/AuthContext";
 
 const { Header, Sider, Content } = Layout;
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
+  const { activeWorkSpace, setActiveWorkSpace } = useContext(AuthContext)
   const [collapsed, setCollapsed] = useState(true);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [popupOpen, setPopupOpen] = useState(false);
-  const itemlist = [
-    {
-      name: "workspace 1",
-      icon: "ic:outline-check",
-    },
-    {
-      name: "workspace 2",
-      icon: "ic:outline-check",
-    },
-    {
-      name: "workspace 3",
-      icon: "ic:outline-check",
-    },
-    {
-      name: "workspace 4",
-      icon: "ic:outline-check",
-    },
-    {
-      name: "workspace 5",
-      icon: "ic:outline-check",
-    },
-  ];
+  const [workspaceName, setWorkSpaceName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [workspaces, setWorkSpaces] = useState([])
   const handleLogout = async () => {
     await localStorage.removeItem("access_token");
     await navigate("/");
   };
   const [list, setList] = useState(false);
+
+  const handleCreateWorkSpace = async () => {
+    setLoading(true)
+    const response = await createWorkSpace({ workspacename: workspaceName })
+    if (response) {
+      setLoading(false)
+      setPopupOpen(false)
+      fetchWorkSpacesData()
+    }
+  }
+
+  const fetchWorkSpacesData = async () => {
+    const response = await fetchWorkSpaces();
+    if (response) {
+      setWorkSpaces(response?.data);
+      setActiveWorkSpace({ name: response?.data[0]?.name, id: response?.data[0]?._id })
+    }
+  }
+
+  const handleSelectWorkSpace = (payload) => {
+    setActiveWorkSpace({ name: payload?.name, id: payload?._id })
+  }
+
+  useEffect(() => {
+    fetchWorkSpacesData()
+  }, [])
   return (
     <>
       {popupOpen ? (
@@ -66,10 +76,14 @@ const Sidebar = ({ children }) => {
           popupheading="Create New WorkSpace"
           popuspera="Choose your signature workSpace name"
           popusinputplaceholdername="new workspace name"
-          onClick={() => {
-            setPopupOpen(false);
-            console.log(popupOpen);
+          onSubmit={() => {
+            handleCreateWorkSpace()
           }}
+          onClose={() => {
+            setPopupOpen(false)
+          }}
+          onChange={(event) => setWorkSpaceName(event.target.value)}
+          loading={loading}
         />
       ) : null}
       <Layout>
@@ -87,8 +101,8 @@ const Sidebar = ({ children }) => {
               }}
               className="Drobdown"
             >
-              <div className="p-2 border-black">
-                Your Workspace
+              <div className="p-2 border-black w-100">
+                {activeWorkSpace?.name ? activeWorkSpace?.name : 'Your Workspace'}
                 <span className="Workspace-icon ">
                   <DownOutlined />
                 </span>
@@ -97,12 +111,15 @@ const Sidebar = ({ children }) => {
             {list ? (
               <div className="dropdownlist shadow">
                 <div className="list ">
-                  {itemlist.map((e, i) => {
+                  {workspaces?.map((e, i) => {
                     return (
-                      <div className="renderlist">
-                        <div>{e.name}</div>{" "}
+                      <div className="renderlist" onClick={() => handleSelectWorkSpace(e)}>
+                        <div>{e?.name}</div>{" "}
                         <div>
-                          <Icon icon={e.icon} />
+                          {
+                            activeWorkSpace?.name === e?.name && <Icon icon='ic:outline-check' />
+                          }
+
                         </div>
                       </div>
                     );

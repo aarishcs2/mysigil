@@ -12,8 +12,8 @@
   gap: 5px;
 }
 .circle {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 15px;
   border: 2px solid #444;
   display: flex;
@@ -31,7 +31,7 @@
 .EditTemplateHeading {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 .leftIcon {
   display: flex;
