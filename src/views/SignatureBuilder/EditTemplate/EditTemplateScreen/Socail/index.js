@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./index.css";
 import { Icon } from "@iconify/react";
 
@@ -26,6 +26,18 @@ function Social() {
       icon: "/images/tWITTERuPDATRE iCON.png",
     },
   ];
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef();
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    console.log(selectedFile);
+  };
+
+  const handleDivClick = () => {
+    fileInputRef.current.click();
+  };
   return (
     <div className="d-flex">
       <div className="Gallery">
@@ -83,7 +95,13 @@ function Social() {
             );
           })}
         </div>
-        <div className="image">
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
+        <div onClick={handleDivClick} className="image">
           <div className="">
             <div className="button">
               <div className="circleAddGallery">

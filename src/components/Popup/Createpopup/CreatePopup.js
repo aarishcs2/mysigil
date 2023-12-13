@@ -1,8 +1,13 @@
 import React from "react";
+import BeatLoader from "react-spinners/BeatLoader";
 import "./CreatePopup.css";
-import { Icon } from "@iconify/react";
 
-function CreateSignaturePopup(props) {
+function CreatePopup(props) {
+  const override = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+  };
   return (
     <>
       <div className="popupbackground">
@@ -18,13 +23,28 @@ function CreateSignaturePopup(props) {
                 className="input"
                 type="text"
                 placeholder={props.popusinputplaceholdername}
+                onChange={(event) => props?.onChange(event)}
               />
             </div>
             <div className="buttonbox">
-              <button onClick={props.onClick} className="buttonCancel">
-                Cancel
+              <button disabled={props?.loading} onClick={props.onClose} className="buttonCancel">
+                {props?.loading ? <BeatLoader
+                  color={"#fff"}
+                  loading={props?.loading}
+                  cssOverride={override}
+                  size={16}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                /> : "Cancel"}
               </button>
-              <button className="buttonCreate">Create</button>
+              <button disabled={props?.loading} className="buttonCreate" onClick={props?.onSubmit}>     {props?.loading ? <BeatLoader
+                color={"#fff"}
+                loading={props?.loading}
+                cssOverride={override}
+                size={16}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              /> : "Create"}</button>
             </div>
           </div>
         </div>
@@ -33,4 +53,4 @@ function CreateSignaturePopup(props) {
   );
 }
 
-export default CreateSignaturePopup;
+export default CreatePopup;

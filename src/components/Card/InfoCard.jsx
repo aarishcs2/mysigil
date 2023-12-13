@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Divider, Tooltip } from "antd";
 import { Icon } from "@iconify/react";
-const InfoCard = () => {
+const InfoCard = (props) => {
   return (
     <div className="info-card p-2 px-3">
       <div className="d-flex justify-content-between ">
         <div>
           {" "}
-          <p className="heading">SCARFT</p> <p className="country">INDIA</p>
-          <p className="time-zone">(GMT+5:30)</p>
+          <p className="heading">{props?.name}</p>{" "}
+          <p className="time-zone">({props?.timezone})</p>
         </div>
         <div>
           <div className="d-flex border-bottom">
@@ -46,7 +46,7 @@ const InfoCard = () => {
       <div className="d-flex justify-content-between ">
         <div>
           <p className="heading">Coworkers</p>
-          <p className="time-zone">875</p>
+          <p className="time-zone">{props?.users}</p>
         </div>
         <div className="mt-3 w-50">
           <Avatar.Group>
@@ -79,6 +79,6 @@ const InfoCard = () => {
       </div>
     </div>
   );
-}
+};
 
-export default InfoCard
+export default InfoCard;

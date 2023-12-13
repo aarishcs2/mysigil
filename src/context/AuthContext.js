@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupType, setPopupType] = useState("register");
   const [token, setToken] = useState(false);
+  const [activeWorkSpace, setActiveWorkSpace] = useState({})
 
   const values = {
     setShowPopup,
@@ -15,6 +16,8 @@ export const AuthProvider = ({ children }) => {
     setPopupType,
     token,
     setToken,
+    activeWorkSpace,
+    setActiveWorkSpace
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

@@ -7,6 +7,8 @@ import Detail from "./EditTemplateScreen/Detail";
 import Image from "./EditTemplateScreen/Image/Index";
 import Social from "./EditTemplateScreen/Socail";
 import Marketing from "./EditTemplateScreen/Marketing";
+import Design from "./EditTemplateScreen/Design";
+import { LeftCircleOutlined } from "@ant-design/icons";
 
 export default function EditTemplate() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -50,6 +52,7 @@ export default function EditTemplate() {
       listName: "Design",
       listIcon: "/images/designicon.png",
       selectedIcon: "/images/designselectedIcon.png",
+      path: "/signaturebuilder/Edit-template/Design",
     },
   ];
   const navigate = useNavigate("");
@@ -58,8 +61,8 @@ export default function EditTemplate() {
       <div className="signatureTemplate">
         <div className="EditTemplateheader">
           <div className="EditTemplateHeading">
-            <div className="circle">
-              <Icon icon="fa6-solid:less-than" />
+            <div onClick={() => [navigate("/dashboard/signaturebuilder")]}>
+              <LeftCircleOutlined style={{ fontSize: "24px" }} />
             </div>
             <div className="EditTemplatecontent">Edit Template</div>
           </div>
@@ -116,6 +119,7 @@ export default function EditTemplate() {
               <Route path="Image" element={<Image />} />
               <Route path="Social" element={<Social />} />
               <Route path="Marketing" element={<Marketing />} />
+              <Route path="Design" element={<Design />} />
             </Routes>
           </div>
         </div>

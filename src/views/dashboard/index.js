@@ -9,10 +9,12 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Bar } from "react-chartjs-2";
 import "react-rangeslider/lib/index.css";
 import Image from "../../assets/Images/com.png";
+import { AuthContext } from "../../context/AuthContext";
+import { fetchDepartments } from "../../api";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,6 +27,17 @@ ChartJS.register(
 export default function Dashboard() {
   const labels = ["2019.01", "2019.02", "2019.03", "2019.04", "2019.05"];
   const [sliderValue, setSliderValue] = useState(labels.length);
+  const { activeWorkSpace } = useContext(AuthContext);
+  const [departments, setDepartments] = useState([]);
+  const fetchDepartment = async () => {
+    if (activeWorkSpace?.id) {
+      const response = await fetchDepartments(activeWorkSpace?.id);
+      setDepartments(response?.data)
+    }
+  }
+  useEffect(() => {
+    fetchDepartment()
+  }, [activeWorkSpace])
   const options = {
     responsive: true,
     onClick: (e, elements) => {
@@ -65,7 +78,7 @@ export default function Dashboard() {
           Today{" "}
           <Checkbox
             className="ms-4"
-            // onChange={onChange}
+          // onChange={onChange}
           />
         </>
       ),
@@ -116,6 +129,8 @@ export default function Dashboard() {
       key: "11",
     },
   ];
+
+  console.log(departments?.length)
   return (
     <>
       <div className="d-flex justify-content-between w-100 mb-3">
@@ -207,17 +222,17 @@ export default function Dashboard() {
         <div className="col-md-6 mt-1">
           <div className="dashboard-card-down p-3">
             <h6 className="dashboard-card-down-h6 mb-0">Department</h6>
-            <p className="dashboard-card-down-para">
+            <p className="dashboard-card-down-para pb-5">
               Manage Co-Workers Easily for each Department
             </p>
-            <div className="d-flex justify-content-between mt-5">
+            <div class="d-flex justify-content-between pt-4 mt-3">
               <div>
                 <h6 className=" mb-0">Total Departments</h6>
                 <p
                   className="mb-0"
                   style={{ color: "#7E7E7E", fontSize: "18px" }}
                 >
-                  36
+                  {departments?.length}
                 </p>
               </div>
               <div>

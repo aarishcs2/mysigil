@@ -61,7 +61,7 @@ function Coworkers() {
       key: "1",
       label: (
         <>
-          <Link to="edit-profile"> Edit And Preview</Link>
+          <Link to="edit/:123"> Edit And Preview</Link>
           <div className="plus-btn mt-3 ">+</div>
         </>
       ),
@@ -88,14 +88,16 @@ function Coworkers() {
         <p className="para">26 Co workers have installed their signatures. </p>
         <div className=" d-flex w-80 mt-5">
           <input type="search" placeholder="Search" className="input-search" />
-          <button
-            type="button"
-            aria-haspopup="true"
-            aria-expanded="false"
-            className="btn-primary ms-3 "
-          >
-            Show Pending
-          </button>
+          <Link to="add">
+            <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              className="btn-primary ms-3 "
+            >
+              Add Co Worker
+            </button>
+          </Link>
         </div>
         <div className="shadow-box mt-5 p-3">
           <table className="status-table ">

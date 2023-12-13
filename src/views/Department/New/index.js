@@ -1,15 +1,16 @@
 import { Icon } from "@iconify/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Image from "../../../assets/Images/default.jpeg";
 import { Checkbox } from "antd/lib";
 import Signature from "../../../components/Card/Signature";
-import { Coutries, TimeZone } from "../../../api";
+import { Coutries, TimeZone, createDepartment } from "../../../api";
 // import moment from "moment-timezone";
 import axios from "axios";
+import { AuthContext } from "../../../context/AuthContext";
 export default function New() {
-  const [open, setOpen] = useState(false);
+  const { activeWorkSpace } = useContext(AuthContext)
   const [step, setStep] = useState(1);
-  const [inputValue, setInputValue] = useState("");
+  const [departmentName, setDepartmentName] = useState("");
   const [nameError, setNameError] = useState("");
   const [countries, setCountries] = useState([]);
   const [countriesValue, setCountriesValue] = useState("");
@@ -93,8 +94,8 @@ export default function New() {
     const countrydata = await Coutries();
     setCountries(countrydata.data);
   };
-  const handleNext = () => {
-    if (inputValue.length < 3 || inputValue.length > 25) {
+  const handleNext = async () => {
+    if (departmentName.length < 3 || departmentName.length > 25) {
       setNameError(
         "Name should be a minimum of 3 letters and a maximum of 25 characters."
       );
@@ -109,15 +110,19 @@ export default function New() {
       setTimeZoneError("");
       setCountryError("");
       setNameError("");
-      if (step === 2) {
-        if (selectedItems.length > 0) {
-          setStep(step + 1);
-          setEmailCoValidation("");
+      const response = await createDepartment({ name: departmentName, country: countriesValue, timezone: timezoneVal, workspaceId: activeWorkSpace?.id })
+      console.log("response ==>", response)
+      if (response) {
+        if (step === 2) {
+          if (selectedItems.length > 0) {
+            setStep(step + 1);
+            setEmailCoValidation("");
+          } else {
+            setEmailCoValidation("Minimum one co worker select");
+          }
         } else {
-          setEmailCoValidation("Minimum one co worker select");
+          setStep(step + 1);
         }
-      } else {
-        setStep(step + 1);
       }
     }
   };
@@ -240,7 +245,7 @@ export default function New() {
                     <input
                       type="text"
                       // style={{ width:"150%"}}
-                      onChange={(e) => setInputValue(e.target.value)}
+                      onChange={(e) => setDepartmentName(e.target.value)}
                       className="form-control mb-3"
                       id="Unite Name"
                       placeholder="Must be between 3 letter and 25 characters max."
@@ -337,68 +342,68 @@ export default function New() {
                     </div>
                     {filterData.length > 0
                       ? filterData.map((item, i) => {
-                          return (
-                            <div className="d-flex px-3 py-2 mt-2 ">
-                              <Checkbox
-                                id={item.id}
-                                // checked={selectedItems.some(
-                                //   (selectedItem) => selectedItem.id === item.id
-                                // )}
-                                // onChange={() =>
-                                //   handleCheckboxChange(
-                                //     item.id,
-                                //     item.name,
-                                //     item.Email,
-                                //     item.Image
-                                //   )
-                                // }
-                                checked={selectedItems.some(
-                                  (selectedItem) => selectedItem.id === item.id
-                                )}
-                                onChange={() =>
-                                  handleCheckboxChange(
-                                    item.id,
-                                    item.name,
-                                    item.Email,
-                                    item.Image
-                                  )
-                                }
-                                className="me-2"
-                              />
-                              <img src={item.Image} alt="" className="user" />
-                              <div className="ms-2">
-                                <p className="mt-1 name">{item.name}</p>
-                                <span className="e-mail">{item.Email}</span>
-                              </div>
+                        return (
+                          <div className="d-flex px-3 py-2 mt-2 ">
+                            <Checkbox
+                              id={item.id}
+                              // checked={selectedItems.some(
+                              //   (selectedItem) => selectedItem.id === item.id
+                              // )}
+                              // onChange={() =>
+                              //   handleCheckboxChange(
+                              //     item.id,
+                              //     item.name,
+                              //     item.Email,
+                              //     item.Image
+                              //   )
+                              // }
+                              checked={selectedItems.some(
+                                (selectedItem) => selectedItem.id === item.id
+                              )}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  item.id,
+                                  item.name,
+                                  item.Email,
+                                  item.Image
+                                )
+                              }
+                              className="me-2"
+                            />
+                            <img src={item.Image} alt="" className="user" />
+                            <div className="ms-2">
+                              <p className="mt-1 name">{item.name}</p>
+                              <span className="e-mail">{item.Email}</span>
                             </div>
-                          );
-                        })
+                          </div>
+                        );
+                      })
                       : data.map((item, i) => {
-                          return (
-                            <div className="d-flex px-3 py-2 mt-2 ">
-                              <Checkbox
-                                id={item.id}
-                                checked={selectedItems.some(
-                                  (selectedItem) => selectedItem.id === item.id
-                                )}
-                                onChange={() =>
-                                  handleCheckboxChange(
-                                    item.id,
-                                    item.name,
-                                    item.Email,
-                                    item.Image
-                                  )
-                                }
-                                className="me-2"
-                              />
-                              <img src={item.Image} alt="" className="user" />
-                              <div className="ms-2">
-                                <p className="mt-1 name">{item.name}</p>
-                                <span className="e-mail">{item.Email}</span>
-                              </div>
+                        return (
+                          <div className="d-flex px-3 py-2 mt-2 ">
+                            <Checkbox
+                              id={item.id}
+                              checked={selectedItems.some(
+                                (selectedItem) => selectedItem.id === item.id
+                              )}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  item.id,
+                                  item.name,
+                                  item.Email,
+                                  item.Image
+                                )
+                              }
+                              className="me-2"
+                            />
+                            <img src={item.Image} alt="" className="user" />
+                            <div className="ms-2">
+                              <p className="mt-1 name">{item.name}</p>
+                              <span className="e-mail">{item.Email}</span>
                             </div>
-                          );
-                        })}
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
                 <div className="col-6">
