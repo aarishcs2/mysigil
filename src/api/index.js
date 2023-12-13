@@ -1,9 +1,14 @@
 import axios from "axios";
 
 const instance = axios.create({
+<<<<<<< HEAD
   // baseURL: "https://mysigilbackend.onrender.com",
 <<<<<<< HEAD
   baseURL: "http://localhost:5000",
+=======
+  baseURL: "https://mysigilbackend.onrender.com",
+  // baseURL: "http://localhost:5000",
+>>>>>>> refs/remotes/origin/development
   headers: { "X-Custom-Header": "foobar" , jwt: localStorage.getItem("access_token")},
 =======
   baseURL: "https://api.mysigil.io",
