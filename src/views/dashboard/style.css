@@ -2,3 +2,7 @@
     box-shadow: "2px 2px 2px 10px white";
     border-radius: "1rem"
 }
+
+.chart-con {
+    height: 450px;
+}

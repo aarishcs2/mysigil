@@ -133,7 +133,7 @@ const Sidebar = ({ children }) => {
                 >
                   <div className="buttontextCreate">Create New</div>
                   <div className="buttonicon">
-                    <img src="/images/Vector.png" />
+                    <img src="/images/PlusIcon.png" />
                   </div>
                 </div>
               </div>
@@ -141,7 +141,7 @@ const Sidebar = ({ children }) => {
           </div>
 
           <Menu
-            className="mt-4"
+            className="mt-4 menuebar"
             theme="light"
             mode="inline"
             //   defaultSelectedKeys={["1"]}

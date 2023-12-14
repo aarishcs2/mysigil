@@ -57,7 +57,7 @@
   flex-wrap: wrap;
 }
 .CreateSignature {
-  width: 379px;
+  width: 330px;
   height: 228px;
   flex-shrink: 0;
   border-radius: 5px;
@@ -93,4 +93,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 599px) {
+  .SignatureBuilder__Main {
+    padding: 3px 5px 5px 5px !important;
+  }
+
+  .Signature__Card_Main {
+    margin: 10px 5px 0px 0px !important;
+    padding: 5px 2px 5px 2px !important;
+    width: 370px !important;
+
+    /* padding: 2px !important; */
+    display: flex;
+    justify-content: center;
+  }
+
+  .CreateSignature {
+    margin-right: 0px !important;
+    width: 360px;
+  }
+
+  .ssignature__Template {
+    margin-right: 0px !important;
+    width: 200px !important;
+  }
 }
