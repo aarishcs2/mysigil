@@ -15,7 +15,7 @@
    */
 }
 .popupMainBox {
-  width: 589px;
+  width: 589px !important;
   height: 303px;
   padding: 5px;
   flex-shrink: 0;
@@ -107,4 +107,15 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+}
+@media only screen and (max-width: 599px) {
+  .popupMainBox {
+    /* background-color: #065ad8; */
+    width: 389px !important;
+    padding: 2px !important;
+    height: 268px;
+  }
+  .popupContent {
+    padding: 10px 5px 5px 5px;
+  }
 }

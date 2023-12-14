@@ -25,7 +25,7 @@
   color: #969695;
 }
 .signatureTemplateHeading {
-  width: 379px;
+  width: 330px !important;
   height: 47px;
   flex-shrink: 0;
   border-radius: 0px 0px 5px 5px;
@@ -38,10 +38,10 @@
 .ssignature__Template {
   padding-bottom: 2px;
   background: #f6f6f6;
-  width: 379px !important;
+  width: 330px !important;
   border-radius: 5px;
   border-radius: 5px;
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 10px 0px r455pxba(0, 0, 0, 0.1);
   margin-right: 24px;
   margin-bottom: 24px;
 }
@@ -54,4 +54,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+@media only screen and (max-width: 599px) {
+  .ssignature__Template {
+    width: 360px !important;
+  }
+
+  .signatureTemplateHeading {
+    width: 360px !important;
+  }
 }

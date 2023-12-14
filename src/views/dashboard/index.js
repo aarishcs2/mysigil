@@ -1,4 +1,3 @@
-import { DownOutlined } from "@ant-design/icons";
 import { Avatar, Checkbox, Dropdown, Space } from "antd";
 import {
   BarElement,
@@ -9,12 +8,16 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import React, { useState, useEffect, useContext } from "react";
+import { DownOutlined } from "@ant-design/icons";
+import React, { useState, useRef , useEffect, useContext } from "react";
 import { Bar } from "react-chartjs-2";
 import "react-rangeslider/lib/index.css";
 import Image from "../../assets/Images/com.png";
-import { AuthContext } from "../../context/AuthContext";
+import CanvasJSReact from '@canvasjs/react-charts';
+import Graph from "../../components/Graph";
+import './style.css';
 import { fetchDepartments } from "../../api";
+import { AuthContext } from "../../context/AuthContext";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,6 +26,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function Dashboard() {
   const labels = ["2019.01", "2019.02", "2019.03", "2019.04", "2019.05"];
@@ -71,6 +75,39 @@ export default function Dashboard() {
       },
     ],
   };
+  const dps = [{ x: 1, y: 10 }, { x: 2, y: 13 }, { x: 3, y: 18 }, { x: 4, y: 20 }, { x: 5, y: 17 }, { x: 6, y: 10 }, { x: 7, y: 13 }, { x: 8, y: 18 }, { x: 9, y: 20 }, { x: 10, y: 17 }];
+  let xVal = dps.length + 1;
+  let yVal = 15;
+  const updateInterval = 1000;
+  const chartRef = useRef();
+
+  // useEffect(() => {
+  //   const updateChart = () => {
+  //     yVal = yVal + Math.round(5 + Math.random() * (-5 - 5));
+  //     dps.push({ x: xVal, y: yVal });
+  //     xVal++;
+  //     if (dps.length > 10) {
+  //       dps.shift();
+  //     }
+  //     chartRef.current.render();
+  //   };
+
+  //   const intervalId = setInterval(updateChart, updateInterval);
+
+  //   return () => clearInterval(intervalId);
+  // }, []); // Empty dependency array to run the effect only once on mount
+
+  const optionsdata = {
+    title: {
+      text: "Dynamic Line Chart",
+    },
+    data: [{
+      type: "line",
+      dataPoints: dps,
+    }],
+  };
+
+
   const items = [
     {
       label: (
@@ -129,8 +166,6 @@ export default function Dashboard() {
       key: "11",
     },
   ];
-
-  console.log(departments?.length)
   return (
     <>
       <div className="d-flex justify-content-between w-100 mb-3">
@@ -151,8 +186,8 @@ export default function Dashboard() {
           <div className="gray-btn py-2 px-3 ">Today</div>
         </div>
       </div>
-      <div className="chart-con p-3">
-        <Bar options={options} data={data} />
+      <div className="chart-con p-3 mb-3">
+        <Graph />
       </div>
 
       <div className="row mt-3">
@@ -222,10 +257,10 @@ export default function Dashboard() {
         <div className="col-md-6 mt-1">
           <div className="dashboard-card-down p-3">
             <h6 className="dashboard-card-down-h6 mb-0">Department</h6>
-            <p className="dashboard-card-down-para pb-5">
+            <p className="dashboard-card-down-para">
               Manage Co-Workers Easily for each Department
             </p>
-            <div class="d-flex justify-content-between pt-4 mt-3">
+            <div className="d-flex justify-content-between mt-5">
               <div>
                 <h6 className=" mb-0">Total Departments</h6>
                 <p
