@@ -3,10 +3,13 @@ import React, { useState, useEffect, useContext } from "react";
 import Image from "../../../assets/Images/default.jpeg";
 import { Checkbox } from "antd/lib";
 import Signature from "../../../components/Card/Signature";
-import { Coutries, TimeZone, createDepartment } from "../../../api";
+import { Coutries, TimeZone, createDepartment, fetchCoWorkers } from "../../../api";
 // import moment from "moment-timezone";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 export default function New() {
   const { activeWorkSpace } = useContext(AuthContext)
   const [step, setStep] = useState(1);
@@ -19,53 +22,8 @@ export default function New() {
   const [filterData, setFilterData] = useState([]);
   const [timeZoneError, setTimeZoneError] = useState("");
   const [timezoneVal, setTimezoneVal] = useState("");
-
-  const listdata = [
-    {
-      name: "Mohtashimkhatri",
-      Email: "mohtashimkhatri@gmail.com",
-      Image:
-        "https://tse3.mm.bing.net/th?id=OIP.3BztjbXkPT-g9mgcn3NgSgHaLG&pid=Api&P=0&h=220",
-      id: 1,
-    },
-    {
-      name: "MugheesKhatri",
-      Email: "MugheesKhatri@gmail.com",
-      Image:
-        "https://tse3.mm.bing.net/th?id=OIP.3BztjbXkPT-g9mgcn3NgSgHaLG&pid=Api&P=0&h=220",
-      id: 2,
-    },
-    {
-      name: "Ubaid",
-      Email: "Ubaid@gmail.com",
-      Image:
-        "https://tse3.mm.bing.net/th?id=OIP.3BztjbXkPT-g9mgcn3NgSgHaLG&pid=Api&P=0&h=220",
-      id: 3,
-    },
-    {
-      name: "Shahbaz",
-      Email: "Shahbaz@gmail.com",
-      Image:
-        "https://tse3.mm.bing.net/th?id=OIP.3BztjbXkPT-g9mgcn3NgSgHaLG&pid=Api&P=0&h=220",
-      id: 4,
-    },
-    {
-      name: "abc",
-      Email: "abc@gmail.com",
-      Image:
-        "https://tse3.mm.bing.net/th?id=OIP.3BztjbXkPT-g9mgcn3NgSgHaLG&pid=Api&P=0&h=220",
-      id: 5,
-    },
-    {
-      name: "xyz",
-      Email: "xyz@gmail.com",
-      Image:
-        "https://tse3.mm.bing.net/th?id=OIP.3BztjbXkPT-g9mgcn3NgSgHaLG&pid=Api&P=0&h=220",
-      id: 6,
-    },
-  ];
-  // const timezonesForCountry = getTimezonesForCountry(country);
-  const [data, setData] = useState(listdata);
+  const navigate = useNavigate()
+  const [data, setData] = useState([]);
   const [timzone, setTimezone] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [emailCoValidation, setEmailCoValidation] = useState("");
@@ -110,20 +68,17 @@ export default function New() {
       setTimeZoneError("");
       setCountryError("");
       setNameError("");
-      const response = await createDepartment({ name: departmentName, country: countriesValue, timezone: timezoneVal, workspaceId: activeWorkSpace?.id })
-      console.log("response ==>", response)
-      if (response) {
-        if (step === 2) {
-          if (selectedItems.length > 0) {
-            setStep(step + 1);
-            setEmailCoValidation("");
-          } else {
-            setEmailCoValidation("Minimum one co worker select");
-          }
-        } else {
+      if (step === 2) {
+        if (selectedItems.length > 0) {
           setStep(step + 1);
+          setEmailCoValidation("");
+        } else {
+          setEmailCoValidation("Minimum one co worker select");
         }
+      } else {
+        setStep(step + 1);
       }
+
     }
   };
   const handlePrevious = () => {
@@ -138,6 +93,32 @@ export default function New() {
     setSelectedItems((prevData) => [...prevData, ...data]);
     setData([]);
   };
+
+  const fetchCoWorker = async () => {
+    const response = await fetchCoWorkers(activeWorkSpace?.id);
+    const coWorkers = response?.data?.map(item => {
+      return {
+        id: item._id,
+        name: `${item?.firstname} ${item?.lastname}`,
+        Email: item.email,
+        Image: item.image ?? Image
+      }
+    })
+    setData(coWorkers)
+  }
+
+  useEffect(() => {
+    fetchCoWorker()
+  }, [activeWorkSpace]);
+
+
+  const handleSubmit = async () => {
+    const response = await createDepartment({ name: departmentName, country: countriesValue, timezone: timezoneVal, workspaceId: activeWorkSpace?.id, users: selectedItems?.map(item => item.id) })
+    if (response) {
+      toast.success(response.data.message)
+      navigate('/dashboard/department')
+    }
+  }
 
   return (
     <div>
@@ -502,7 +483,7 @@ export default function New() {
                         aria-haspopup="true"
                         aria-expanded="false"
                         className=" btn-primary h-40 "
-                        onClick={handleNext}
+                        onClick={handleSubmit}
                       >
                         <strong>Deploy</strong>
                       </button>
