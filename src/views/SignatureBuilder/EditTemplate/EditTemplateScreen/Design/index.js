@@ -1,7 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 
 function Design() {
+  const [selectedColor, setSelectedColor] = useState("#000");
+
+  const handleColorChange = (event) => {
+    const newColor = event.target.value;
+    setSelectedColor(newColor);
+  };
+  const [FeildColor, setFeildColor] = useState("#000");
+
+  const handleFeildColorChange = (event) => {
+    const newColor = event.target.value;
+    setFeildColor(newColor);
+    console.log(setFeildColor, "her");
+  };
+
+  const [selectedOptions, setSelectedOptions] = useState({
+    bold: false,
+    italic: false,
+    underline: false,
+    SquareShape: false,
+    SquareRounded: false,
+    cicleShape: false,
+    SquareShape1: false,
+    SquareRounded1: false,
+    cicleShape1: false,
+  });
+
+  const toggleOption = (option) => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      [option]: !prevOptions[option],
+    }));
+  };
+  const [selectedShape, setSelectedShape] = useState(null);
+  const handleShapeClick = (shape) => {
+    setSelectedShape(shape);
+  };
+  const [selectedImageShape, setSelectedImageShape] = useState(null);
+  const handleImageShapeClick = (shape) => {
+    setSelectedImageShape(shape);
+  };
+  const [selectedIcon, setSelectedIcon] = useState(null);
+  const handleIconClick = (shape) => {
+    setSelectedIcon(shape);
+  };
   return (
     <div className="d-flex">
       <div className="Gallery">
@@ -30,8 +74,25 @@ function Design() {
           <div className="fontbox">
             <div className="Font">Template color</div>
             <div className="ColorPikerBOx">
-              <div className="colorbox"></div>
-              <input className="colorPickerInput" placeholder="#EDEDED" />
+              <label
+                className="colorbox"
+                htmlFor="Color"
+                style={{ backgroundColor: selectedColor }}
+              ></label>
+              <input
+                className="colorPickerInput"
+                id="Color"
+                placeholder="#EDEDED"
+                type="color"
+                value={selectedColor}
+                onChange={handleColorChange}
+                hidden
+              />
+              <input
+                className="colorPickerInput"
+                id="Color"
+                placeholder={selectedColor}
+              />
             </div>
           </div>
           <div className="fontbox">
@@ -65,9 +126,33 @@ function Design() {
             <div className="Font">Title</div>
             <div className="BoldItalicSection">
               <div className="gape">
-                <div className="WieghtBox">B</div>
+                {/* <div className="WieghtBox">B</div>
                 <div className="WieghtBox">/</div>
-                <div className="WieghtBox">U</div>
+                <div className="WieghtBox">U</div> */}
+                <div
+                  className={`WieghtBox ${
+                    selectedOptions.bold ? "WieghtBoxSelected" : ""
+                  }`}
+                  onClick={() => toggleOption("bold")}
+                >
+                  B
+                </div>
+                <div
+                  className={`WieghtBox ${
+                    selectedOptions.italic ? "WieghtBoxSelected" : ""
+                  }`}
+                  onClick={() => toggleOption("italic")}
+                >
+                  /
+                </div>
+                <div
+                  className={`WieghtBox ${
+                    selectedOptions.underline ? "WieghtBoxSelected" : ""
+                  }`}
+                  onClick={() => toggleOption("underline")}
+                >
+                  U
+                </div>
               </div>
               <div className="DefaultStyle">Aa</div>
             </div>
@@ -75,8 +160,25 @@ function Design() {
           <div className="fontbox">
             <div className="Font">Details</div>
             <div className="ColorPikerBOx">
-              <div className="colorbox"></div>
-              <input className="colorPickerInput" placeholder="#EDEDED" />
+              <label
+                className="colorbox"
+                htmlFor="FeildColor"
+                style={{ backgroundColor: FeildColor }}
+              ></label>
+              <input
+                className="colorPickerInput"
+                id="FeildColor"
+                placeholder="#EDEDED"
+                type="color"
+                value={FeildColor}
+                onChange={handleFeildColorChange}
+                hidden
+              />
+              <input
+                className="colorPickerInput"
+                id="Color"
+                placeholder={FeildColor}
+              />
             </div>
           </div>
         </div>
@@ -86,9 +188,30 @@ function Design() {
             <div className="Font">Shape</div>
             <div className="ShapeMainBox">
               <div className="ShapeBox">
-                <div className="SquareShape"></div>
-                <div className="SquareRounded"></div>
-                <div className="cicleShape"></div>
+                <div
+                  className={`SquareShape ${
+                    selectedImageShape === "SquareShape1"
+                      ? "WieghtBoxSelected"
+                      : ""
+                  }`}
+                  onClick={() => handleImageShapeClick("SquareShape1")}
+                ></div>
+                <div
+                  className={`SquareRounded ${
+                    selectedImageShape === "SquareRounded1"
+                      ? "WieghtBoxSelected"
+                      : ""
+                  }`}
+                  onClick={() => handleImageShapeClick("SquareRounded1")}
+                ></div>
+                <div
+                  className={`cicleShape ${
+                    selectedImageShape === "cicleShape1"
+                      ? "WieghtBoxSelected"
+                      : ""
+                  }`}
+                  onClick={() => handleImageShapeClick("cicleShape1")}
+                ></div>
               </div>
             </div>
           </div>
@@ -111,9 +234,30 @@ function Design() {
             <div className="Font">Fill</div>
             <div className="ShapeMainBox">
               <div className="ShapeBox">
-                <div className="SquareShapefacebok">f</div>
-                <div className="SquareRoundedfacebok">f</div>
-                <div className="FaceBolICon">f</div>
+                <div
+                  className={`SquareShapefacebok ${
+                    selectedIcon === "SquareShapefacebok" ? "IconSelect" : ""
+                  }`}
+                  onClick={() => handleIconClick("SquareShapefacebok")}
+                >
+                  f
+                </div>
+                <div
+                  className={`SquareRoundedfacebok ${
+                    selectedIcon === "SquareRoundedfacebok" ? "IconSelect" : ""
+                  }`}
+                  onClick={() => handleIconClick("SquareRoundedfacebok")}
+                >
+                  f
+                </div>
+                <div
+                  className={`FaceBolICon ${
+                    selectedIcon === "FaceBolICon" ? "IconSelect" : ""
+                  }`}
+                  onClick={() => handleIconClick("FaceBolICon")}
+                >
+                  f
+                </div>
               </div>
             </div>
           </div>
@@ -121,9 +265,26 @@ function Design() {
             <div className="Font">Shape</div>
             <div className="ShapeMainBox">
               <div className="ShapeBox">
-                <div className="SquareShape"></div>
-                <div className="SquareRounded"></div>
-                <div className="cicleShape"></div>
+                <div
+                  className={`SquareShape ${
+                    selectedShape === "SquareShape1" ? "WieghtBoxSelected" : ""
+                  }`}
+                  onClick={() => handleShapeClick("SquareShape1")}
+                ></div>
+                <div
+                  className={`SquareRounded ${
+                    selectedShape === "SquareRounded1"
+                      ? "WieghtBoxSelected"
+                      : ""
+                  }`}
+                  onClick={() => handleShapeClick("SquareRounded1")}
+                ></div>
+                <div
+                  className={`cicleShape ${
+                    selectedShape === "cicleShape1" ? "WieghtBoxSelected" : ""
+                  }`}
+                  onClick={() => handleShapeClick("cicleShape1")}
+                ></div>
               </div>
             </div>
           </div>
