@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./index.css";
 import { Icon } from "@iconify/react";
 
@@ -26,18 +26,39 @@ function Social() {
       icon: "/images/tWITTERuPDATRE iCON.png",
     },
   ];
-  const [selectedFile, setSelectedFile] = useState(null);
+ const [images, setImages] = useState([]);
   const fileInputRef = useRef();
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-    console.log(selectedFile);
-  };
+ const handleImageChange = (e) => {
+   const file = e.target.files[0];
+
+   if (file) {
+     const reader = new FileReader();
+
+     reader.onloadend = () => {
+       setImages([...images, reader.result]);
+     };
+
+     reader.readAsDataURL(file);
+   }
+ };
 
   const handleDivClick = () => {
     fileInputRef.current.click();
   };
+  const [isOpen, setIsOpen] = useState(true);
+  const [contentHeight, setContentHeight] = useState();
+   const contentRef = useRef(null);
+
+   const toggleCollapsible = () => {
+     setIsOpen(!isOpen);
+   };
+
+   useEffect(() => {
+     if (contentRef.current) {
+       setContentHeight(contentRef.current.clientHeight);
+     }
+   }, []);
   return (
     <div className="d-flex">
       <div className="Gallery">
@@ -82,11 +103,20 @@ function Social() {
             <input className="socialinput" placeholder="Skype Id" />
           </div>
         </div>
-        <div className="ViewlessButton">
-          <span>Show Less</span>
+        <div className="ViewlessButton" onClick={toggleCollapsible}>
+          <span>Show {isOpen ? "Less" : "More"} </span>
           <Icon icon="mdi:arrow-bottom-circle-outline" />
         </div>
-        <div className="showIconlist">
+        <div
+          className="showIconlist"
+          style={{
+            height: isOpen ? contentHeight : "0",
+            overflow: "hidden",
+            transition: "height 0.3s ease",
+            padding: isOpen ? "3% 0" : undefined,
+          }}
+          ref={contentRef}
+        >
           {SocialIconArr.map((e, i) => {
             return (
               <div key={i} className="icon">
@@ -94,12 +124,21 @@ function Social() {
               </div>
             );
           })}
+          {images.map((image, index) => (
+            <div key={index} className="icon">
+              <img
+                src={image}
+                alt={`Preview ${index + 1}`}
+                style={{ height: "46px", width: "46px", borderRadius: "46px" }}
+              />
+            </div>
+          ))}
         </div>
         <input
           type="file"
-          ref={fileInputRef}
           style={{ display: "none" }}
-          onChange={handleFileChange}
+          onChange={handleImageChange}
+          ref={fileInputRef}
         />
         <div onClick={handleDivClick} className="image">
           <div className="">

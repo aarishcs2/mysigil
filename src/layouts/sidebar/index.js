@@ -132,7 +132,7 @@ const Sidebar = ({ children }) => {
                   className="CreateButton"
                 >
                   <div className="buttontextCreate">Create New</div>
-                  <div className="buttonicon">
+                  <div className="buttonicon m-1">
                     <img src="/images/PlusIcon.png" />
                   </div>
                 </div>
