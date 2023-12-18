@@ -23,9 +23,10 @@ function CreatePopup(props) {
                 className="input"
                 type="text"
                 placeholder={props.popusinputplaceholdername}
-                onChange={(event) => props?.onChange(event)}
+                // onChange={(event) => props?.onChange(event)}
               />
             </div>
+            
             <div className="buttonbox">
               <button disabled={props?.loading} onClick={props.onClose} className="buttonCancel">
                 {props?.loading ? <BeatLoader
