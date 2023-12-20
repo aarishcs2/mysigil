@@ -103,7 +103,7 @@ function SignatureBuilder() {
           popupheading="Create New Template"
           popuspera="Choose your signature template name"
           popusinputplaceholdername="Signature Template name"
-          onClick={() => setPopupOpen(false)}
+          onClose={() => setPopupOpen(false)}
         />
       ) : null}
       <div className="SignatureBuilder__Main">
