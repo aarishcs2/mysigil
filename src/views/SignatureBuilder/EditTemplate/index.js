@@ -1,8 +1,6 @@
 // Templatedetail.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchTemplateDetails, fetchAllTemplates } from './edittemplateAPI';
-
 
 export default function Templatedetail() {
   const { id } = useParams();
@@ -19,7 +17,9 @@ export default function Templatedetail() {
     company: '',
     email: '',
     website: '',
-    phone: ''
+    phone: '',
+    mobile: '',
+    address: ''
     // Add more template information fields as needed
   });
 
@@ -34,7 +34,7 @@ export default function Templatedetail() {
     // Retrieve the element with class "name" and update its text content
     const nameElement = htmlDoc.querySelector('.name');
     if (nameElement) {
-      nameElement.textContent = `Name: ${newName}`;
+      nameElement.textContent = `${newName}`;
     }
 
     // Set modified content to display updated name
@@ -79,6 +79,31 @@ export default function Templatedetail() {
     }
   };
 
+  // handle image update 
+  const handleBannerupdate = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+  
+    reader.onloadend = () => {
+      setSelectedImage(reader.result);
+  
+      // Update the image in the template
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
+  
+      const userImageElement = htmlDoc.querySelector('.banner-image'); // Assuming the user image is inside a div with class 'user-image'
+      if (userImageElement) {
+        userImageElement.src = reader.result;
+      }
+  
+      setModifiedContent(htmlDoc.documentElement.outerHTML);
+    };
+  
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleFontChange = (e) => {
     setSelectedFont(e.target.value);
   
@@ -86,7 +111,7 @@ export default function Templatedetail() {
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
   
-    ['name', 'regards', 'email', 'website', 'phone', 'company'].forEach((className) => {
+    ['name', 'position', 'email', 'website', 'phone', 'company', 'mobile', 'address'].forEach((className) => {
       const elements = htmlDoc.querySelectorAll(`.${className}`);
       elements.forEach((element) => {
         if (className === 'website') {
@@ -136,7 +161,7 @@ export default function Templatedetail() {
     const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
 
     // Update color for specific classes or elements
-    ['name', 'regards', 'email', 'website', 'phone', 'company'].forEach((className) => {
+    ['name', 'position', 'email', 'address', 'website', 'phone', 'mobile', 'company'].forEach((className) => {
       const elements = htmlDoc.querySelectorAll(`.${className}`);
       elements.forEach((element) => {
         if (className === 'website') {
@@ -196,13 +221,13 @@ export default function Templatedetail() {
   };
 
   const sections = [
-    // side panel for tiles 
+    // side panel for templates
     { title: 'Templates', icon: 'fas fa-file-alt', content: (
       <div>
         <div className='row'>
           {allTemplates.map((template, index) => (
             <div key={index} className='col-md-6'>
-              <div className='card' style={{ }}> {/* Adjust the width as needed */}
+              <div className='' style={{}}> {/* Adjust the width as needed */}
                 <div>
                   <div
                     style={{ fontSize: '10px', lineHeight: '0px' }} // Adjust font size for smaller content
@@ -211,9 +236,8 @@ export default function Templatedetail() {
                   <style>
                     {`
                       .user-image img {
-                        width: 20%;
-                        height: 20$;
-                        margin-top: 10px; // Adjust margin as needed
+                        width: 2rem;
+                        height: 2rem;
                       }
                     `}
                   </style>
@@ -244,16 +268,16 @@ export default function Templatedetail() {
           </label>
 
           <input
-            placeholder='Username'
+            placeholder='Name'
             className='form-control mt-4'
             value={templateInfo.userName}
             onChange={handleNameChange}
           />
           <input
-            placeholder='Regards'
+            placeholder='Position'
             className='form-control mt-4'
-            value={templateInfo.regards}
-            onChange={(e) => updateField('regards', e.target.value)}
+            value={templateInfo.position}
+            onChange={(e) => updateField('position', e.target.value)}
           />
           <input
             placeholder='Company'
@@ -274,6 +298,18 @@ export default function Templatedetail() {
             onChange={(e) => updateField('phone', e.target.value)}
           />
           <input
+            placeholder="Mobile"
+            className='form-control mt-4'
+            value={templateInfo.mobile}
+            onChange={(e) => updateField('mobile', e.target.value)}
+          />
+          <input
+            placeholder="Address"
+            className='form-control mt-4'
+            value={templateInfo.address}
+            onChange={(e) => updateField('address', e.target.value)}
+          />
+          <input
             placeholder="Website"
             className='form-control mt-4'
             value={templateInfo.website}
@@ -288,12 +324,17 @@ export default function Templatedetail() {
       <section>
         <h5>Images</h5>
         <div className="py-4 px-3 bg-light" style={{border: "2px solid #065AD8", borderRadius: '0.5rem'}}>
-        <button
-          className='btn btn-sm btn-primary'
+
+        <label for="file-input" class="btn btn-sm btn-primary">
+          Upload Photo or Logo
+        </label>
+        <input
           id="file-input"
           type="file"
           accept="image/*"
-        >Upload Photo or Logo</button>
+          onChange={handleBannerupdate}
+          style={{display: "none"}}
+        />
         <p>Image should be atleast 100px to 100px</p>
       </div>
       </section>
@@ -533,7 +574,8 @@ export default function Templatedetail() {
       if (field === 'website') {
         fieldElement.innerHTML = `<a href="${newValue}">${newValue}</a>`;
       } else {
-        fieldElement.textContent = `${field.charAt(0).toUpperCase() + field.slice(1)}: ${newValue}`;
+        // fieldElement.textContent = `${field.charAt(0).toUpperCase() + field.slice(1)}: ${newValue}`;
+        fieldElement.textContent = `${newValue}`;
       }
     }
 

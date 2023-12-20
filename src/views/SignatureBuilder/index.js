@@ -88,35 +88,36 @@ function SignatureBuilder() {
               Assign teammates to departments Teammates will inherit the
               templates to their related department.
             </div>
-          </div>
+          </div>      
 
-            <div
-              onClick={() => {
-                setPopupOpen(true);
-              }}
-              className="CreateSignature mt-4"
-            >
-              <div className="circlegole">
-                <img src="/images/Vector.png" />
-              </div>
+          <div className="row px-3" style={{backgroundColor: "white", borderRadius: '0.3rem'}}>
+            {/* creatinf template  */}
+            <div className="col-md-4">
               <div
                 onClick={() => {
                   setPopupOpen(true);
                 }}
-                className="contentCreate"
+                className="CreateSignature mt-4"
               >
-                Create New
+                <div className="circlegole">
+                  <img src="/images/Vector.png" />
+                </div>
+                <div
+                  onClick={() => {
+                    setPopupOpen(true);
+                  }}
+                  className="contentCreate"
+                >
+                  Create New
+                </div>
               </div>
             </div>
-          
-
-          <div className="row p-4" style={{backgroundColor: "white", borderRadius: '1rem'}}>
               {/* displaying the templates  */}
               {templates.map((template, index) => (
                 <div className="col-md-4">
                     <Link to={`/dashboard/Edit-template/${template._id}`}>
-                      <div className="card w-100" key={index} style={{boxShadow: "1px 2px 4px rgba(0,0,0,0.3)", borderRadius: '1rem'}}>
-                        <div className="bg-light w-100" style={{boxShadow: "1px 2px 4px rgba(0,0,0,0.3)", borderRadius: '1rem'}} dangerouslySetInnerHTML={{ __html: template.html }}>
+                      <div className="card w-100" key={index} style={{boxShadow: "1px 1px 2px rgba(0,0,0,0.1)", borderRadius: '0.3rem'}}>
+                        <div className="bg-light w-100 px-1 py-4" style={{boxShadow: "1px 1px 2px rgba(0,0,0,0.1)", borderRadius: '0.3rem'}} dangerouslySetInnerHTML={{ __html: template.html }}>
                           {/* This will render the HTML content of each template */}
                         </div>
                       </div>
