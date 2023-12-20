@@ -1,0 +1,137 @@
+.popupbackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* transform: scale(0.8);
+     */
+}
+.popupMainBox2 {
+  width: 589px;
+  /* padding: 5px; */
+  border-radius: 9px;
+  padding: 7px;
+  background: #fff;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  padding-bottom: 10px;
+}
+.headerPopup {
+  height: 56px;
+  padding: 4px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom: 1px solid #bdbdbd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.AddContactInput {
+  width: 546px;
+  height: 51px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  border-radius: 7px;
+  border: 1px solid #7e7e7e !important;
+  /* box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2); */
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  border: none;
+  /* padding: 9px 0px 12px 15px; */
+  padding-left: 10px;
+  padding-top: 5px;
+  outline: none;
+}
+.ConatctAddInputDiv {
+  padding-left: 13px;
+  padding-top: 15px;
+}
+.HeaderTitle {
+  color: #444;
+  font-family: Poppins;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.SelectInterest {
+  width: 546px !important;
+  height: 51px !important;
+  border-radius: 7px;
+  border: 1px solid #7e7e7e !important;
+  /* padding: 9px 0px 15px 17px; */
+  color: #7e7e7e;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  outline: none;
+  padding-left: 10px;
+}
+
+.EndContent {
+  margin-top: 20px;
+  padding-left: 13px;
+  border-top: 1px solid #7e7e7e;
+}
+.endinput {
+  width: 264px;
+  height: 51px;
+  border-radius: 7px;
+  border: 1px solid #7e7e7e;
+  flex-shrink: 0;
+  padding: 9px 0px 12px 17px;
+  color: #7e7e7e;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  outline: none;
+}
+.titleEnd {
+  color: #444;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.SaveButton {
+  width: 166px;
+  height: 51px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: #065ad8;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 15px 70px 12px 55px;
+  border: none;
+  outline: none;
+}
+.Center {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
