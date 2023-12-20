@@ -67,3 +67,16 @@ export const fetchSingleCoWorker = (coworkerId) => {
 export const updateCoWorker = (id, payload) => {
   return instance.put(`/updatesingleCoworker/${id}`, payload);
 }
+
+export const createContact = (payload) => {
+  return instance.post("/createContact", payload);
+}
+
+
+export const fetchContacts = (workspaceId) => {
+  return instance.get(`/fetchallContacts/${workspaceId}`);
+}
+
+export const updateContact = (id, payload) => {
+  return instance.put(`/updatesingleContact/${id}`, payload);
+}
