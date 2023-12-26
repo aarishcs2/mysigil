@@ -52,7 +52,7 @@ export const privateRoutes = [
     element: <SignatureBuilder />,
   },
   {
-    path: "Edit-template",
+    path: "Edit-template/:id",
     element: <EditTemplate />,
   },
   {

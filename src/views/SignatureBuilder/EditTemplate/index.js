@@ -1,128 +1,367 @@
-import React, { useState } from "react";
-import "./index.css";
-import { Icon } from "@iconify/react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import Template from "./EditTemplateScreen/Template";
-import Detail from "./EditTemplateScreen/Detail";
-import Image from "./EditTemplateScreen/Image/Index";
-import Social from "./EditTemplateScreen/Socail";
-import Marketing from "./EditTemplateScreen/Marketing";
-import Design from "./EditTemplateScreen/Design";
-import { LeftCircleOutlined } from "@ant-design/icons";
+// Templatedetail.js
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import TemplatesSection from '../TemplatesSection';
+import DetailsSection from '../DetailsSection';
+import ImageSection from '../ImageSection';
+import MarketingSection from '../marketingSection';
+import SocialSection from '../SocialsSection';
+import DesignSection from '../DesignSection';
+import { fetchSingleTemplate, fetchAllTemplates } from '../api';
+import {handleFontChange, handleColorChange, handleNameChange, handleImageChange, handleBannerChange, handleLogoChange, handleBackgroundColorChange } from '../templateFunctions';
 
-export default function EditTemplate() {
-  const [selectedItem, setSelectedItem] = useState(null);
+export default function Templatedetail() {
+  const { id } = useParams();
+  const [selectedImage, setSelectedImage] = useState(null); // State for selected image
+  const [selectedFont, setSelectedFont] = useState('Arial'); // State for selected font
+  const [backgroundColor, setBackgroundColor] = useState('#ffffff'); // State for background color
+  const [templateDetails, setTemplateDetails] = useState(null);
+  const [modifiedContent, setModifiedContent] = useState(null);
+  const [allTemplates, setAllTemplates] = useState([]); // State to hold all templates
+  const [activeSection, setActiveSection] = useState('Templates');
+  const [templateInfo, setTemplateInfo] = useState({
+    company: '',
+    email: '',
+    website: '',
+    phone: '',
+    mobile: '',
+    address: ''
+    // Add more template information fields as needed
+  });
 
-  const changeColor = (index) => {
-    setSelectedItem(index);
-    console.log(index);
+  // for selcting active section on the side panel 
+  const handleSectionClick = (section) => {
+    setActiveSection(section === activeSection ? null : section);
   };
-  const sidebarArray = [
-    {
-      listName: "Template",
-      listIcon: "/images/templatelisticon.png",
-      selectedIcon: "/images/SelectedTemplateicon.png",
-      path: "/signaturebuilder/Edit-template/Template",
+
+  const contentRef = useRef(null);
+  const [fontStyle, setFontStyle] = useState({
+    fontWeight: 'normal',
+    fontSize: '16px',
+    color: '#000000'
+    // Add more style properties as needed
+  });
+
+  // const handleNameChangeWrapper = (e) => {
+  //   handleNameChange(e, templateInfo, modifiedContent, setTemplateInfo, setModifiedContent);
+  // };
+
+  const handleImageChangeWrapper = (e) => {
+    handleImageChange(e, modifiedContent, templateDetails, setSelectedImage, setModifiedContent);
+    // Any additional logic specific to this component after handleImageChange
+  };
+
+  const handleLogoChangeWrapper = (e) => {
+    handleLogoChange(e, modifiedContent, templateDetails, setSelectedImage, setModifiedContent);
+    // Any additional logic specific to this component after handleLogoChange
+  };
+
+  const handleBannerChangeWrapper = (e) => {
+    handleBannerChange(e, modifiedContent, templateDetails, setSelectedImage, setModifiedContent);
+    // Any additional logic specific to this component after handleLogoChange
+  };
+
+  const handleFontChangeWrapper = (e) => {
+    setSelectedFont(e.target.value);
+
+    const modifiedHTML = handleFontChange(modifiedContent, templateDetails, e.target.value);
+    setModifiedContent(modifiedHTML);
+  };
+
+  const handleColorChangeWrapper = (e) => {
+    const modifiedHTML = handleColorChange(e, modifiedContent, templateDetails);
+    setModifiedContent(modifiedHTML);
+  };
+
+  const handleBackgroundColorChangeWrapper = (e) => {
+    handleBackgroundColorChange(e, modifiedContent, templateDetails, setBackgroundColor, setModifiedContent);
+    // Any additional logic specific to this component after handleBackgroundColorChange
+  };
+
+  const fonts = [
+    'Arial',
+    'Verdana',
+    'Tahoma',
+    'Helvetica',
+    'Times New Roman',
+    'Georgia',
+    'Garamond',
+    'Courier New',
+    'Lucida Console',
+    'Impact'
+    // Add more fonts as needed
+  ];
+
+  const handleFontWeightChange = (e) => {
+    setFontStyle({
+      ...fontStyle,
+      fontWeight: e.target.value
+    });
+  };
+
+  const handleFontSizeChange = (e) => {
+    setFontStyle({
+      ...fontStyle,
+      fontSize: e.target.value
+    });
+  };
+
+  const uploadBtnStyle = {
+    display: 'inline-block',
+    position: 'relative',
+    width: '120px', // Adjust the width and height as needed
+    height: '120px',
+    borderRadius: '50%', // Creates a round shape
+    border: '2px dashed #aaa', // Example dashed border
+    textAlign: 'center',
+    cursor: 'pointer',
+  };
+
+  const uploadIconStyle = {
+    position: 'absolute',
+    top: '40%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    fontSize: '24px', // Example icon size
+    color: '#555', // Example icon color
+  };
+
+  const uploadIconStyle2 = {
+    position: 'absolute',
+    top: '58%',
+    left: '25%',
+    // transform: 'translate(-50%, -50%)',
+    fontSize: '10px', // Example icon size
+    color: '#555', // Example icon color
+  };
+
+  useEffect(() => {
+    const toggleSocialIcons = () => {
+      const facebookInput = document.getElementById('facebookInput');
+      const facebookIcon = document.querySelector('.facebook');
+  
+      if (facebookInput && facebookIcon) {
+        if (facebookInput.value.trim() !== '') {
+          facebookIcon.style.display = 'inline-block';
+        } else {
+          facebookIcon.style.display = 'none';
+        }
+      }
+  
+      // Repeat similar checks and logic for other social media platforms
+    };
+  
+    toggleSocialIcons();
+  
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      input.addEventListener('input', toggleSocialIcons);
+    });
+  
+    return () => {
+      inputs.forEach(input => {
+        input.removeEventListener('input', toggleSocialIcons);
+      });
+    };
+  }, []);
+  
+
+  // Function to update template content and state for specific fields
+  const updateField = (field, newValue) => {
+    setTemplateInfo({ ...templateInfo, [field]: newValue });
+  
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
+  
+    const fieldElement = htmlDoc.querySelector(`.${field}`);
+    if (fieldElement) {
+      fieldElement.textContent = `${newValue}`;
+
+      // if (field === 'website') {
+      //   fieldElement.innerHTML = `<a href="${newValue}"></a>`;
+      // } else {
+      //   fieldElement.textContent = `${newValue}`;
+      // }
+    }
+  
+    setModifiedContent(htmlDoc.documentElement.outerHTML);
+  
+    // Update the href attribute of social media icons based on their classes
+  const socialIcons = ['facebook', 'instagram', 'twitter', 'linkedin', 'skype'];
+  socialIcons.forEach((iconClass) => {
+    const iconElement = htmlDoc.querySelector(`.${iconClass}`);
+    if (iconElement) {
+      const anchorTag = iconElement.parentElement;
+      if (anchorTag) {
+        anchorTag.setAttribute('href', templateInfo[iconClass]);
+      }
+    }
+  });
+
+
+  };
+  
+
+  const sections = [
+    // side panel for templates
+    { 
+      title: 'Templates', 
+      icon: 'fas fa-file-alt', 
+      content: <TemplatesSection allTemplates={allTemplates} /> 
     },
-    {
-      listName: "Details",
-      listIcon: "/images/detailicon.png",
-      selectedIcon: "/images/detailselectedicon.png",
-      path: "/signaturebuilder/Edit-template/Detail",
+    // side panel for details 
+    { 
+      title: 'Details', 
+      icon: 'fas fa-info-circle', 
+      content: (
+        <DetailsSection
+          handleImageChange={handleImageChangeWrapper}
+          // handleNameChange={handleNameChangeWrapper}
+          templateInfo={templateInfo}
+          updateField={updateField}
+          uploadBtnStyle={uploadBtnStyle}
+          uploadIconStyle={uploadIconStyle}
+          uploadIconStyle2={uploadIconStyle2}
+        />
+      ),
     },
-    {
-      listName: "Image",
-      listIcon: "/images/gallerIcon.png",
-      selectedIcon: "/images/gallerySelelctedIcon.png",
-      path: "/signaturebuilder/Edit-template/Image",
+    // image side panel 
+    { 
+      title: 'Image', 
+      icon: 'fas fa-image', 
+      content: <ImageSection handleLogoChange={handleLogoChangeWrapper} /> 
     },
-    {
-      listName: "Socials",
-      listIcon: "/images/shareIcon.png",
-      selectedIcon: "/images/shareSelectedIcon.png",
-      path: "/signaturebuilder/Edit-template/Social",
+
+    // socila side panel 
+    { 
+      title: 'Socials', 
+      icon: 'fas fa-share-alt', 
+      content: <SocialSection templateInfo={templateInfo} updateField={updateField} /> 
     },
-    {
-      listName: "Marketing",
-      listIcon: "/images/marketingIcon.png",
-      selectedIcon: "/images/marketingselectedicon.png",
-      path: "/signaturebuilder/Edit-template/Marketing",
+
+    // marketig side panel 
+    { 
+      title: 'Marketing', 
+      icon: 'fas fa-bullhorn',
+      content: <MarketingSection handleBannerChange={handleBannerChangeWrapper} /> 
     },
-    {
-      listName: "Design",
-      listIcon: "/images/designicon.png",
-      selectedIcon: "/images/designselectedIcon.png",
-      path: "/signaturebuilder/Edit-template/Design",
+
+    // design side panel 
+    { 
+      title: 'Design', 
+      icon: 'fas fa-paint-brush', 
+      content: (
+        <DesignSection
+          selectedFont={selectedFont}
+          handleFontChange={handleFontChangeWrapper}
+          fonts={fonts}
+          fontStyle={fontStyle}
+          handleFontWeightChange={handleFontWeightChange}
+          handleBackgroundColorChange={handleBackgroundColorChangeWrapper}
+          backgroundColor={backgroundColor}
+          handleFontSizeChange={handleFontSizeChange}
+          handleColorChange={handleColorChangeWrapper}
+        />
+      ), 
     },
   ];
-  const navigate = useNavigate("");
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetchSingleTemplate(id);
+        setTemplateDetails(data);
+        setModifiedContent(data.html);
+
+        // Prepopulate inputs with template details
+        if (data) {
+          setTemplateInfo({
+            company: data.company || '',
+            email: data.email || '',
+            website: data.website || '',
+            phone: data.phone || '',
+          });
+        }
+
+        const allTemplatesData = await fetchAllTemplates();
+        setAllTemplates(allTemplatesData);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    fetchData();
+  }, [id]);
+
+  const applyStyles = () => {
+    if (templateDetails) {
+      const styledContent = contentRef.current.innerHTML;
+      setModifiedContent(styledContent);
+    }
+  };
+
+  const saveTemplate = () => {
+    // Here you can save modifiedContent to your backend
+    // Placeholder alert for demonstration
+    alert('Template saved with modifications!');
+  };
+
   return (
     <>
-      <div className="signatureTemplate">
-        <div className="EditTemplateheader">
-          <div className="EditTemplateHeading">
-            <div onClick={() => [navigate("/dashboard/signaturebuilder")]}>
-              <LeftCircleOutlined style={{ fontSize: "24px" }} />
+
+      <div style={{ display: 'flex' }}>
+
+      {/* righ side panel  */}
+      <div className="" style={{ 
+        display: 'flex', 
+        height: '100%',
+        width: '40%'    
+        }}>
+          
+        <div style={{ 
+          width: '6rem', 
+          backgroundColor: "#065AD8",
+          height: '100%',
+          borderRadius: "1rem 0rem 0rem 1rem"
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {sections.map((section, index) => (
+              <div className='' key={index} style={{ marginBottom: '10px'}}>
+                <i className={section.icon} style={{ fontSize: '25px', color: 'white', marginTop: '1rem', marginLeft: '40%' }} onClick={() => handleSectionClick(section.title)}></i>
+                <p className='text-light text-center' onClick={() => handleSectionClick(section.title)}>
+                  {section.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className='px-3' style={{width: "80%"}}>
+          {/* Content area on the right side */}
+            {activeSection && (
+              <div style={{}}>
+                {sections.find((section) => section.title === activeSection)?.content}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* main screen  */}
+        <div class='bg-light p-4' style={{ width: '60%', borderRadius: "0rem 1rem 1rem 0rem"}}>
+          {templateDetails ? (
+            <div>
+              <div
+                ref={contentRef}
+                className="card-body template-body p-3"
+                style={{ ...fontStyle, backgroundColor, borderRadius: '1rem' }}
+                dangerouslySetInnerHTML={{ __html: modifiedContent || templateDetails.html }}
+              />
             </div>
-            <div className="EditTemplatecontent">Edit Template</div>
-          </div>
-          <div className="leftIcon">
-            <img src="/images/3lineIcon.png" alt="" />
-            <img src="/images/headersecondicon.png" alt="" />
-            <img src="/images/bellicon.png" alt="" />
-            <img src="/images/userIcon.png" alt="" />
-          </div>
+          ) : (
+            <p>Loading template details...</p>
+          )}
         </div>
-        <div className="maincontent d-flex">
-          <div className="sidebare">
-            {sidebarArray.map((e, i) => {
-              return (
-                <div
-                  onClick={() => {
-                    changeColor(i);
-                    navigate(e.path);
-                  }}
-                  key={i}
-                  className={` ${
-                    selectedItem === i ? "selected" : "sidebarlist"
-                  }`}
-                >
-                  <div className="hover">
-                    {selectedItem === i ? (
-                      <>
-                        <img src={e.selectedIcon} />
-                      </>
-                    ) : (
-                      <>
-                        <img src={e.listIcon} />
-                      </>
-                    )}
-                    <br />
-                    {selectedItem == i ? (
-                      <>
-                        <p className="listNameselected">{e.listName}</p>
-                      </>
-                    ) : (
-                      <>
-                        <p className="listName">{e.listName}</p>
-                      </>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div>
-            <Routes>
-              <Route path="Template" element={<Template />} />
-              <Route path="Detail" element={<Detail />} />
-              <Route path="Image" element={<Image />} />
-              <Route path="Social" element={<Social />} />
-              <Route path="Marketing" element={<Marketing />} />
-              <Route path="Design" element={<Design />} />
-            </Routes>
-          </div>
-        </div>
+        {/* main screen ends here  */}
       </div>
     </>
   );

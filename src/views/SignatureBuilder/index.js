@@ -1,101 +1,34 @@
 import "./index.css";
 import { Icon } from "@iconify/react";
 import SignatureCard from "../../components/SignatureCard/SignatureCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CreatePopup from "../../components/Popup/Createpopup/CreatePopup";
 
 function SignatureBuilder() {
-  const arr = [
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 1",
-    },
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 2",
-    },
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 3",
-    },
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 4",
-    },
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 5",
-    },
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 6",
-    },
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 7",
-    },
-    {
-      Email: "acounts@gnfinternational.com",
-      content: " Sadbhav Complex, 1st floor, Drive in Rd, Ahmedabad, Gujrat",
-      EmailEnd: "gnfinternational.com",
-      image: "/images/Rectangle 150.png",
-      endContentOne:
-        "The information Contained in this electronic massage and any",
-      endContentTwo:
-        " The information Contained in this electronic massage and any",
-      signatureTemplateCount: "GNF Template 8",
-    },
-  ];
+  const [templates, setTemplates] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
+
+  useEffect(() => {
+    async function fetchTemplates() {
+      try {
+        const response = await fetch("http://localhost:5000/fetchAlltemplates");
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched templates:", data);
+          setTemplates(data || []); // Assuming templates are returned in the 'templates' field of the response
+        } else {
+          // Handle error if fetch is unsuccessful
+          console.error("Failed to fetch templates");
+        }
+      } catch (error) {
+        console.error("Error fetching templates:", error);
+      }
+    }
+
+    fetchTemplates();
+  }, []);
+
   return (
     <>
       {popupOpen ? (
@@ -103,9 +36,20 @@ function SignatureBuilder() {
           popupheading="Create New Template"
           popuspera="Choose your signature template name"
           popusinputplaceholdername="Signature Template name"
+          // onClick={() => setPopupOpen(false)}
+          onSubmit={() => {
+            
+          }}
+          onClose={() => {
+            setPopupOpen(false)
+          }}
+          // onChange={(event) => setWorkSpaceName(event.target.value)}
+
           onClose={() => setPopupOpen(false)}
+
         />
       ) : null}
+      
       <div className="SignatureBuilder__Main">
         <div className="Flex__Setting">
           <div className="Signature__heading">Signature </div>
@@ -138,6 +82,7 @@ function SignatureBuilder() {
               templates.
             </div>
           </div>
+
           <div className="SignatureDetal">
             <div>
               <img src="/images/DoteLogo.png" />
@@ -146,40 +91,42 @@ function SignatureBuilder() {
               Assign teammates to departments Teammates will inherit the
               templates to their related department.
             </div>
-          </div>
-          <div className="Signature__Card_Main">
-            <div
-              onClick={() => {
-                setPopupOpen(true);
-              }}
-              className="CreateSignature"
-            >
-              <div className="circlegole">
-                <img src="/images/Vector.png" />
-              </div>
+          </div>      
+
+          <div className="row px-3" style={{backgroundColor: "white", borderRadius: '0.3rem'}}>
+            {/* creatinf template  */}
+            <div className="col-md-4">
               <div
                 onClick={() => {
                   setPopupOpen(true);
                 }}
-                className="contentCreate"
+                className="CreateSignature mt-4"
               >
-                Create New
+                <div className="circlegole">
+                  <img src="/images/Vector.png" />
+                </div>
+                <div
+                  onClick={() => {
+                    setPopupOpen(true);
+                  }}
+                  className="contentCreate"
+                >
+                  Create New
+                </div>
               </div>
             </div>
-            {arr.map((e, i) => (
-              <div>
-                <SignatureCard
-                  key={i}
-                  Email={e.Email}
-                  content={e.content}
-                  EmailEnd={e.EmailEnd}
-                  image={e.image}
-                  endContentOne={e.endContentOne}
-                  endContentTwo={e.endContentTwo}
-                  signatureTemplateCount={e.signatureTemplateCount}
-                />
-              </div>
-            ))}
+              {/* displaying the templates  */}
+              {templates.map((template, index) => (
+                <div className="col-md-4">
+                    <Link to={`/dashboard/Edit-template/${template._id}`}>
+                      <div className="card w-100" key={index} style={{boxShadow: "1px 1px 2px rgba(0,0,0,0.1)", borderRadius: '0.3rem'}}>
+                        <div className="bg-light w-100 px-1 py-4" style={{boxShadow: "1px 1px 2px rgba(0,0,0,0.1)", borderRadius: '0.3rem'}} dangerouslySetInnerHTML={{ __html: template.html }}>
+                          {/* This will render the HTML content of each template */}
+                        </div>
+                      </div>
+                    </Link>
+                </div>
+              ))}
           </div>
         </div>
       </div>
