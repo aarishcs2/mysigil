@@ -9,14 +9,14 @@ import {
   Tooltip,
 } from "chart.js";
 import { DownOutlined } from "@ant-design/icons";
-import React, { useState, useRef , useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Bar } from "react-chartjs-2";
 import "react-rangeslider/lib/index.css";
-import Image from "../../assets/Images/com.png";
+import Image from "../../assets/Images/default.jpeg";
 import CanvasJSReact from '@canvasjs/react-charts';
 import Graph from "../../components/Graph";
 import './style.css';
-import { fetchDepartments } from "../../api";
+import { fetchCoWorkers, fetchDepartments } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
 ChartJS.register(
   CategoryScale,
@@ -26,17 +26,19 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function Dashboard() {
   const labels = ["2019.01", "2019.02", "2019.03", "2019.04", "2019.05"];
   const [sliderValue, setSliderValue] = useState(labels.length);
   const { activeWorkSpace } = useContext(AuthContext);
   const [departments, setDepartments] = useState([]);
+  const [coWorkers, setCoWorkers] = useState([]);
   const fetchDepartment = async () => {
     if (activeWorkSpace?.id) {
-      const response = await fetchDepartments(activeWorkSpace?.id);
-      setDepartments(response?.data)
+      const departments = await fetchDepartments(activeWorkSpace?.id);
+      const coworkers = await fetchCoWorkers(activeWorkSpace?.id);
+      setDepartments(departments?.data)
+      setCoWorkers(coworkers?.data)
     }
   }
   useEffect(() => {
@@ -194,28 +196,28 @@ export default function Dashboard() {
         <div className="col-md-3 ">
           <div class="dashboard-card mb-3 p-3">
             <p>
-              Co Workers <span className="ms-3">234</span>
+              Co Workers <span className="ms-3">{coWorkers?.length}</span>
             </p>
           </div>
         </div>
         <div className="col-md-3 ">
           <div class="dashboard-card mb-3 p-3">
             <p>
-              Contacts <span className="ms-3">234</span>
+              Contacts <span className="ms-3">0</span>
             </p>
           </div>
         </div>
         <div className="col-md-3 ">
           <div class="dashboard-card mb-3 p-3">
             <p>
-              Signatures Installed <span className="ms-3">277</span>
+              Signatures Installed <span className="ms-3">0</span>
             </p>
           </div>
         </div>
         <div className="col-md-3 ">
           <div class="dashboard-card mb-3 p-3">
             <p>
-              Completed Information <span className="ms-3">256</span>
+              Completed Information <span className="ms-3">0</span>
             </p>
           </div>
         </div>
@@ -271,28 +273,18 @@ export default function Dashboard() {
                 </p>
               </div>
               <div>
-                {" "}
                 <Avatar.Group>
-                  <Avatar
-                    src={Image}
-                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
-                  />
-                  <Avatar
-                    src={Image}
-                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
-                  />
-                  <Avatar
-                    src={Image}
-                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
-                  />
-                  <Avatar
-                    src={Image}
-                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
-                  />
-                  <Avatar
-                    src={Image}
-                    size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
-                  />
+                  {
+                    departments?.slice(0,7)?.map(item => {
+                      return (
+                        <Avatar
+                          key={item?._id}
+                          src={item?.image ?? Image}
+                          size={{ xs: 50, sm: 50, md: 50, lg: 50, xl: 50, xxl: 50 }}
+                        />
+                      )
+                    })
+                  }
                 </Avatar.Group>
               </div>
             </div>

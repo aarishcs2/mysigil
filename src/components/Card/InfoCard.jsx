@@ -46,34 +46,21 @@ const InfoCard = (props) => {
       <div className="d-flex justify-content-between ">
         <div>
           <p className="heading">Coworkers</p>
-          <p className="time-zone">{props?.users}</p>
+          <p className="time-zone">{props?.users?.length}</p>
         </div>
         <div className="mt-3 w-50">
           <Avatar.Group>
-            <Avatar
-              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-              size={{ xs: 40, sm: 40, md: 40, lg: 40, xl: 40, xxl: 40 }}
-            />
-
-            <Avatar
-              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-              size={{ xs: 40, sm: 40, md: 40, lg: 40, xl: 40, xxl: 40 }}
-            />
-
-            <Avatar
-              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-              size={{ xs: 40, sm: 40, md: 40, lg: 40, xl: 40, xxl: 40 }}
-            />
-
-            <Avatar
-              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-              size={{ xs: 40, sm: 40, md: 40, lg: 40, xl: 40, xxl: 40 }}
-            />
-
-            <Avatar
-              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-              size={{ xs: 40, sm: 40, md: 40, lg: 40, xl: 40, xxl: 40 }}
-            />
+            {props?.users?.map((item) => {
+              const image =
+                "https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg";
+              return (
+                <Avatar
+                  key={item?._id}
+                  src={item?.image ?? image}
+                  size={{ xs: 40, sm: 40, md: 40, lg: 40, xl: 40, xxl: 40 }}
+                />
+              );
+            })}
           </Avatar.Group>
         </div>
       </div>

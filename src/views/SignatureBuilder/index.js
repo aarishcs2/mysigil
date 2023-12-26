@@ -44,6 +44,9 @@ function SignatureBuilder() {
             setPopupOpen(false)
           }}
           // onChange={(event) => setWorkSpaceName(event.target.value)}
+
+          onClose={() => setPopupOpen(false)}
+
         />
       ) : null}
       

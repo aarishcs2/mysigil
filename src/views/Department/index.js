@@ -60,7 +60,7 @@ export default function Department() {
           departments?.map(item => {
             return (
               <div className="col-lg-6 mt-3">
-                <InfoCard timezone={item?.timezone} name={item?.name} key={item?._id} users={item?.usersCount} />
+                <InfoCard timezone={item?.timezone} name={item?.name} key={item?._id} users={item?.users} />
               </div>
             )
           })

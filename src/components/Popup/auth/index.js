@@ -12,6 +12,8 @@ import { emailRegex } from "../../../constant/common";
 import { AuthContext } from "../../../context/AuthContext";
 import "./styles.css";
 import { NavLink } from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
+
 const { Link } = Anchor;
 
 const AuthPopup = () => {
@@ -98,176 +100,190 @@ const AuthPopup = () => {
     }
   };
 
+  const handleGoogleLogin = async (response) => {
+    console.log(response)
+  }
+
   return (
     <div className="overlay" onClick={handleOverlayClick}>
-  
-        <div className="popup">
-          <div className="row p-2 pe-4">
-            <div className="col-md-6 right-side px-5 py-3">
-              <div className="order-1">
-                <div className="w-100 ">
-                  {" "}
-                  <h2 className="main-heading m-0">SIGIL</h2>
-                </div>
-                <h5 className="sub-heading ">
-                  {" "}
-                  {popupType === "register"
-                    ? "Start Your 14 Days FREE Trial"
-                    : "Log in to your Account"}
-                </h5>
-                <p className="sub-para m-0 ">
-                  {popupType === "register"
-                    ? "No credit card required. No commitment. No fine print."
-                    : "Welcome back! Select method to log in:"}
-                </p>
+
+      <div className="popup">
+        <div className="row p-2 pe-4">
+          <div className="col-md-6 right-side px-5 py-3">
+            <div className="order-1">
+              <div className="w-100 ">
+                {" "}
+                <h2 className="main-heading m-0">SIGIL</h2>
               </div>
-              <div className={popupType === "login" ? "order-4" : "order-2"}>
-                {popupType === "register" && (
-                  <Input
-                    className="input login-input"
-                    type="text"
-                    placeholder="Your Name"
-                    onChange={(event) => setName(event.target.value)}
-                  />
-                )}
+              <h5 className="sub-heading ">
+                {" "}
+                {popupType === "register"
+                  ? "Start Your 14 Days FREE Trial"
+                  : "Log in to your Account"}
+              </h5>
+              <p className="sub-para m-0 ">
+                {popupType === "register"
+                  ? "No credit card required. No commitment. No fine print."
+                  : "Welcome back! Select method to log in:"}
+              </p>
+            </div>
+            <div className={popupType === "login" ? "order-4" : "order-2"}>
+              {popupType === "register" && (
                 <Input
                   className="input login-input"
-                  type="email"
-                  placeholder="Your Work Email"
-                  onChange={(event) => setEmail(event.target.value)}
+                  type="text"
+                  placeholder="Your Name"
+                  onChange={(event) => setName(event.target.value)}
                 />
-                <Input.Password
-                  className="input login-input"
-                  placeholder="Choose Password"
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-                {popupType === "login" && (
-                  <div className="d-flex justify-content-between w-100 mt-2">
-                    <div>
-                      <Checkbox onChange={onChange}>
-                        <p className="sub-para m-auto">Remember me?</p>
-                      </Checkbox>
-                    </div>
-                    <div
-                      className="forgot-text"
-                      onClick={() => {
-                        {
-                          
-                        }
-                      }}
-                    >
-                  <NavLink to="/forgotpassword" >   Forgot Password?</NavLink>
-                    </div>
+              )}
+              <Input
+                className="input login-input"
+                type="email"
+                placeholder="Your Work Email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Input.Password
+                className="input login-input"
+                placeholder="Choose Password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              {popupType === "login" && (
+                <div className="d-flex justify-content-between w-100 mt-2">
+                  <div>
+                    <Checkbox onChange={onChange}>
+                      <p className="sub-para m-auto">Remember me?</p>
+                    </Checkbox>
                   </div>
+                  <div
+                    className="forgot-text"
+                    onClick={() => {
+                      {
+
+                      }
+                    }}
+                  >
+                    <NavLink to="/forgotpassword" >   Forgot Password?</NavLink>
+                  </div>
+                </div>
+              )}
+              <Button
+                type="primary"
+                className="button-login mb-2"
+                onClick={handleSubmit}
+                block
+                disabled={loading}
+              >
+                {loading ? (
+                  <BeatLoader
+                    color={"#fff"}
+                    loading={loading}
+                    cssOverride={override}
+                    size={16}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                ) : popupType === "register" ? (
+                  "Start"
+                ) : (
+                  "Login"
                 )}
-                <Button
-                  type="primary"
-                  className="button-login mb-2"
-                  onClick={handleSubmit}
-                  block
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <BeatLoader
-                      color={"#fff"}
-                      loading={loading}
-                      cssOverride={override}
-                      size={16}
-                      aria-label="Loading Spinner"
-                      data-testid="loader"
-                    />
-                  ) : popupType === "register" ? (
-                    "Start"
-                  ) : (
-                    "Login"
-                  )}
-                </Button>
-              </div>
-              <div className="w-100 order-3 py-4 text-center position-relative">
-                <div className=" bottom-line"></div>
-                <span className="or mb-0">
-                  {" "}
-                  {popupType === "register" ? "Or" : "or continue with email"}
-                </span>
-              </div>
-              <div className={popupType === "login" ? "order-2" : "order-4"}>
-                {popupType === "register" && (
-                  <p className="sub-para m-auto text-center ">
-                    Make sure you signup with work email only
-                  </p>
-                )}
-                <Button
-                  type="primary"
-                  className="login-google my-2 "
-                  onClick={handleSubmit}
-                  block
-                  disabled={loading}
-                >
-                  <Icon icon="flat-color-icons:google" />
-                  {popupType === "register"
+              </Button>
+            </div>
+            <div className="w-100 order-3 py-4 text-center position-relative">
+              <div className=" bottom-line"></div>
+              <span className="or mb-0">
+                {" "}
+                {popupType === "register" ? "Or" : "or continue with email"}
+              </span>
+            </div>
+            <div className={popupType === "login" ? "order-2" : "order-4"}>
+              {popupType === "register" && (
+                <p className="sub-para m-auto text-center ">
+                  Make sure you signup with work email only
+                </p>
+              )}
+              <div className="d-flex justify-content-center">
+                <GoogleLogin
+                  clientId="721178613784-51nh49st159d28m00irs2nq11edk129v.apps.googleusercontent.com"
+                  buttonText={popupType === "register"
                     ? " Sign up with Google"
                     : "Sign in with Google"}
-                </Button>
-                {popupType === "register" && (
-                  <p className="sub-para m-auto mt-1 ">
-                    By signing up you agree with{" "}
-                    <Link to="" className="u-line">
-                      Terms
-                    </Link>{" "}
-                    of use and &nbsp;
-                    <Link to="" className="u-line">
-                      {" "}
-                      Privacy Policy
-                    </Link>
-                  </p>
-                )}{" "}
+                  onSuccess={handleGoogleLogin}
+                  onFailure={handleGoogleLogin}
+                />
               </div>
-              <p className="sub-para m-auto mt-1 order-5">
-                {popupType === "register" ? (
-                  <>
-                    Already have an account?{" "}
-                    <span
-                      className="u-blue"
-                      onClick={() => setPopupType("login")}
-                    >
-                      Login{" "}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    Don’t have an account?{" "}
-                    <span
-                      className="u-blue"
-                      onClick={() => setPopupType("register")}
-                    >
-                      {" "}
-                      Create an account
-                    </span>
-                  </>
-                )}
-              </p>
-            </div>
-            <div className="col-md-6 left-side ">
-              <img
-                src={popupType === "register" ? Account : Login}
-                className="login-img"
-                alt="here"
-              ></img>
-              <h2 className="login-heading mb-2 mt-3">
-                {" "}
+              {/* <Button
+                type="primary"
+                className="login-google my-2 "
+                onClick={handleGoogleLogin}
+                block
+                disabled={loading}
+              >
+                <Icon icon="flat-color-icons:google" />
                 {popupType === "register"
-                  ? "Welcome to Sigil"
-                  : "Convert your Dead Email Signatures into Revenue Channel"}
-              </h2>
-              <p className="login-para">
-                {" "}
-                {popupType === "register"
-                  ? "  Instant, Effortless, and Impactful"
-                  : "Effortlessly set up your team's signatures.Quick, automated, and straightforward."}
-              </p>
+                  ? " Sign up with Google"
+                  : "Sign in with Google"}
+              </Button> */}
+              {popupType === "register" && (
+                <p className="sub-para m-auto mt-1 ">
+                  By signing up you agree with{" "}
+                  <Link to="" className="u-line">
+                    Terms
+                  </Link>{" "}
+                  of use and &nbsp;
+                  <Link to="" className="u-line">
+                    {" "}
+                    Privacy Policy
+                  </Link>
+                </p>
+              )}{" "}
             </div>
+            <p className="sub-para m-auto mt-1 order-5">
+              {popupType === "register" ? (
+                <>
+                  Already have an account?{" "}
+                  <span
+                    className="u-blue"
+                    onClick={() => setPopupType("login")}
+                  >
+                    Login{" "}
+                  </span>
+                </>
+              ) : (
+                <>
+                  Don’t have an account?{" "}
+                  <span
+                    className="u-blue"
+                    onClick={() => setPopupType("register")}
+                  >
+                    {" "}
+                    Create an account
+                  </span>
+                </>
+              )}
+            </p>
           </div>
-          {/* <div className="tabs" style={{ paddingBottom: "16px" }}>
+          <div className="col-md-6 left-side ">
+            <img
+              src={popupType === "register" ? Account : Login}
+              className="login-img"
+              alt="here"
+            ></img>
+            <h2 className="login-heading mb-2 mt-3">
+              {" "}
+              {popupType === "register"
+                ? "Welcome to Sigil"
+                : "Convert your Dead Email Signatures into Revenue Channel"}
+            </h2>
+            <p className="login-para">
+              {" "}
+              {popupType === "register"
+                ? "  Instant, Effortless, and Impactful"
+                : "Effortlessly set up your team's signatures.Quick, automated, and straightforward."}
+            </p>
+          </div>
+        </div>
+        {/* <div className="tabs" style={{ paddingBottom: "16px" }}>
        
           <Anchor
             affix={false}
@@ -290,7 +306,7 @@ const AuthPopup = () => {
             </Flex>
           </Anchor>
         </div> */}
-          {/* <Flex gap="small" wrap="wrap" style={{ height: "100%" }}>
+        {/* <Flex gap="small" wrap="wrap" style={{ height: "100%" }}>
           <GoogleLoginButton />
           <div style={{ width: "100%", textAlign: "center" }}>
             {" "}
@@ -298,18 +314,18 @@ const AuthPopup = () => {
             <div>or</div>
           </div>
         </Flex> */}
-          {/* <Input
+        {/* <Input
           className="input"
           type="email"
           placeholder="john.doe@companyname.com"
           onChange={(event) => setEmail(event.target.value)}
         /> */}
-          {/* <Input.Password
+        {/* <Input.Password
           className="input"
           placeholder="6 characters minimum"
           onChange={(event) => setPassword(event.target.value)}
         /> */}
-          {/* <Flex direction="column" gap="small" style={{ width: "100%" }}>
+        {/* <Flex direction="column" gap="small" style={{ width: "100%" }}>
           {" "}
           
           <Button
@@ -346,8 +362,8 @@ const AuthPopup = () => {
               : "Don't have an account? Sign Up"}
           </Button>
         </Flex> */}
-        </div>
-   
+      </div>
+
 
       {/* {forgotPassword && (
         <>

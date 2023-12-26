@@ -132,7 +132,7 @@ const Sidebar = ({ children }) => {
                   className="CreateButton"
                 >
                   <div className="buttontextCreate">Create New</div>
-                  <div className="buttonicon">
+                  <div className="buttonicon m-1">
                     <img src="/images/PlusIcon.png" />
                   </div>
                 </div>
@@ -181,7 +181,7 @@ const Sidebar = ({ children }) => {
                 key: "4",
 
                 label: (
-                  <Link to="/dashboard">
+                  <Link to="/dashboard/Conatct">
                     {" "}
                     <Icon icon="ic:outline-contact-mail" />
                     Contact
@@ -246,7 +246,7 @@ const Sidebar = ({ children }) => {
                 label: (
                   <span className="text-danger" onClick={handleLogout}>
                     {" "}
-                    <Icon icon="nimbus:home" />
+                    <Icon icon="ri:logout-circle-line" />
                     Logout
                   </span>
                 ),

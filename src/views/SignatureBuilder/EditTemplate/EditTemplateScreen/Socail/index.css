@@ -58,6 +58,7 @@
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.28px;
+  cursor: pointer;
 }
 .createText {
   color: #7e7e7e;
@@ -74,6 +75,7 @@
   align-items: center;
   gap: 5px;
   margin: auto !important;
+  cursor: pointer;
 }
 .AddTxt {
   color: #065ad8;
@@ -145,4 +147,5 @@
   line-height: normal;
   padding-top: 20px;
   gap: 10px;
+  cursor: pointer;
 }

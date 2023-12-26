@@ -51,3 +51,32 @@ export const createDepartment = (payload) => {
 export const fetchDepartments = (workspaceId) => {
   return instance.get(`/fetchallDepartments/${workspaceId}`);
 }
+
+export const createCoWorker = (payload) => {
+  return instance.post("/createCoworker", payload);
+}
+
+export const fetchCoWorkers = (workspaceId) => {
+  return instance.get(`/fetchallCoworker/${workspaceId}`);
+}
+
+export const fetchSingleCoWorker = (coworkerId) => {
+  return instance.get(`/fetchsingleCoworker/${coworkerId}`);
+}
+
+export const updateCoWorker = (id, payload) => {
+  return instance.put(`/updatesingleCoworker/${id}`, payload);
+}
+
+export const createContact = (payload) => {
+  return instance.post("/createContact", payload);
+}
+
+
+export const fetchContacts = (workspaceId) => {
+  return instance.get(`/fetchallContacts/${workspaceId}`);
+}
+
+export const updateContact = (id, payload) => {
+  return instance.put(`/updatesingleContact/${id}`, payload);
+}
