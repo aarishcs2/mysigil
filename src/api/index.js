@@ -43,6 +43,13 @@ export const fetchWorkSpaces = () => {
   return instance.get(`/fetchallWorkspaces`);
 };
 
+export const updateWorkSpace = (id , payload) => {
+  return instance.put(`/updateWorkspace/${id}`, payload);
+}
+
+export const deleteWorkSpace = (id) => {
+  return instance.delete(`/deleteWorkspace/${id}`);
+}
 
 export const createDepartment = (payload) => {
   return instance.post("/createDepartment", payload);

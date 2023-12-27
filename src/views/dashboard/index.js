@@ -16,7 +16,7 @@ import Image from "../../assets/Images/default.jpeg";
 import CanvasJSReact from '@canvasjs/react-charts';
 import Graph from "../../components/Graph";
 import './style.css';
-import { fetchCoWorkers, fetchDepartments } from "../../api";
+import { fetchCoWorkers, fetchContacts, fetchDepartments } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
 ChartJS.register(
   CategoryScale,
@@ -33,12 +33,15 @@ export default function Dashboard() {
   const { activeWorkSpace } = useContext(AuthContext);
   const [departments, setDepartments] = useState([]);
   const [coWorkers, setCoWorkers] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const fetchDepartment = async () => {
     if (activeWorkSpace?.id) {
       const departments = await fetchDepartments(activeWorkSpace?.id);
       const coworkers = await fetchCoWorkers(activeWorkSpace?.id);
+      const contacts = await fetchContacts(activeWorkSpace?.id);
       setDepartments(departments?.data)
       setCoWorkers(coworkers?.data)
+      setContacts(contacts?.data)
     }
   }
   useEffect(() => {
@@ -203,7 +206,7 @@ export default function Dashboard() {
         <div className="col-md-3 ">
           <div class="dashboard-card mb-3 p-3">
             <p>
-              Contacts <span className="ms-3">0</span>
+              Contacts <span className="ms-3">{contacts?.length}</span>
             </p>
           </div>
         </div>

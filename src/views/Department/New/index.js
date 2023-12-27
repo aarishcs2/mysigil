@@ -3,7 +3,9 @@ import React, { useState, useEffect, useContext } from "react";
 import Image from "../../../assets/Images/default.jpeg";
 import { Checkbox } from "antd/lib";
 import Signature from "../../../components/Card/Signature";
-import { Coutries, TimeZone, createDepartment, fetchCoWorkers } from "../../../api";
+import CountryList from "../../../constant/country"
+import TimeZone from "../../../constant/time-zone";
+import { createDepartment, fetchCoWorkers } from "../../../api";
 // import moment from "moment-timezone";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
@@ -27,11 +29,8 @@ export default function New() {
   const [timzone, setTimezone] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [emailCoValidation, setEmailCoValidation] = useState("");
-  const handletimzone = async () => {
-    axios.get(`http://worldtimeapi.org/api/timezone`).then((res, e) => {
-      setTimezone(res.data);
-    });
-  };
+   const allUtcValues = TimeZone.flatMap((TimeZone) => TimeZone.utc);
+ 
   const handleCheckboxChange = (itemId, itemName, itemEmail, itemImage) => {
     const isItemSelected = selectedItems.some((item) => item.id === itemId);
     if (isItemSelected) {
@@ -48,10 +47,7 @@ export default function New() {
       setData(updatedData);
     }
   };
-  const countryapi = async () => {
-    const countrydata = await Coutries();
-    setCountries(countrydata.data);
-  };
+
   const handleNext = async () => {
     if (departmentName.length < 3 || departmentName.length > 25) {
       setNameError(
@@ -84,10 +80,7 @@ export default function New() {
   const handlePrevious = () => {
     setStep(step - 1);
   };
-  useEffect(() => {
-    countryapi();
-    handletimzone();
-  }, []);
+  
 
   const handleSelectAllChange = () => {
     setSelectedItems((prevData) => [...prevData, ...data]);
@@ -237,7 +230,7 @@ export default function New() {
                     )}
                   </div>
                   <div className="form-group">
-                    <label>Country</label>
+                    <label>Country </label>
                     <select
                       onChange={(e) => {
                         let word = e.target.value;
@@ -248,9 +241,9 @@ export default function New() {
                       placeholder="Country"
                       className="form-control mb-3"
                     >
-                      {countries.map((country) => (
-                        <option key={country.cca2} value={country.name.common}>
-                          {country.name.common}
+                      {CountryList.map((item, index) => (
+                        <option key={index} value={item.countryName}>
+                          {item.countryName}
                         </option>
                       ))}
                     </select>
@@ -269,7 +262,7 @@ export default function New() {
                       }}
                       className="form-control mb-3"
                     >
-                      {timzone.map((e, i) => {
+                      {allUtcValues.map((e, i) => {
                         return <option>{e}</option>;
                       })}
                     </select>
@@ -323,68 +316,68 @@ export default function New() {
                     </div>
                     {filterData.length > 0
                       ? filterData.map((item, i) => {
-                        return (
-                          <div className="d-flex px-3 py-2 mt-2 ">
-                            <Checkbox
-                              id={item.id}
-                              // checked={selectedItems.some(
-                              //   (selectedItem) => selectedItem.id === item.id
-                              // )}
-                              // onChange={() =>
-                              //   handleCheckboxChange(
-                              //     item.id,
-                              //     item.name,
-                              //     item.Email,
-                              //     item.Image
-                              //   )
-                              // }
-                              checked={selectedItems.some(
-                                (selectedItem) => selectedItem.id === item.id
-                              )}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  item.id,
-                                  item.name,
-                                  item.Email,
-                                  item.Image
-                                )
-                              }
-                              className="me-2"
-                            />
-                            <img src={item.Image} alt="" className="user" />
-                            <div className="ms-2">
-                              <p className="mt-1 name">{item.name}</p>
-                              <span className="e-mail">{item.Email}</span>
+                          return (
+                            <div className="d-flex px-3 py-2 mt-2 ">
+                              <Checkbox
+                                id={item.id}
+                                // checked={selectedItems.some(
+                                //   (selectedItem) => selectedItem.id === item.id
+                                // )}
+                                // onChange={() =>
+                                //   handleCheckboxChange(
+                                //     item.id,
+                                //     item.name,
+                                //     item.Email,
+                                //     item.Image
+                                //   )
+                                // }
+                                checked={selectedItems.some(
+                                  (selectedItem) => selectedItem.id === item.id
+                                )}
+                                onChange={() =>
+                                  handleCheckboxChange(
+                                    item.id,
+                                    item.name,
+                                    item.Email,
+                                    item.Image
+                                  )
+                                }
+                                className="me-2"
+                              />
+                              <img src={item.Image} alt="" className="user" />
+                              <div className="ms-2">
+                                <p className="mt-1 name">{item.name}</p>
+                                <span className="e-mail">{item.Email}</span>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })
+                          );
+                        })
                       : data.map((item, i) => {
-                        return (
-                          <div className="d-flex px-3 py-2 mt-2 ">
-                            <Checkbox
-                              id={item.id}
-                              checked={selectedItems.some(
-                                (selectedItem) => selectedItem.id === item.id
-                              )}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  item.id,
-                                  item.name,
-                                  item.Email,
-                                  item.Image
-                                )
-                              }
-                              className="me-2"
-                            />
-                            <img src={item.Image} alt="" className="user" />
-                            <div className="ms-2">
-                              <p className="mt-1 name">{item.name}</p>
-                              <span className="e-mail">{item.Email}</span>
+                          return (
+                            <div className="d-flex px-3 py-2 mt-2 ">
+                              <Checkbox
+                                id={item.id}
+                                checked={selectedItems.some(
+                                  (selectedItem) => selectedItem.id === item.id
+                                )}
+                                onChange={() =>
+                                  handleCheckboxChange(
+                                    item.id,
+                                    item.name,
+                                    item.Email,
+                                    item.Image
+                                  )
+                                }
+                                className="me-2"
+                              />
+                              <img src={item.Image} alt="" className="user" />
+                              <div className="ms-2">
+                                <p className="mt-1 name">{item.name}</p>
+                                <span className="e-mail">{item.Email}</span>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
                   </div>
                 </div>
                 <div className="col-6">
