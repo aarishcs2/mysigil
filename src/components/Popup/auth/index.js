@@ -139,12 +139,12 @@ const AuthPopup = () => {
               <Input
                 className="input login-input"
                 type="email"
-                placeholder="Your Work Email"
+                placeholder="Business Email"
                 onChange={(event) => setEmail(event.target.value)}
               />
               <Input.Password
                 className="input login-input"
-                placeholder="Choose Password"
+                placeholder="Enter Password"
                 onChange={(event) => setPassword(event.target.value)}
               />
               {popupType === "login" && (
@@ -158,11 +158,10 @@ const AuthPopup = () => {
                     className="forgot-text"
                     onClick={() => {
                       {
-
                       }
                     }}
                   >
-                    <NavLink to="/forgotpassword" >   Forgot Password?</NavLink>
+                    <NavLink to="/forgotpassword"> Forgot Password?</NavLink>
                   </div>
                 </div>
               )}
@@ -205,9 +204,11 @@ const AuthPopup = () => {
               <div className="d-flex justify-content-center">
                 <GoogleLogin
                   clientId="721178613784-51nh49st159d28m00irs2nq11edk129v.apps.googleusercontent.com"
-                  buttonText={popupType === "register"
-                    ? " Sign up with Google"
-                    : "Sign in with Google"}
+                  buttonText={
+                    popupType === "register"
+                      ? " Sign up with Google"
+                      : "Sign in with Google"
+                  }
                   onSuccess={handleGoogleLogin}
                   onFailure={handleGoogleLogin}
                 />
@@ -363,7 +364,6 @@ const AuthPopup = () => {
           </Button>
         </Flex> */}
       </div>
-
 
       {/* {forgotPassword && (
         <>

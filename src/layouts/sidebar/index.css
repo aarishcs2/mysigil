@@ -6,7 +6,7 @@
 }
 .border-black {
   border-radius: 7px;
-  border: 2px solid #444;
+  border: 2px solid #a4a4a4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,15 +16,24 @@
   height: 140px;
   overflow-y: scroll;
 }
+.border-black-drop{
+border-radius: 7px;
+border: 1px solid #C7C6C6;
+cursor: pointer;
+}
+.border-black-drop-bold{
+
+border: 2px solid #444 !important;
+
+}
 .dropdownlist {
   width: 200px;
   height: 200px;
   flex-shrink: 0;
   border-radius: 7px;
   background: #fff;
-
-    position: absolute;
-    z-index: 99;
+  position: absolute;
+  z-index: 99;
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
 }
 .renderlist {
@@ -33,6 +42,12 @@
   padding: 10px;
   cursor: pointer;
   align-items: center;
+}
+.notification-active {
+  background-color: #065ad8;
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
 }
 .CreateButton {
   margin-left: 15px;
@@ -64,6 +79,47 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.dropdown-action {
+  border: 1px solid #7e7e7e;
+  width: 15px;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  font-size: 10px;
+  position: relative;
+}
+
+.action-box {
+ position: absolute;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    margin-left: -60px;
+    margin-top: 30px;
+    width: 57px;
+  display: none;
+}
+.dropdown-action:hover .action-box {
+display: block;
+}
+.action-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.action-box ul li {
+  margin: 3px 5px 3px 5px;
+}
+.dropdown-input{
+      border: 1px solid #bdbdbd;
+    border-radius: 3px;
+    width: 70%;
+}
+.dropdown-input:focus{
+      outline: none;
 }
 @media only screen and (max-width: 599px) {
   .content-div {
