@@ -1,7 +1,6 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import "./index.css";
-
 import { Link, useNavigate } from "react-router-dom";
 
 import React, { useContext, useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  EllipsisOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -23,64 +23,144 @@ import {
   Checkbox,
 } from "antd";
 import CreatePopup from "../../components/Popup/Createpopup/CreatePopup";
-import { createWorkSpace, fetchWorkSpaces } from "../../api";
+import { createWorkSpace, deleteWorkSpace, fetchWorkSpaces, updateWorkSpace } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
 
 const { Header, Sider, Content } = Layout;
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
-  const { activeWorkSpace, setActiveWorkSpace } = useContext(AuthContext)
+  const { activeWorkSpace, setActiveWorkSpace } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(true);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [popupOpen, setPopupOpen] = useState(false);
-  const [workspaceName, setWorkSpaceName] = useState('');
+  const [deletePopup, setDeletePopup] = useState(false);
+  const [editInput, setEditInput] = useState(false);
+  const [workspaceName, setWorkSpaceName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [workspaces, setWorkSpaces] = useState([])
+  const [workspaces, setWorkSpaces] = useState([]);
+  const [updateWorkSpaceName, setUpdateWorkSpaceName] = useState('');
+  const [deleteWorkspaceId, setDeleteWorkspaceId] = useState('F')
   const handleLogout = async () => {
     await localStorage.removeItem("access_token");
     await navigate("/");
   };
   const [list, setList] = useState(false);
 
-  const handleCreateWorkSpace = async () => {
-    setLoading(true)
-    const response = await createWorkSpace({ workspacename: workspaceName })
+  const handleEdit = (name) => {
+    setEditInput(name);
+    setUpdateWorkSpaceName(name);
+  };
+  const handleSave = async (id) => {
+    const response = await updateWorkSpace(id, { workspacename: updateWorkSpaceName })
     if (response) {
-      setLoading(false)
-      setPopupOpen(false)
-      fetchWorkSpacesData()
+      setEditInput(false);
+      fetchWorkSpacesData();
     }
+  };
+
+  const handleDelete = async () => {
+    const response = await deleteWorkSpace(deleteWorkspaceId);
+    if (response) {
+      fetchWorkSpacesData();
+      setDeletePopup(false)
+    }
+
   }
+  const handleCreateWorkSpace = async () => {
+    setLoading(true);
+    const response = await createWorkSpace({ workspacename: workspaceName });
+    if (response) {
+      setLoading(false);
+      setPopupOpen(false);
+      fetchWorkSpacesData();
+    }
+  };
 
   const fetchWorkSpacesData = async () => {
     const response = await fetchWorkSpaces();
     if (response) {
       setWorkSpaces(response?.data);
-      setActiveWorkSpace({ name: response?.data[0]?.name, id: response?.data[0]?._id })
+      setActiveWorkSpace({
+        name: response?.data[0]?.name,
+        id: response?.data[0]?._id,
+      });
     }
-  }
+  };
 
   const handleSelectWorkSpace = (payload) => {
-    setActiveWorkSpace({ name: payload?.name, id: payload?._id })
-  }
+    setActiveWorkSpace({ name: payload?.name, id: payload?._id });
+  };
 
   useEffect(() => {
-    fetchWorkSpacesData()
-  }, [])
+    fetchWorkSpacesData();
+  }, []);
+  const items = [
+    {
+      key: "1",
+      label: (
+        <div className="d-flex justify-content-between  align-items-start">
+          <div>
+            {" "}
+            <Avatar
+              size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
+              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
+            />
+          </div>
+
+          <div className="ms-2">
+            {" "}
+            <b>John Smith </b> commented on the task{" "}
+            <b>My account information screen and functionality pending</b>
+            <br />
+            <small className="text-muted">Today , at 2:30pm</small>
+          </div>
+          <div>
+            <div className="notification-active"></div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <div className="d-flex justify-content-between  align-items-start">
+          <div>
+            {" "}
+            <Avatar
+              size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
+              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
+            />
+          </div>
+
+          <div className="ms-2">
+            {" "}
+            <b>John Smith </b> commented on the task{" "}
+            <b>My account information screen and functionality pending</b>
+            <br />
+            <small className="text-muted">Today , at 2:30pm</small>
+          </div>
+          <div>
+            <div className="notification-active"></div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
       {popupOpen ? (
         <CreatePopup
           popupheading="Create New WorkSpace"
           popuspera="Choose your signature workSpace name"
-          popusinputplaceholdername="new workspace name"
+          popusinputplaceholdername="New workspace name"
           onSubmit={() => {
-            handleCreateWorkSpace()
+            handleCreateWorkSpace();
           }}
           onClose={() => {
-            setPopupOpen(false)
+            setPopupOpen(false);
           }}
           onChange={(event) => setWorkSpaceName(event.target.value)}
           loading={loading}
@@ -101,8 +181,13 @@ const Sidebar = ({ children }) => {
               }}
               className="Drobdown"
             >
-              <div className="p-2 border-black w-100">
-                {activeWorkSpace?.name ? activeWorkSpace?.name : 'Your Workspace'}
+              <div
+                className={`p-2 border-black-drop w-100 d-flex justify-content-between align-items-center pe-3 ${list && "border-black-drop-bold"
+                  }`}
+              >
+                <span>{activeWorkSpace?.name
+                  ? activeWorkSpace?.name
+                  : "Your Workspace"}</span>
                 <span className="Workspace-icon ">
                   <DownOutlined />
                 </span>
@@ -113,13 +198,52 @@ const Sidebar = ({ children }) => {
                 <div className="list ">
                   {workspaces?.map((e, i) => {
                     return (
-                      <div className="renderlist" onClick={() => handleSelectWorkSpace(e)}>
-                        <div>{e?.name}</div>{" "}
-                        <div>
-                          {
-                            activeWorkSpace?.name === e?.name && <Icon icon='ic:outline-check' />
-                          }
+                      <div
+                        className="renderlist"
+                        onClick={() => handleSelectWorkSpace(e)}
+                      >
+                        {editInput === e?.name ? (
+                          <input
+                            type="text"
+                            value={updateWorkSpaceName}
+                            onChange={(e) => setUpdateWorkSpaceName(e.target.value)}
+                            className="dropdown-input px-2"
+                          />
+                        ) : (
+                          <div>{e?.name}</div>
+                        )}
 
+                        <div>
+                          {activeWorkSpace?.name === e?.name && (
+                            <>
+                              {
+                                editInput !== e?.name && <span className="dropdown-action me-2">
+                                  <EllipsisOutlined />
+                                  <div className="action-box">
+                                    <ul>
+                                      <li onClick={() => handleEdit(e?.name)}>Edit</li>
+                                      <li onClick={() => {
+                                        setDeleteWorkspaceId(e?._id)
+                                        setDeletePopup(true)
+                                      }}>
+                                        Delete
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </span>
+                              }
+
+
+                              {editInput === e?.name ? (
+                                <Icon
+                                  icon="mingcute:save-line"
+                                  onClick={() => handleSave(e?._id)}
+                                />
+                              ) : (
+                                <Icon icon="ic:outline-check" />
+                              )}
+                            </>
+                          )}
                         </div>
                       </div>
                     );
@@ -131,8 +255,8 @@ const Sidebar = ({ children }) => {
                   }}
                   className="CreateButton"
                 >
-                  <div className="buttontextCreate">Create New</div>
-                  <div className="buttonicon m-1">
+                  <div className="buttontextCreate me-4">Create New</div>
+                  <div className="buttonicon m-1 ">
                     <img src="/images/PlusIcon.png" />
                   </div>
                 </div>
@@ -207,7 +331,7 @@ const Sidebar = ({ children }) => {
                     {" "}
                     <Icon icon="material-symbols-light:signature-outline-rounded" />
                     {/* <Image src='/images/SignatureBuilderIcon.png' /> */}
-                    Signature-Builder
+                    Signature Builder
                   </Link>
                 ),
               },
@@ -217,7 +341,7 @@ const Sidebar = ({ children }) => {
                   <Link to="/dashboard/analytic">
                     {" "}
                     <Icon icon="ion:analytics-sharp" />
-                    Analytic
+                    Analytics
                   </Link>
                 ),
               },
@@ -237,7 +361,7 @@ const Sidebar = ({ children }) => {
                   <Link to="/dashboard/settings">
                     {" "}
                     <Icon icon="uil:setting" />
-                    Setting
+                    Settings
                   </Link>
                 ),
               },
@@ -288,9 +412,13 @@ const Sidebar = ({ children }) => {
                 <Button type="link" className="p-0 header-btn me-2">
                   <Icon icon="typcn:flash-outline" />
                 </Button>
-                <Button type="link" className="p-0 header-btn me-2">
-                  <Icon icon="solar:bell-outline" />
+
+                <Button type="link" className="p-0 header-btn m-2 mb-0">
+                  <Dropdown menu={{ items }} placement="bottomRight" arrow>
+                    <Icon icon="solar:bell-outline" />
+                  </Dropdown>
                 </Button>
+
                 <Avatar
                   size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
                   src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
@@ -303,6 +431,23 @@ const Sidebar = ({ children }) => {
           </Content>
         </Layout>
       </Layout>
+      {deletePopup && (
+        <div className="popupbackground">
+          <div className="popupMainBox2">
+            <div className="headerPopup">Do you really want to delete?</div>
+
+            <div className="py-3">
+              <button className="SaveButton me-3 ms-3" onClick={() => handleDelete()}>Yes</button>
+              <button
+                className="SaveButton"
+                onClick={() => setDeletePopup(false)}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

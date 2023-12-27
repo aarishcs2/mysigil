@@ -35,8 +35,7 @@ body {
   border: 1px solid #444;
 }
 .ant-dropdown .ant-dropdown-menu {
-  width: 200px;
-
+  width: 350px;
   border-radius: 2px;
   border-width: initial;
   border-style: none;
@@ -47,6 +46,7 @@ body {
   background: #fff;
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
 }
+
 .Workspace-icon {
   /* border: 1px solid #444;
   height: 12px;
@@ -123,9 +123,7 @@ body {
   background: rgba(6, 90, 216, 0.7);
   border-radius: 7px !important;
 }
-.ant-menu-item:hover svg {
-  color: #fff !important;
-}
+
 .ant-menu-light .ant-menu-item-selected {
   color: #fff;
   background: rgba(6, 90, 216, 0.7);
@@ -142,7 +140,10 @@ body {
   font-size: 18px;
   color: rgb(255, 255, 255) !important;
 }
-.ant-menu-item:hover .ant-menu-item svg {
+/* .ant-menu-item:hover .ant-menu-item svg {
+  color: rgb(255, 255, 255) !important;
+} */
+.ant-menu-item-selected svg {
   color: rgb(255, 255, 255) !important;
 }
 .ant-menu-light.ant-menu-root.ant-menu-inline {

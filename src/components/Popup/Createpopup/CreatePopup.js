@@ -20,7 +20,7 @@ function CreatePopup(props) {
             </div>
             <div>
               <input
-                className="input"
+                className="input px-2"
                 type="text"
                 placeholder={props.popusinputplaceholdername}
                 // onChange={(event) => props?.onChange(event)}
