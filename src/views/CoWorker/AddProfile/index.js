@@ -2,11 +2,28 @@ import { ArrowLeftOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import {
   Layout
 } from "antd";
-import React from "react";
+import React, { useContext, useState } from "react";
 import Image from "../../../assets/Images/default.jpeg";
-const { Content, Footer, TabPane } = Layout;
+import { createCoWorker } from "../../../api";
+import { AuthContext } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddProfile() {
+  const [data, setData] = useState({});
+  const { activeWorkSpace } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleChange = (event) => {
+    data[event.target.name] = event.target.value
+    setData(data)
+  }
+  const handleSubmit = async () => {
+    const response = await createCoWorker({ ...data, workspace: activeWorkSpace?.id });
+   if(response){
+    toast.success('Coworker added succesfully')
+    navigate('/dashboard/co-worker')
+   }
+  }
   return (
     <div className="bg-light-gray p-3">
       <div>
@@ -14,6 +31,7 @@ function AddProfile() {
         <span className="back-arrow">
           <ArrowLeftOutlined />
         </span>{" "}
+        <img src={Image} className="profile-image mx-2" />{" "}
         <div className="row mt-5">
           <div className="col-12">
             <div className="scroll-y p-3">
@@ -30,25 +48,25 @@ function AddProfile() {
               <div className="row mt-3">
                 <div className="col-6">
                   <label className="profile-lable">First Name</label>
-                  <input type="text" className="profile-input mb-2" />
+                  <input name='firstname' onChange={handleChange} type="text" className="profile-input mb-2 px-2" />
                 </div>
                 <div className="col-6">
                   <label className="profile-lable">Last Name</label>
-                  <input type="text" className="profile-input mb-2" />
+                  <input name='lastname' onChange={handleChange} type="text" className="profile-input mb-2 px-2" />
                 </div>
               </div>
               <div className="row mt-4">
                 <div className="col-4">
                   <label className="profile-lable">Job Position</label>
-                  <input type="text" className="profile-input mb-2" />
+                  <input name='jobposition' onChange={handleChange} type="text" className="profile-input mb-2 px-2" />
                 </div>
                 <div className="col-4">
                   <label className="profile-lable">Work Phone Number</label>
-                  <input type="text" className="profile-input mb-2" />
+                  <input name='phone' onChange={handleChange} type="text" className="profile-input mb-2 px-2" />
                 </div>
                 <div className="col-4">
                   <label className="profile-lable">Your Work Email</label>
-                  <input type="text" className="profile-input mb-2" />
+                  <input name='email' onChange={handleChange} type="email" className="profile-input mb-2 px-2" />
                 </div>
               </div>
 
@@ -66,10 +84,11 @@ function AddProfile() {
             aria-haspopup="true"
             aria-expanded="false"
             className="btn-primary me-3 "
+            onClick={handleSubmit}
           >
             Save Changes
           </button>
-          <button
+          {/* <button
             type="button"
             aria-haspopup="true"
             aria-expanded="false"
@@ -77,7 +96,7 @@ function AddProfile() {
             style={{ width: "288px" }}
           >
             Force Signature Installation
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
