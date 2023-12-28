@@ -175,13 +175,16 @@ export default function Templatedetail() {
   
     const fieldElement = htmlDoc.querySelector(`.${field}`);
     if (fieldElement) {
-      fieldElement.textContent = `${newValue}`;
-
-      // if (field === 'website') {
-      //   fieldElement.innerHTML = `<a href="${newValue}"></a>`;
-      // } else {
-      //   fieldElement.textContent = `${newValue}`;
-      // }
+      if (field === 'website') {
+        const anchorTag = fieldElement.querySelector('a');
+        if (anchorTag) {
+          // Check if newValue already has a protocol, if not, add one (e.g., 'https://')
+          const formattedURL = newValue.startsWith('http') ? newValue : `https://${newValue}`;
+          anchorTag.setAttribute('href', formattedURL);
+        }
+      } else {
+        fieldElement.textContent = `${newValue}`;
+      }      
     }
   
     setModifiedContent(htmlDoc.documentElement.outerHTML);
@@ -189,12 +192,9 @@ export default function Templatedetail() {
     // Update the href attribute of social media icons based on their classes
   const socialIcons = ['facebook', 'instagram', 'twitter', 'linkedin', 'skype'];
   socialIcons.forEach((iconClass) => {
-    const iconElement = htmlDoc.querySelector(`.${iconClass}`);
-    if (iconElement) {
-      const anchorTag = iconElement.parentElement;
-      if (anchorTag) {
-        anchorTag.setAttribute('href', templateInfo[iconClass]);
-      }
+    const anchorTag = htmlDoc.querySelector(`.${iconClass}`);
+    if (anchorTag) {
+      anchorTag.setAttribute('href', templateInfo[iconClass]);
     }
   });
 
