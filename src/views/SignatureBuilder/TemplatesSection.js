@@ -8,17 +8,13 @@ const TemplatesSection = ({ allTemplates }) => (
           <div className='' style={{}}> {/* Adjust the width as needed */}
             <div>
               <div
-                style={{ fontSize: '10px', lineHeight: '0px' }} // Adjust font size for smaller content
-                dangerouslySetInnerHTML={{ __html: template.html }}
+                style={{ 
+                  height: '5rem',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#065AD81A'
+                }} // Adjust font size for smaller content
+                // dangerouslySetInnerHTML={{ __html: template.html }}
               />
-              <style>
-                {`
-                  .user-image img {
-                    width: 2rem;
-                    height: 2rem;
-                  }
-                `}
-              </style>
             </div>
           </div>
         </div>

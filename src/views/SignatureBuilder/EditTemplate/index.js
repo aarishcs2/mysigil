@@ -319,7 +319,7 @@ export default function Templatedetail() {
         }}>
           
         <div style={{ 
-          width: '6rem', 
+          width: '5rem', 
           backgroundColor: "#065AD8",
           height: '100%',
           borderRadius: "1rem 0rem 0rem 1rem"
@@ -336,7 +336,7 @@ export default function Templatedetail() {
           </div>
         </div>
 
-        <div className='px-3' style={{width: "80%"}}>
+        <div className='px-2' style={{width: "80%"}}>
           {/* Content area on the right side */}
             {activeSection && (
               <div style={{}}>
