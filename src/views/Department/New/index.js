@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Image from "../../../assets/Images/default.jpeg";
 import { Checkbox } from "antd/lib";
 import Signature from "../../../components/Card/Signature";
-import CountryList from "../../../constant/country"
+import CountryList from "../../../constant/country";
 import TimeZone from "../../../constant/time-zone";
 import { createDepartment, fetchCoWorkers } from "../../../api";
 // import moment from "moment-timezone";
@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function New() {
-  const { activeWorkSpace } = useContext(AuthContext)
+  const { activeWorkSpace } = useContext(AuthContext);
   const [step, setStep] = useState(1);
   const [departmentName, setDepartmentName] = useState("");
   const [nameError, setNameError] = useState("");
@@ -24,13 +24,13 @@ export default function New() {
   const [filterData, setFilterData] = useState([]);
   const [timeZoneError, setTimeZoneError] = useState("");
   const [timezoneVal, setTimezoneVal] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [timzone, setTimezone] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [emailCoValidation, setEmailCoValidation] = useState("");
-   const allUtcValues = TimeZone.flatMap((TimeZone) => TimeZone.utc);
- 
+  const allUtcValues = TimeZone.flatMap((TimeZone) => TimeZone.utc);
+
   const handleCheckboxChange = (itemId, itemName, itemEmail, itemImage) => {
     const isItemSelected = selectedItems.some((item) => item.id === itemId);
     if (isItemSelected) {
@@ -74,13 +74,11 @@ export default function New() {
       } else {
         setStep(step + 1);
       }
-
     }
   };
   const handlePrevious = () => {
     setStep(step - 1);
   };
-  
 
   const handleSelectAllChange = () => {
     setSelectedItems((prevData) => [...prevData, ...data]);
@@ -89,29 +87,34 @@ export default function New() {
 
   const fetchCoWorker = async () => {
     const response = await fetchCoWorkers(activeWorkSpace?.id);
-    const coWorkers = response?.data?.map(item => {
+    const coWorkers = response?.data?.map((item) => {
       return {
         id: item._id,
         name: `${item?.firstname} ${item?.lastname}`,
         Email: item.email,
-        Image: item.image ?? Image
-      }
-    })
-    setData(coWorkers)
-  }
+        Image: item.image ?? Image,
+      };
+    });
+    setData(coWorkers);
+  };
 
   useEffect(() => {
-    fetchCoWorker()
+    fetchCoWorker();
   }, [activeWorkSpace]);
 
-
   const handleSubmit = async () => {
-    const response = await createDepartment({ name: departmentName, country: countriesValue, timezone: timezoneVal, workspaceId: activeWorkSpace?.id, users: selectedItems?.map(item => item.id) })
+    const response = await createDepartment({
+      name: departmentName,
+      country: countriesValue,
+      timezone: timezoneVal,
+      workspaceId: activeWorkSpace?.id,
+      users: selectedItems?.map((item) => item.id),
+    });
     if (response) {
-      toast.success(response.data.message)
-      navigate('/dashboard/department')
+      toast.success(response.data.message);
+      navigate("/dashboard/department");
     }
-  }
+  };
 
   return (
     <div>
@@ -215,22 +218,22 @@ export default function New() {
               <div className="col-md-6 p-3 shadow-box my-5">
                 <form className="name">
                   <div className="form-group">
-                    <label>Name</label>
+                    <label className=" mt-3">Name</label>
                     <input
                       type="text"
                       // style={{ width:"150%"}}
                       onChange={(e) => setDepartmentName(e.target.value)}
-                      className="form-control mb-3"
+                      className="form-control"
                       id="Unite Name"
                       placeholder="Must be between 3 letter and 25 characters max."
                       required
                     />
                     {nameError && (
-                      <p className="text-danger p-0">{nameError}</p>
+                      <small className="text-danger p-0">{nameError}</small>
                     )}
                   </div>
                   <div className="form-group">
-                    <label>Country </label>
+                    <label className=" mt-3">Country </label>
                     <select
                       onChange={(e) => {
                         let word = e.target.value;
@@ -239,7 +242,7 @@ export default function New() {
                       name="country"
                       id="country"
                       placeholder="Country"
-                      className="form-control mb-3"
+                      className="form-control"
                     >
                       {CountryList.map((item, index) => (
                         <option key={index} value={item.countryName}>
@@ -248,11 +251,11 @@ export default function New() {
                       ))}
                     </select>
                     {countryError && (
-                      <p className="text-danger p-0">{countryError}</p>
+                      <small className="text-danger p-0">{countryError}</small>
                     )}
                   </div>
                   <div className="form-group">
-                    <label>Time Zone</label>
+                    <label className=" mt-3">Time Zone</label>
                     <select
                       name="country"
                       id="country"
@@ -260,14 +263,14 @@ export default function New() {
                       onChange={(e) => {
                         setTimezoneVal(e.target.value);
                       }}
-                      className="form-control mb-3"
+                      className="form-control "
                     >
                       {allUtcValues.map((e, i) => {
                         return <option>{e}</option>;
                       })}
                     </select>
                     {timeZoneError && (
-                      <p className="text-danger p-0">{timeZoneError}</p>
+                      <small className="text-danger p-0">{timeZoneError}</small>
                     )}
                   </div>
                 </form>

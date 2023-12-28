@@ -331,7 +331,7 @@ const Sidebar = ({ children }) => {
                     {" "}
                     <Icon icon="material-symbols-light:signature-outline-rounded" />
                     {/* <Image src='/images/SignatureBuilderIcon.png' /> */}
-                    Signature Builder
+                    Signature
                   </Link>
                 ),
               },
