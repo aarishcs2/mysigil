@@ -87,3 +87,11 @@ export const fetchContacts = (workspaceId) => {
 export const updateContact = (id, payload) => {
   return instance.put(`/updatesingleContact/${id}`, payload);
 }
+
+export const fetchAlltemplates = () => {
+  return instance.get(`/fetchAlltemplates`);
+}
+
+export const fetchSingletemplates = (id) => {
+  return instance.get(`/fetchsingletemplate/${id}`);
+}

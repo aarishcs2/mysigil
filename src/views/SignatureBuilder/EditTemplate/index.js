@@ -7,8 +7,8 @@ import ImageSection from '../ImageSection';
 import MarketingSection from '../marketingSection';
 import SocialSection from '../SocialsSection';
 import DesignSection from '../DesignSection';
-import { fetchSingleTemplate, fetchAllTemplates } from '../api';
 import {handleFontChange, handleColorChange, handleNameChange, handleImageChange, handleBannerChange, handleLogoChange, handleBackgroundColorChange } from '../templateFunctions';
+import { fetchAlltemplates, fetchSingletemplates } from '../../../api';
 
 export default function Templatedetail() {
   const { id } = useParams();
@@ -269,22 +269,29 @@ export default function Templatedetail() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchSingleTemplate(id);
-        setTemplateDetails(data);
-        setModifiedContent(data.html);
-
-        // Prepopulate inputs with template details
-        if (data) {
-          setTemplateInfo({
-            company: data.company || '',
-            email: data.email || '',
-            website: data.website || '',
-            phone: data.phone || '',
-          });
+        const singleTemplate = await fetchSingletemplates(id);
+        if(singleTemplate){
+          const data = singleTemplate.data
+          setTemplateDetails(data);
+          setModifiedContent(data.html);
+  
+          // Prepopulate inputs with template details
+          if (data) {
+            setTemplateInfo({
+              company: data.company || '',
+              email: data.email || '',
+              website: data.website || '',
+              phone: data.phone || '',
+            });
+          }
         }
+     
 
-        const allTemplatesData = await fetchAllTemplates();
-        setAllTemplates(allTemplatesData);
+        const response = await fetchAlltemplates();
+        if(response){
+          setAllTemplates(response.data);
+
+        }
       } catch (error) {
         console.error('Error:', error);
       }
