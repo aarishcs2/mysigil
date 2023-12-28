@@ -409,10 +409,6 @@ const Sidebar = ({ children }) => {
                   onClick={() => setCollapsed(!collapsed)}
                   className="p-0 header-btn mt-3"
                 />
-                <Button type="link" className="p-0 header-btn me-2">
-                  <Icon icon="typcn:flash-outline" />
-                </Button>
-
                 <Button type="link" className="p-0 header-btn m-2 mb-0">
                   <Dropdown menu={{ items }} placement="bottomRight" arrow>
                     <Icon icon="solar:bell-outline" />
