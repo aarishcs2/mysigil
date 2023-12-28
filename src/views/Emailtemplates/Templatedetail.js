@@ -1,6 +1,7 @@
 // Templatedetail.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchsingleContact } from '../../../../server/controllers/contactController';
 
 export default function Templatedetail() {
   const { id } = useParams();
@@ -91,33 +92,31 @@ export default function Templatedetail() {
   useEffect(() => {
     async function fetchTemplateDetails() {
       try {
-        const response = await fetch(`http://localhost:5000/fetchsingletemplate/${id}`); // Replace with your API endpoint
-        if (!response.ok) {
-          throw new Error('Network response was not ok.');
+        const response = await fetchsingleContact(id); // Replace with your API endpoint
+        if(response){
+          const data = response.data;
+          setTemplateDetails(data); // Set template details received from API
+          setModifiedContent(data.html); // Set initial content
+  
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(data.html, 'text/html');
+  
+          // Retrieve the element with class "name" and get its text content
+          const nameElement = htmlDoc.querySelector('.name');
+          const name = nameElement.textContent.trim(); // This will give you the name content
+  
+  
+  
+          // Prepopulate inputs with template details
+          if (data) {
+          setTemplateInfo({
+            company: data.company || '',
+            email: data.email || '',
+            website: data.website || '',
+            phone: data.phone || '',
+          })};
         }
-        const data = await response.json();
-        setTemplateDetails(data); // Set template details received from API
-        setModifiedContent(data.html); // Set initial content
-
-        const parser = new DOMParser();
-        const htmlDoc = parser.parseFromString(data.html, 'text/html');
-
-        // Retrieve the element with class "name" and get its text content
-        const nameElement = htmlDoc.querySelector('.name');
-        const name = nameElement.textContent.trim(); // This will give you the name content
-
-        console.log(data.html)
-        console.log(name);
-
-
-        // Prepopulate inputs with template details
-        if (data) {
-        setTemplateInfo({
-          company: data.company || '',
-          email: data.email || '',
-          website: data.website || '',
-          phone: data.phone || '',
-        })};
+    
 
       } catch (error) {
         console.error('Error fetching template details:', error);
@@ -126,12 +125,11 @@ export default function Templatedetail() {
 
     async function fetchAllTemplates() {
       try {
-        const response = await fetch('http://localhost:5000/fetchAlltemplates'); // Replace with your API endpoint
-        if (!response.ok) {
-          throw new Error('Network response was not ok.');
-        }
-        const data = await response.json();
+        const response = await fetchAllTemplates(); // Replace with your API endpoint
+       if(response){
+        const data = response.data;
         setAllTemplates(data); // Set fetched templates to state
+       }
       } catch (error) {
         console.error('Error fetching all templates:', error);
       }
@@ -358,7 +356,7 @@ export default function Templatedetail() {
           <div>
             {/* Display fetched templates here */}
             <div className='row'>
-              {allTemplates.map((template, index) => (
+              {allTemplates?.map((template, index) => (
                 <div key={index} className='col-md-6'>
                   <div className='card' style={{ width: '200px' }}> {/* Adjust the width as needed */}
                     <div>

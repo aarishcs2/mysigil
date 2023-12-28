@@ -4,6 +4,7 @@ import SignatureCard from "../../components/SignatureCard/SignatureCard";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CreatePopup from "../../components/Popup/Createpopup/CreatePopup";
+import { fetchAlltemplates } from "../../api";
 
 function SignatureBuilder() {
   const [templates, setTemplates] = useState([]);
@@ -12,9 +13,9 @@ function SignatureBuilder() {
   useEffect(() => {
     async function fetchTemplates() {
       try {
-        const response = await fetch("http://localhost:5000/fetchAlltemplates");
-        if (response.ok) {
-          const data = await response.json();
+        const response = await fetchAlltemplates();
+        if (response) {
+          const data = await response.data;
           console.log("Fetched templates:", data);
           setTemplates(data || []); // Assuming templates are returned in the 'templates' field of the response
         } else {
@@ -44,9 +45,6 @@ function SignatureBuilder() {
             setPopupOpen(false)
           }}
           // onChange={(event) => setWorkSpaceName(event.target.value)}
-
-          onClose={() => setPopupOpen(false)}
-
         />
       ) : null}
       

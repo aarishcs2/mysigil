@@ -3,7 +3,7 @@ import React from 'react';
 const TemplatesSection = ({ allTemplates }) => (
   <div>
     <div className='row'>
-      {allTemplates.map((template, index) => (
+      {allTemplates?.map((template, index) => (
         <div key={index} className='col-md-6'>
           <div className='' style={{}}> {/* Adjust the width as needed */}
             <div>
