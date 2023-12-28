@@ -9,6 +9,7 @@ import EditProfile from "../../views/CoWorker/EditProfile";
 import SignatureBuilder from "../../views/SignatureBuilder";
 import EditTemplate from "../../views/SignatureBuilder/EditTemplate";
 import AddProfile from "../../views/CoWorker/AddProfile";
+import Contact from "../../views/Conatct";
 export const privateRoutes = [
   {
     path: "/",
@@ -53,6 +54,10 @@ export const privateRoutes = [
   {
     path: "Edit-template/:id",
     element: <EditTemplate />,
+  },
+  {
+    path: "Conatct",
+    element: <Contact />,
   },
 ];
 export const SignatureBuilderPrivateRoute = [

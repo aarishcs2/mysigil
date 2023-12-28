@@ -14,8 +14,6 @@ function AddProfile() {
         <span className="back-arrow">
           <ArrowLeftOutlined />
         </span>{" "}
-        <img src={Image} className="profile-image mx-2" />{" "}
-        <p className="profile-name mb-0 pt-2 ">Jay Sethi</p>
         <div className="row mt-5">
           <div className="col-12">
             <div className="scroll-y p-3">

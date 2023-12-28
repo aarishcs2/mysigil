@@ -756,6 +756,17 @@ textarea.form-control:focus {
   background: #ebffef;
   padding: 2px 4px;
 }
+.status-table .tag_not {
+  color: #cc0202;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 5px;
+  background: #ebffef;
+  padding: 2px 4px;
+}
 .table-check .ant-checkbox-inner {
   border-radius: 5px;
   border: 0.5px solid #065ad8;
