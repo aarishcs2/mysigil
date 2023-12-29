@@ -8,8 +8,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import axios from "axios";
 function AddProfile() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const [newProfilePicture, setNewProfilePicture] = useState(Image);
   const [data, setData] = useState({});
   const [nameError, setNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
@@ -20,38 +22,19 @@ function AddProfile() {
   const { activeWorkSpace } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleChange = (event) => {
-    
     data[event.target.name] = event.target.value;
     setData(data);
   };
   const handleSubmit = async () => {
-    if (
-      !data.firstname ||
-      data.firstname.length < 3 ||
-      data.firstname.length > 25
-    ) {
-      setNameError(
-        "First Name should be a minimum of 3 letters and a maximum of 25 characters."
-      );
-    } else if (
-      !data.lastname ||
-      data.lastname.length < 3 ||
-      data.lastname.length > 25
-    ) {
-      setLastNameError(
-        "Last Name should be a minimum of 3 letters and a maximum of 25 characters."
-      );
-    } else if (
-      !data.jobposition ||
-      data.jobposition.length < 3 ||
-      data.jobposition.length > 25
-    ) {
-      setJobpositionError(
-        "Job position should be a minimum of 3 letters and a maximum of 25 characters."
-      );
+    if (!data.firstname) {
+      setNameError("First Name  is required.");
+    } else if (!data.lastname) {
+      setLastNameError("Last Name  is required.");
+    } else if (!data.jobposition) {
+      setJobpositionError("Job position  is required.");
     } else if (!phoneNo) {
       setPhoneNoError(" Enter Phone Number");
-    } else if (emailRegex.test(data?.email) || !data.email) {
+    } else if (!emailRegex.test(data?.email) || !data.email) {
       setValidEmail(true);
     } else {
       const response = await createCoWorker({
@@ -64,6 +47,18 @@ function AddProfile() {
       }
     }
   };
+  const cloud_name = "de0q6n3md";
+  const preset_name = "user-image";
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", preset_name);
+    axios
+      .post(`https://api.cloudinary.com/v1_1/${cloud_name}/upload`, formData)
+      .then((res) => setNewProfilePicture(res.data.secure_url))
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="bg-light-gray p-3">
       <div>
@@ -74,7 +69,7 @@ function AddProfile() {
             <ArrowLeftOutlined />
           </span>{" "}
         </Link>
-        <img src={Image} className="profile-image mx-2" />{" "}
+        <img src={newProfilePicture} className="profile-image mx-2" />{" "}
         <div className="row mt-5">
           <div className="col-12">
             <div className="scroll-y p-3">
@@ -86,6 +81,8 @@ function AddProfile() {
                 type="file"
                 className="profile-input mb-2"
                 id="pic"
+                name="image"
+                onChange={handleImageUpload}
                 hidden
               />
               <div className="row mt-3">

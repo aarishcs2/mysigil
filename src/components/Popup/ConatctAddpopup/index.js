@@ -10,46 +10,28 @@ function ContactPopup(props) {
    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [data, setData] = useState(props?.data);
   const { activeWorkSpace } = useContext(AuthContext);
-   const [nameError, setNameError] = useState("");
-   const [lastNameError, setLastNameError] = useState("");
-   const [organizationError, setOrganizationError] = useState("");
-   const [phoneNo, setPhoneNo] = useState("");
-   const [phoneNoError, setPhoneNoError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [organizationError, setOrganizationError] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [phoneNoError, setPhoneNoError] = useState("");
   const [validEmail, setValidEmail] = useState(false);
-   const [selectedOption, setSelectedOption] = useState(null);
-    const [selectedOptionError, setSelectedOptionError] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionError, setSelectedOptionError] = useState(null);
   const handleCreate = async () => {
     if (activeWorkSpace) {
-      if (
-        !data.firstname ||
-        data.firstname.length < 3 ||
-        data.firstname.length > 25
-      ) {
-        setNameError(
-          "First Name should be a minimum of 3 letters and a maximum of 25 characters."
-        );
-      } else if (
-        !data.lastname ||
-        data.lastname.length < 3 ||
-        data.lastname.length > 25
-      ) {
-        setLastNameError(
-          "Last Name should be a minimum of 3 letters and a maximum of 25 characters."
-        );
-      } else if (
-        !data.organization ||
-        data.organization.length < 3 ||
-        data.organization.length > 25
-      ) {
-        setOrganizationError(
-          "Organization should be a minimum of 3 letters and a maximum of 25 characters."
-        );
+      if (!data.firstname) {
+        setNameError("First Name is required.");
+      } else if (!data.lastname) {
+        setLastNameError("Last Name  is required.");
       } else if (!phoneNo) {
         setPhoneNoError(" Enter Phone Number");
+      } else if (!emailRegex.test(data?.email) || !data.email) {
+        setValidEmail(true);
+      } else if (!data.organization) {
+        setOrganizationError("Organization  is required.");
       } else if (!selectedOption) {
         setSelectedOptionError("Select Interest");
-      } else if (emailRegex.test(data?.email) || !data.email) {
-        setValidEmail(true);
       } else {
         let respomse;
         if (data?._id) {
@@ -68,6 +50,12 @@ function ContactPopup(props) {
     }
   };
   const handleChange = (event) => {
+    setNameError("");
+    setLastNameError("");
+    setPhoneNoError("");
+    setValidEmail(false);
+    setOrganizationError("");
+    setSelectedOptionError("");
     const { name, value } = event.target;
     setData((prevData) => ({
       ...prevData,
@@ -144,7 +132,7 @@ function ContactPopup(props) {
                   className={`endinput ${validEmail && "border-danger"}`}
                 />
                 {validEmail && (
-                  <small className="text-danger">
+                  <small className="text-danger d-block mt-1">
                     Please enter a valid email address.
                   </small>
                 )}
