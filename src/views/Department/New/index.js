@@ -481,7 +481,7 @@ export default function New() {
                         className=" btn-primary h-40 "
                         onClick={handleSubmit}
                       >
-                        <strong>Deploy</strong>
+                        <strong>Create Department</strong>
                       </button>
                     </div>
                   </div>
