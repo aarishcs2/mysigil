@@ -1118,4 +1118,19 @@ textarea.form-control:focus {
   .ml-240 {
     margin-left: 0px;
   }
+  .res-class {
+    display: none;
+  max-width: 0 !important;
+  min-width: 0 !important ;
+  width: 0 !important;
+  padding: 0 !important;
+}
+.res-class-0 {
+  max-width: 243px !important;
+  min-width: 243px !important ;
+  width: 243px !important;
+      padding: 24px 20px !important;
+  display: block !important;
+
+}
 }

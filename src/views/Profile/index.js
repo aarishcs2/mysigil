@@ -78,7 +78,6 @@ function Profile() {
                     name="email"
                     // onChange={handleChange}
                     type="email"
-                    value={user?.email}
                     className="profile-input mb-2 px-2 "
                     placeholder="Change Email"
                   />

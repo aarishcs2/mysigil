@@ -198,46 +198,49 @@ const Sidebar = ({ children }) => {
                             className="dropdown-input px-2"
                           />
                         ) : (
-                          <div>{e?.name} here</div>
+                          <div>{e?.name}</div>
                         )}
 
-                        <div>
-                          {activeWorkSpace?.name === e?.name && (
-                            <>
-                              {editInput !== e?.name && (
-                                <span className="dropdown-action me-2">
-                                  <EllipsisOutlined />
-                                  <div className="action-box">
-                                    <ul>
-                                      <li onClick={() => handleEdit(e?.name)}>
-                                        Edit
-                                      </li>
-                                      <li
-                                        onClick={() => {
-                                          setDeleteWorkspaceId(e?._id);
-                                          setDeletePopup(true);
-                                        }}
-                                      >
-                                        Delete
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </span>
-                              )}
+                        <div className="d-flex align-items-center">
+                          {/* {activeWorkSpace?.name === e?.name && ( */}
+                          <>
+                            {editInput !== e?.name && (
+                              <span className="dropdown-action me-2">
+                                <EllipsisOutlined />
+                                <div className="action-box">
+                                  <ul>
+                                    <li onClick={() => handleEdit(e?.name)}>
+                                      Edit
+                                    </li>
+                                    <li
+                                      onClick={() => {
+                                        setDeleteWorkspaceId(e?._id);
+                                        setDeletePopup(true);
+                                      }}
+                                    >
+                                      Delete
+                                    </li>
+                                  </ul>
+                                </div>
+                              </span>
+                            )}
 
-                              {editInput === e?.name ? (
+                            {editInput === e?.name ? (
+                              <span className="select-box-save">
+                                {" "}
                                 <Icon
-                                  icon="mingcute:save-line"
+                                  icon="ic:outline-check"
                                   onClick={() => handleSave(e?._id)}
                                 />
-                              ) : (
-                                <span>
-                                  {" "}
-                                  <Icon icon="ic:outline-check" />
-                                </span>
-                              )}
-                            </>
-                          )}
+                              </span>
+                            ) : (
+                              <span className="select-box">
+                                {" "}
+                                <Icon icon="ic:outline-check" />
+                              </span>
+                            )}
+                          </>
+                          {/* )} */}
                         </div>
                       </div>
                     );
