@@ -233,7 +233,7 @@ const Sidebar = ({ children }) => {
                                   onClick={() => handleSave(e?._id)}
                                 />
                               </span>
-                            ) : (
+                            ) : activeWorkSpace.name === e?.name && (
                               <span className="select-box">
                                 {" "}
                                 <Icon icon="ic:outline-check" />
