@@ -10,6 +10,8 @@ import SignatureBuilder from "../../views/SignatureBuilder";
 import EditTemplate from "../../views/SignatureBuilder/EditTemplate";
 import AddProfile from "../../views/CoWorker/AddProfile";
 import Contact from "../../views/Conatct";
+import Profile from "../../views/Profile";
+import EditDepartment from "../../views/Department/Edit";
 export const privateRoutes = [
   {
     path: "/",
@@ -24,7 +26,11 @@ export const privateRoutes = [
     element: <NewDepartment />,
   },
   {
-    path: "department/status",
+    path: "department/edit/:id",
+    element: <EditDepartment />,
+  },
+  {
+    path: "department/status/:id",
     element: <StatusDepartment />,
   },
   {
@@ -58,6 +64,10 @@ export const privateRoutes = [
   {
     path: "Conatct",
     element: <Contact />,
+  },
+  {
+    path: "Profile",
+    element: <Profile />,
   },
 ];
 export const SignatureBuilderPrivateRoute = [

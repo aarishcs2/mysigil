@@ -1,15 +1,18 @@
 import { Dropdown } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchContacts } from "../../api";
+import { deleteContact, fetchContacts } from "../../api";
 import ContactPopup from "../../components/Popup/ConatctAddpopup";
 import { AuthContext } from "../../context/AuthContext";
 import Image from "../../assets/Images/default.jpeg";
+import { Icon } from "@iconify/react";
+import ContactViewPopup from "../../components/Popup/ConatctView";
 import * as XLSX from 'xlsx';
 import "./index.css";
 
 function Contact() {
   const [popupOpen, setPopupOpen] = useState(false);
+    const [viewPopupOpen, setViewPopupOpen] = useState(false);
   const { activeWorkSpace } = useContext(AuthContext);
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState({});
@@ -20,15 +23,20 @@ function Contact() {
       key: "1",
       label: (
         <>
-          <Link>Full Information</Link>
-          <div className="plus-btn mt-3 ">+</div>
+          <div onClick={()=>setViewPopupOpen(true)}>
+            <Link>Full Information</Link>
+            <div className="plus-btn mt-3 ">+</div>
+          </div>
         </>
       ),
     },
     {
       key: "2",
       label: (
-        <div onClick={() => setPopupOpen(true)} className="d-flex justify-content-between w-100">
+        <div
+          onClick={() => setPopupOpen(true)}
+          className="d-flex justify-content-between w-100"
+        >
           <Link>Edit Contact</Link>
           <div className="plus-btn mt-3">+</div>
         </div>
@@ -37,10 +45,13 @@ function Contact() {
     {
       key: "3",
       label: (
-        <>
+        <div
+          onClick={() => handleDeleteContact(selectedContact._id)}
+          className="d-flex justify-content-between w-100"
+        >
           <Link>Delete Contact</Link>
           <div className="plus-btn mt-3">+</div>
-        </>
+        </div>
       ),
     },
   ];
@@ -89,6 +100,13 @@ function Contact() {
       fetchContact();
     }
   }
+
+  const handleDeleteContact = async (id) => {
+    const response = await deleteContact(id)
+    if (response) {
+      fetchContact()
+    }
+  }
   return (
     <>
       {popupOpen ? (
@@ -99,16 +117,29 @@ function Contact() {
           }}
         />
       ) : null}
+      {viewPopupOpen ? (
+        <ContactViewPopup
+          data={selectedContact}
+          onClose={() => {
+            setViewPopupOpen(false);
+          }}
+        />
+      ) : null}
       <div className="SignatureBuilder__Main">
         <div className="Flex__Setting">
           <div>
-            <div className="Signature__heading">Contacts</div>
+            <div
+              className="Signature__heading"
+              onClick={() => setViewPopupOpen(true)}
+            >
+              Contacts
+            </div>
             <div className="Conatact"></div>Add and manage your contacts easily
           </div>
           <div>
             <button
               onClick={() => {
-                setSelectedContact({})
+                setSelectedContact({});
                 setPopupOpen(true);
               }}
               className="CreateNewTeamButton gap-2"
@@ -132,7 +163,9 @@ function Contact() {
             </div>
           </div>
           <div>
-            <button className="SerchInput"  onClick={handleSearch}>Search </button>
+            <button className="SerchInput" onClick={handleSearch}>
+              Search{" "}
+            </button>
           </div>
         </div>
 
@@ -172,13 +205,13 @@ function Contact() {
             <div className="Text">
               <div className="listname">Import Contacts</div>
               <div className="CircleToparraow">
-                <img src="/images/Toparrow.png" />
+                <Icon icon="ph:arrow-up" />
               </div>
             </div>
             <div className="Text cursor-pointer" onClick={exportToExcel}>
               <div className="listname">Export Contacts</div>
               <div className="CircleToparraow">
-                <img src="/images/BottomarrowIcon.png" />
+                <Icon icon="ph:arrow-down" />
               </div>
             </div>
           </div>

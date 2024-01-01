@@ -40,6 +40,8 @@ function AddProfile() {
       const response = await createCoWorker({
         ...data,
         workspace: activeWorkSpace?.id,
+        phone: phoneNo,
+        image: newProfilePicture
       });
       if (response) {
         toast.success("Coworker added succesfully");
@@ -70,6 +72,9 @@ function AddProfile() {
           </span>{" "}
         </Link>
         <img src={newProfilePicture} className="profile-image mx-2" />{" "}
+        <p className="profile-name mb-0 pt-3 ">
+          {data?.firstname} {data?.lastname}
+        </p>
         <div className="row mt-5">
           <div className="col-12">
             <div className="scroll-y p-3">
