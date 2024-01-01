@@ -5,17 +5,18 @@ import { Checkbox } from "antd/lib";
 import Signature from "../../../components/Card/Signature";
 import CountryList from "../../../constant/country";
 import TimeZone from "../../../constant/time-zone";
-import { createDepartment, fetchCoWorkers } from "../../../api";
+import { createDepartment, editDepartment, fetchCoWorkers, fetchSingleDepartment } from "../../../api";
 // import moment from "moment-timezone";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function New() {
+export default function EditDepartment() {
+  const { id } = useParams();
   const { activeWorkSpace } = useContext(AuthContext);
   const [step, setStep] = useState(1);
-  const [departmentName, setDepartmentName] = useState("");
+  const [departmentName, setDepartmentName] = useState();
   const [nameError, setNameError] = useState("");
   const [countries, setCountries] = useState([]);
   const [countriesValue, setCountriesValue] = useState("");
@@ -86,16 +87,18 @@ export default function New() {
   };
 
   const fetchCoWorker = async () => {
-    const response = await fetchCoWorkers(activeWorkSpace?.id);
-    const coWorkers = response?.data?.map((item) => {
-      return {
-        id: item._id,
-        name: `${item?.firstname} ${item?.lastname}`,
-        Email: item.email,
-        Image: item.image ?? Image,
-      };
-    });
-    setData(coWorkers);
+    if (activeWorkSpace?.id) {
+      const response = await fetchCoWorkers(activeWorkSpace?.id);
+      const coWorkers = response?.data?.map((item) => {
+        return {
+          id: item._id,
+          name: `${item?.firstname} ${item?.lastname}`,
+          Email: item.email,
+          Image: item.image ?? Image,
+        };
+      });
+      setData(coWorkers);
+    }
   };
 
   useEffect(() => {
@@ -103,7 +106,8 @@ export default function New() {
   }, [activeWorkSpace]);
 
   const handleSubmit = async () => {
-    const response = await createDepartment({
+    console.log("selectedItems ==>", selectedItems)
+    const response = await editDepartment(id,{
       name: departmentName,
       country: countriesValue,
       timezone: timezoneVal,
@@ -112,10 +116,53 @@ export default function New() {
     });
     if (response) {
       toast.success(response.data.message);
-      navigate(`/dashboard/department/status/${response.data.data._id}`);
+      navigate(`/dashboard/department/status/${response.data?.data?._id}`);
     }
   };
 
+  const fetchDepartmentData = async () => {
+    if (id) {
+      const response = await fetchSingleDepartment(id);
+      if (response) {
+        setDepartmentName(response.data?.name)
+        setCountriesValue(response.data?.country)
+        setTimezoneVal(response.data?.timezone)
+        if (response.data?.users.length > 0) {
+          const userData = response.data.users.map(item => {
+            return {
+              id: item._id,
+              name: `${item.firstname} ${item.lastname}`,
+              Email: item.email,
+              Image: item.image ?? Image
+            }
+          })
+          setSelectedItems(userData);
+          for (let user of userData) {
+            const isItemSelected = selectedItems.some((item) => item.id === user.id);
+            if (isItemSelected) {
+              const Filterdata = selectedItems.filter((item) => item.id !== user.id);
+              const updatedData = selectedItems.filter((item) => item.id === user.id);
+              setData([...data, updatedData[0]]);
+              setSelectedItems(Filterdata);
+            } else {
+              setSelectedItems([
+                ...selectedItems,
+                { id: user.id, name: user.name, Email: user.email, Image: user.image ?? Image },
+              ]);
+              const updatedData = data.filter((item) => item.id !== user.id);
+              setData(updatedData);
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchCoWorker();
+    fetchDepartmentData();
+  }, [])
   return (
     <div>
       <div className="p-3 create-depatment-header">
@@ -221,6 +268,7 @@ export default function New() {
                     <label className=" mt-3">Name</label>
                     <input
                       type="text"
+                      value={departmentName}
                       // style={{ width:"150%"}}
                       onChange={(e) => setDepartmentName(e.target.value)}
                       className="form-control"
@@ -243,6 +291,7 @@ export default function New() {
                       id="country"
                       placeholder="Country"
                       className="form-control"
+                      value={countriesValue}
                     >
                       {CountryList.map((item, index) => (
                         <option key={index} value={item.countryName}>
@@ -263,6 +312,7 @@ export default function New() {
                       onChange={(e) => {
                         setTimezoneVal(e.target.value);
                       }}
+                      value={timezoneVal}
                       className="form-control "
                     >
                       {allUtcValues.map((e, i) => {
@@ -319,68 +369,57 @@ export default function New() {
                     </div>
                     {filterData.length > 0
                       ? filterData.map((item, i) => {
-                          return (
-                            <div className="d-flex px-3 py-2 mt-2 ">
-                              <Checkbox
-                                id={item.id}
-                                // checked={selectedItems.some(
-                                //   (selectedItem) => selectedItem.id === item.id
-                                // )}
-                                // onChange={() =>
-                                //   handleCheckboxChange(
-                                //     item.id,
-                                //     item.name,
-                                //     item.Email,
-                                //     item.Image
-                                //   )
-                                // }
-                                checked={selectedItems.some(
-                                  (selectedItem) => selectedItem.id === item.id
-                                )}
-                                onChange={() =>
-                                  handleCheckboxChange(
-                                    item.id,
-                                    item.name,
-                                    item.Email,
-                                    item.Image
-                                  )
-                                }
-                                className="me-2"
-                              />
-                              <img src={item.Image} alt="" className="user" />
-                              <div className="ms-2">
-                                <p className="mt-1 name">{item.name}</p>
-                                <span className="e-mail">{item.Email}</span>
-                              </div>
+                        return (
+                          <div className="d-flex px-3 py-2 mt-2 ">
+                            <Checkbox
+                              id={item.id}
+                              checked={selectedItems.some(
+                                (selectedItem) => selectedItem.id === item.id
+                              )}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  item.id,
+                                  item.name,
+                                  item.Email,
+                                  item.Image
+                                )
+                              }
+                              className="me-2"
+                            />
+                            <img src={item.Image} alt="" className="user" />
+                            <div className="ms-2">
+                              <p className="mt-1 name">{item.name}</p>
+                              <span className="e-mail">{item.Email}</span>
                             </div>
-                          );
-                        })
+                          </div>
+                        );
+                      })
                       : data.map((item, i) => {
-                          return (
-                            <div className="d-flex px-3 py-2 mt-2 ">
-                              <Checkbox
-                                id={item.id}
-                                checked={selectedItems.some(
-                                  (selectedItem) => selectedItem.id === item.id
-                                )}
-                                onChange={() =>
-                                  handleCheckboxChange(
-                                    item.id,
-                                    item.name,
-                                    item.Email,
-                                    item.Image
-                                  )
-                                }
-                                className="me-2"
-                              />
-                              <img src={item.Image} alt="" className="user" />
-                              <div className="ms-2">
-                                <p className="mt-1 name">{item.name}</p>
-                                <span className="e-mail">{item.Email}</span>
-                              </div>
+                        return (
+                          <div className="d-flex px-3 py-2 mt-2 ">
+                            <Checkbox
+                              id={item.id}
+                              checked={selectedItems.some(
+                                (selectedItem) => selectedItem.id === item.id
+                              )}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  item.id,
+                                  item.name,
+                                  item.Email,
+                                  item.Image
+                                )
+                              }
+                              className="me-2"
+                            />
+                            <img src={item.Image} alt="" className="user" />
+                            <div className="ms-2">
+                              <p className="mt-1 name">{item.name}</p>
+                              <span className="e-mail">{item.Email}</span>
                             </div>
-                          );
-                        })}
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
                 <div className="col-6">
@@ -481,7 +520,7 @@ export default function New() {
                         className=" btn-primary h-40 w-50 mb-2"
                         onClick={handleSubmit}
                       >
-                        <strong>Create Department</strong>
+                        <strong>Update Department</strong>
                       </button>
                     </div>
                   </div>

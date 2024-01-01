@@ -80,7 +80,7 @@ function Coworkers() {
   }, [activeWorkSpace]);
 
   const handleSearch = (event) => {
-    if (event.target.value.length > 2) {
+    if (event.target.value.length > 0) {
       const searchData = data?.filter((item) =>
         `${item?.firstname} ${item?.lastname}`
           ?.toLowerCase()

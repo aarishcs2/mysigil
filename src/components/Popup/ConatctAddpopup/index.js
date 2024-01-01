@@ -7,16 +7,17 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
 function ContactPopup(props) {
-   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [data, setData] = useState(props?.data);
+  const [isEmailAdded, setIsEmailAdded] = useState("");
   const { activeWorkSpace } = useContext(AuthContext);
   const [nameError, setNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [organizationError, setOrganizationError] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
+  const [phoneNo, setPhoneNo] = useState(props?.data?.phone);
   const [phoneNoError, setPhoneNoError] = useState("");
   const [validEmail, setValidEmail] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(props?.data?.interest);
   const [selectedOptionError, setSelectedOptionError] = useState(null);
   const handleCreate = async () => {
     if (activeWorkSpace) {
@@ -33,18 +34,28 @@ function ContactPopup(props) {
       } else if (!selectedOption) {
         setSelectedOptionError("Select Interest");
       } else {
-        let respomse;
+        let response;
         if (data?._id) {
-          respomse = await updateContact(data?._id, data);
+          response = await updateContact(data?._id, {
+            ...data,
+            interest: selectedOption,
+            phone: phoneNo,
+          });
         } else {
-          respomse = await createContact({
+          response = await createContact({
             ...data,
             workspace: activeWorkSpace.id,
+            interest: selectedOption,
+            phone: phoneNo,
           });
         }
-        if (respomse) {
-          props.onClose();
-          setData({});
+        if (response) {
+          if (response.statusText !== "Created") {
+            setIsEmailAdded(response.data.message);
+          } else {
+            props.onClose();
+            setData({});
+          }
         }
       }
     }
@@ -134,6 +145,11 @@ function ContactPopup(props) {
                 {validEmail && (
                   <small className="text-danger d-block mt-1">
                     Please enter a valid email address.
+                  </small>
+                )}{" "}
+                {isEmailAdded && (
+                  <small className="text-danger d-block mt-1">
+                    {isEmailAdded}
                   </small>
                 )}
               </div>

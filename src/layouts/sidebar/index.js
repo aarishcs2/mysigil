@@ -7,9 +7,6 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
 import {
@@ -20,15 +17,16 @@ import {
   Dropdown,
   Space,
   Avatar,
-  Checkbox,
 } from "antd";
 import CreatePopup from "../../components/Popup/Createpopup/CreatePopup";
 import { createWorkSpace, deleteWorkSpace, fetchWorkSpaces, updateWorkSpace } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
-
+import { io } from "socket.io-client";
+import moment from 'moment'
 const { Header, Sider, Content } = Layout;
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
+  const socket = io('http://localhost:5000');
   const { activeWorkSpace, setActiveWorkSpace } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(true);
   const {
@@ -41,7 +39,8 @@ const Sidebar = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [workspaces, setWorkSpaces] = useState([]);
   const [updateWorkSpaceName, setUpdateWorkSpaceName] = useState('');
-  const [deleteWorkspaceId, setDeleteWorkspaceId] = useState('F')
+  const [deleteWorkspaceId, setDeleteWorkspaceId] = useState('F');
+  const [notifications, setNotifications] = useState([])
   const handleLogout = async () => {
     await localStorage.removeItem("access_token");
     await navigate("/");
@@ -96,58 +95,43 @@ const Sidebar = ({ children }) => {
   useEffect(() => {
     fetchWorkSpacesData();
   }, []);
-  const items = [
-    {
-      key: "1",
-      label: (
-        <div className="d-flex justify-content-between  align-items-start">
-          <div>
-            {" "}
-            <Avatar
-              size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
-              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-            />
-          </div>
 
-          <div className="ms-2">
-            {" "}
-            <b>John Smith </b> commented on the task{" "}
-            <b>My account information screen and functionality pending</b>
-            <br />
-            <small className="text-muted">Today , at 2:30pm</small>
-          </div>
-          <div>
-            <div className="notification-active"></div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <div className="d-flex justify-content-between  align-items-start">
-          <div>
-            {" "}
-            <Avatar
-              size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
-              src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-            />
-          </div>
 
-          <div className="ms-2">
-            {" "}
-            <b>John Smith </b> commented on the task{" "}
-            <b>My account information screen and functionality pending</b>
-            <br />
-            <small className="text-muted">Today , at 2:30pm</small>
-          </div>
-          <div>
-            <div className="notification-active"></div>
-          </div>
-        </div>
-      ),
-    },
-  ];
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+    socket.emit('subscribe_to_workspace', { workspaceId: activeWorkSpace.id });
+    socket.on('new_notification', (data) => {
+      const items = Array.isArray(data) && data?.map(item => {
+        return {
+          key: item?._id,
+          label: (
+            <div className="d-flex justify-content-between  align-items-start">
+              <div>
+                {" "}
+                <Avatar
+                  size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
+                  src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
+                />
+              </div>
+
+              <div className="ms-2">
+                {" "}
+                <b>{item.message}</b>
+                <br />
+                <small className="text-muted">{item?.createdAt && moment(item?.createdAt).calendar()}</small>
+              </div>
+              <div>
+                <div className="notification-active"></div>
+              </div>
+            </div>
+          ),
+        }
+      })
+      setNotifications(items)
+    });
+  }, [activeWorkSpace])
 
   return (
     <>
@@ -185,9 +169,11 @@ const Sidebar = ({ children }) => {
                 className={`p-2 border-black-drop w-100 d-flex justify-content-between align-items-center pe-3 ${list && "border-black-drop-bold"
                   }`}
               >
-                <span>{activeWorkSpace?.name
-                  ? activeWorkSpace?.name
-                  : "Your Workspace"}</span>
+                <span>
+                  {activeWorkSpace?.name
+                    ? activeWorkSpace?.name
+                    : "Your Workspace"}
+                </span>
                 <span className="Workspace-icon ">
                   <DownOutlined />
                 </span>
@@ -206,33 +192,38 @@ const Sidebar = ({ children }) => {
                           <input
                             type="text"
                             value={updateWorkSpaceName}
-                            onChange={(e) => setUpdateWorkSpaceName(e.target.value)}
+                            onChange={(e) =>
+                              setUpdateWorkSpaceName(e.target.value)
+                            }
                             className="dropdown-input px-2"
                           />
                         ) : (
-                          <div>{e?.name}</div>
+                          <div>{e?.name} here</div>
                         )}
 
                         <div>
                           {activeWorkSpace?.name === e?.name && (
                             <>
-                              {
-                                editInput !== e?.name && <span className="dropdown-action me-2">
+                              {editInput !== e?.name && (
+                                <span className="dropdown-action me-2">
                                   <EllipsisOutlined />
                                   <div className="action-box">
                                     <ul>
-                                      <li onClick={() => handleEdit(e?.name)}>Edit</li>
-                                      <li onClick={() => {
-                                        setDeleteWorkspaceId(e?._id)
-                                        setDeletePopup(true)
-                                      }}>
+                                      <li onClick={() => handleEdit(e?.name)}>
+                                        Edit
+                                      </li>
+                                      <li
+                                        onClick={() => {
+                                          setDeleteWorkspaceId(e?._id);
+                                          setDeletePopup(true);
+                                        }}
+                                      >
                                         Delete
                                       </li>
                                     </ul>
                                   </div>
                                 </span>
-                              }
-
+                              )}
 
                               {editInput === e?.name ? (
                                 <Icon
@@ -240,7 +231,10 @@ const Sidebar = ({ children }) => {
                                   onClick={() => handleSave(e?._id)}
                                 />
                               ) : (
-                                <Icon icon="ic:outline-check" />
+                                <span>
+                                  {" "}
+                                  <Icon icon="ic:outline-check" />
+                                </span>
                               )}
                             </>
                           )}
@@ -256,8 +250,8 @@ const Sidebar = ({ children }) => {
                   className="CreateButton"
                 >
                   <div className="buttontextCreate me-4">Create New</div>
-                  <div className="buttonicon m-1 ">
-                    <img src="/images/PlusIcon.png" />
+                  <div className="buttonicon">
+                    {/* <img src="/images/PlusIcon.png" /> */}+
                   </div>
                 </div>
               </div>
@@ -265,7 +259,7 @@ const Sidebar = ({ children }) => {
           </div>
 
           <Menu
-            className="mt-4 menuebar"
+            className="my-2 menuebar"
             theme="light"
             mode="inline"
             //   defaultSelectedKeys={["1"]}
@@ -377,25 +371,31 @@ const Sidebar = ({ children }) => {
               },
             ]}
           />
-          <div className="p-2 border-round mt-5">
-            <div className="d-flex justify-content-between">
-              <div>Free plan</div>
-              <div>5/5</div>
+          <Link to="https://mysigil.io/dashboard" target="_blank">
+            <div className="p-2   py-1 border-round mt-1 refresh-card">
+
+              <b>Refresh Sigil</b><br />
+
+              <small>
+                New Verion available.
+                <br />
+                Refresh to update
+              </small>
+              <button
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                className=" btn-primary my-1 "
+                style={{ height: "40px", fontSize: "14px" }}
+              >
+                <strong>Refresh</strong>
+              </button>
             </div>
-            <button
-              type="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              className=" btn-primary my-1 "
-              style={{ height: "40px", fontSize: "14px" }}
-            >
-              <strong>Upgrade Plan</strong>
-            </button>
-          </div>
-          <p className="mt-1">
+          </Link>
+          {/* <p className="mt-1">
             <Icon icon="clarity:help-line" className="me-1" />
             Get Support
-          </p>
+          </p> */}
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
@@ -409,16 +409,24 @@ const Sidebar = ({ children }) => {
                   onClick={() => setCollapsed(!collapsed)}
                   className="p-0 header-btn mt-3"
                 />
-                <Button type="link" className="p-0 header-btn m-2 mb-0">
-                  <Dropdown menu={{ items }} placement="bottomRight" arrow>
+                <Button onClick={() => setActiveWorkSpace(prev => {
+                  const updatedState = { ...prev, propertyName: 'new value' };
+                  return updatedState;
+                }
+                )
+                } type="link" className="p-0 header-btn m-2 mb-0">
+                  <Dropdown menu={{ items: notifications }} placement="bottomRight" arrow>
                     <Icon icon="solar:bell-outline" />
                   </Dropdown>
                 </Button>
 
-                <Avatar
-                  size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
-                  src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
-                />
+                <Link to="/dashboard/Profile">
+                  {" "}
+                  <Avatar
+                    size={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 32, xxl: 32 }}
+                    src="https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg"
+                  />
+                </Link>
               </Space>
             </div>
           </Header>
@@ -433,7 +441,12 @@ const Sidebar = ({ children }) => {
             <div className="headerPopup">Do you really want to delete?</div>
 
             <div className="py-3">
-              <button className="SaveButton me-3 ms-3" onClick={() => handleDelete()}>Yes</button>
+              <button
+                className="SaveButton me-3 ms-3"
+                onClick={() => handleDelete()}
+              >
+                Yes
+              </button>
               <button
                 className="SaveButton"
                 onClick={() => setDeletePopup(false)}

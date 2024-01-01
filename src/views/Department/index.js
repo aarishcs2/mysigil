@@ -23,7 +23,7 @@ export default function Department() {
     if (event.target.value.length > 2) {
       const searchData = departments?.filter(item => item?.name?.toLowerCase().includes(event.target.value.toLowerCase()))
       setDepartments(searchData)
-    }else {
+    } else {
       fetchDepartment()
     }
   }
@@ -58,9 +58,10 @@ export default function Department() {
         </div>
         {
           departments?.map(item => {
+            console.log(item)
             return (
               <div className="col-lg-6 mt-3">
-                <InfoCard timezone={item?.timezone} name={item?.name} key={item?._id} users={item?.users} />
+                  <InfoCard timezone={item?.timezone} name={item?.name} key={item?._id} id={item?._id} users={item?.users} />
               </div>
             )
           })
@@ -68,6 +69,6 @@ export default function Department() {
       </div>
 
 
-    </div>
+    </div >
   );
 }

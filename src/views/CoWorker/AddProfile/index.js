@@ -40,6 +40,7 @@ function AddProfile() {
       const response = await createCoWorker({
         ...data,
         workspace: activeWorkSpace?.id,
+        phone: phoneNo
       });
       if (response) {
         toast.success("Coworker added succesfully");

@@ -53,11 +53,7 @@ border: 2px solid #444 !important;
   margin-left: 15px;
   margin-right: 10px;
   margin-top: 20px;
-  /* margin-bottom: 5px; */
   display: flex;
-  /* justify-content: center;
-  a */
-  /* justify-content: space-between; */
 }
 .buttontextCreate {
   color: #065ad8 !important;
@@ -67,6 +63,13 @@ border: 2px solid #444 !important;
   font-weight: 600;
   line-height: normal;
   cursor: pointer;
+}
+.CreateButton:hover .buttontextCreate{
+  color: #444 !important;
+}
+.CreateButton:hover .buttonicon{
+  color: #444 !important;
+    border: 1px solid #444 !important;
 }
 .buttonicon {
   stroke-width: 1.5px;
@@ -79,7 +82,25 @@ border: 2px solid #444 !important;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
+  color: #065ad8;
+  padding-bottom: 3px;
+  cursor: pointer;
+margin-left: 16px;
+    margin-top: 5px;
 }
+.refresh-card{
+  text-align: center;
+  color: #444;
+}
+.ant-menu-inline .ant-menu-item {
+    height: 35px;
+    line-height: 30px;
+    list-style-position: inside;
+    list-style-type: disc;
+    font-size: 14px;
+}
+
 .dropdown-action {
   border: 1px solid #7e7e7e;
   width: 15px;

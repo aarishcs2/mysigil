@@ -21,6 +21,10 @@ export const verifyToken = (payload) => {
   return instance.get(`/verifytoken/${payload.token}`);
 };
 
+export const fetchUser = ()=>{
+  return instance.get(`/userdetails`);
+}
+
 export const resetPassword = (payload) => {
   return instance.put(`/updateuserPassword/${payload.id}`, payload);
 };
@@ -43,7 +47,7 @@ export const fetchWorkSpaces = () => {
   return instance.get(`/fetchallWorkspaces`);
 };
 
-export const updateWorkSpace = (id , payload) => {
+export const updateWorkSpace = (id, payload) => {
   return instance.put(`/updateWorkspace/${id}`, payload);
 }
 
@@ -57,6 +61,22 @@ export const createDepartment = (payload) => {
 
 export const fetchDepartments = (workspaceId) => {
   return instance.get(`/fetchallDepartments/${workspaceId}`);
+}
+
+export const fetchSingleDepartment = (id) => {
+  return instance.get(`/fetchsingleDepartment/${id}`);
+}
+
+export const removeDepartmentUser = (userId, departmentId) => {
+  return instance.post(`/removeoneUser/${departmentId}`, { userId });
+}
+
+export const deleteDepartment = (id) => {
+  return instance.delete(`/deleteDepartment/${id}`);
+}
+
+export const editDepartment = (id, payload) => {
+  return instance.put(`/updatesingleDepartment/${id}`, payload);
 }
 
 export const createCoWorker = (payload) => {
@@ -86,6 +106,10 @@ export const fetchContacts = (workspaceId) => {
 
 export const updateContact = (id, payload) => {
   return instance.put(`/updatesingleContact/${id}`, payload);
+}
+
+export const deleteContact = (id) => {
+  return instance.delete(`/deleteContact/${id}`);
 }
 
 export const fetchAlltemplates = () => {

@@ -2,13 +2,16 @@ import React from "react";
 import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Divider, Tooltip } from "antd";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 const InfoCard = (props) => {
   return (
     <div className="info-card p-2 px-3">
       <div className="d-flex justify-content-between ">
         <div>
           {" "}
+          <Link to={`/dashboard/department/status/${props?.id}`}>
           <p className="heading">{props?.name}</p>{" "}
+          </Link>
           <p className="time-zone">({props?.timezone})</p>
         </div>
         <div>

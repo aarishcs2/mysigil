@@ -1,12 +1,9 @@
 import { ArrowLeftOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import {
-  Layout
-} from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { fetchSingleCoWorker, updateCoWorker } from "../../../api";
 import Image from "../../../assets/Images/default.jpeg";
-import { toast } from "react-toastify";
 
 function EditProfile() {
 
@@ -25,7 +22,6 @@ function EditProfile() {
       ...data, 
       [event.target.name]: event.target.value,
     };
-    console.log(newData); 
     setData(newData); 
   };
   const handleSubmit = async () => {
