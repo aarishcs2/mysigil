@@ -28,6 +28,7 @@ export default function Templatedetail() {
     address: ''
     // Add more template information fields as needed
   });
+  
 
   // for selcting active section on the side panel 
   const handleSectionClick = (section) => {
@@ -300,17 +301,35 @@ export default function Templatedetail() {
     }
   };
 
-  const saveTemplate = () => {
-    // Here you can save modifiedContent to your backend
-    // Placeholder alert for demonstration
-    alert('Template saved with modifications!');
+  const updateTemplate = async () => {
+    try {
+      // Assume you have an API function for updating the template
+      const response = await fetch(`http://localhost:5000/updateTemplate/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ html: modifiedContent }), // Send the updated HTML content
+      });
+
+      if (response.ok) {
+        window.location.reload();
+        // Additional logic after successful update
+      } else {
+        // Handle error cases
+        alert('Failed to update template');
+      }
+    } catch (error) {
+      console.error('Error updating template:', error);
+      // Handle error cases
+      alert('Failed to update template');
+    }
   };
 
   return (
     <>
-
+      <h5>Edit Template</h5>
       <div style={{ display: 'flex' }}>
-
       {/* righ side panel  */}
       <div className="" style={{ 
         display: 'flex', 
@@ -360,6 +379,10 @@ export default function Templatedetail() {
           ) : (
             <p>Loading template details...</p>
           )}
+
+          <button className='btn btn-primary btn-sm mt-3' onClick={updateTemplate}>
+            Update Template
+          </button>
         </div>
         {/* main screen ends here  */}
       </div>

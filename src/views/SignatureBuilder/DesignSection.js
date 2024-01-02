@@ -250,9 +250,9 @@ const DesignSection = ({
           <div className='d-flex justify-content-between'>
       <p>Fill</p>
       <div className="d-flex align-items-center px-2" style={{borderRadius: '0.5rem',}}>
-        <i style={{color: '#065AD8'}} className="fa-2x fa-brands fa-facebook"></i>
-        <i style={{color: '#065AD8'}} className="fa-2x fa-brands fa-facebook-f mx-3"></i>
-        <i style={{color: '#065AD8'}} className="fa-2x fa-brands fa-square-facebook"></i>
+        <i style={{color: '#065AD8', fontSize: '1.3rem'}} className="fa-brands fa-facebook"></i>
+        <i style={{color: '#065AD8', fontSize: '1.3rem'}} className="fa-brands fa-facebook-f mx-4"></i>
+        <i style={{color: '#065AD8', fontSize: '1.3rem'}} className="fa-brands fa-square-facebook"></i>
       </div>
     </div>
 

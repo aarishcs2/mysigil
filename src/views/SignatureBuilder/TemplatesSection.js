@@ -4,7 +4,7 @@ const TemplatesSection = ({ allTemplates }) => (
   <div>
     <div className='row'>
       {allTemplates.map((template, index) => (
-        <div key={index} className='col-md-6'>
+        <div key={index} className='col-md-6 mb-3'>
           <div className='' style={{}}> {/* Adjust the width as needed */}
             <div>
               <div
