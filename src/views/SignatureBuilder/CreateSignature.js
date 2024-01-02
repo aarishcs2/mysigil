@@ -311,7 +311,7 @@ export default function CreateSignature() {
         name: templateName,
         };
     
-        const response = await fetch('http://localhost:5000/createtemplate', {
+        const response = await fetch('https://api.mysigil.io/createtemplate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

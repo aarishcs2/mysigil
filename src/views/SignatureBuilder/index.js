@@ -30,7 +30,7 @@ function SignatureBuilder() {
   useEffect(() => {
     async function fetchTemplates() {
       try {
-        const response = await fetch("http://localhost:5000/fetchAlltemplates");
+        const response = await fetch("https://api.mysigil.io/fetchAlltemplates");
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched templates:", data);
@@ -58,7 +58,7 @@ function SignatureBuilder() {
   // Function to handle the form submission and update the template name
   const handleUpdateTemplateName = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/updateTemplatename/${clickedTemplateId}`, {
+      const response = await fetch(`https://api.mysigil.io/updateTemplatename/${clickedTemplateId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ function SignatureBuilder() {
   
       const { html, workspaceId } = selectedTemplate;
   
-      const response = await fetch(`http://localhost:5000/duplicateTemplate`, {
+      const response = await fetch(`https://api.mysigil.io/duplicateTemplate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ function SignatureBuilder() {
   const handleDelete = async () => {
     try {
       // Send DELETE request to backend with the template ID
-      const response = await fetch(`http://localhost:5000/deletetemplate/${deletingTemplateId}`, {
+      const response = await fetch(`https://api.mysigil.io/deletetemplate/${deletingTemplateId}`, {
         method: 'DELETE',
       });
 

@@ -304,7 +304,7 @@ export default function Templatedetail() {
   const updateTemplate = async () => {
     try {
       // Assume you have an API function for updating the template
-      const response = await fetch(`http://localhost:5000/updateTemplate/${id}`, {
+      const response = await fetch(`https://api.mysigil.io/updateTemplate/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -333,14 +333,14 @@ export default function Templatedetail() {
       {/* righ side panel  */}
       <div className="" style={{ 
         display: 'flex', 
-        height: '100%',
+        height: '47rem',
         width: '40%'    
         }}>
           
         <div style={{ 
           width: '5rem', 
           backgroundColor: "#065AD8",
-          height: '100%',
+          height: '47rem',
           borderRadius: "1rem 0rem 0rem 1rem"
         }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
