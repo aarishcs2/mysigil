@@ -4,8 +4,10 @@ import SignatureCard from "../../components/SignatureCard/SignatureCard";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CreatePopup from "../../components/Popup/Createpopup/CreatePopup";
+import { useNavigate } from "react-router-dom";
 
 function SignatureBuilder() {
+  const navigate = useNavigate();
   const [templates, setTemplates] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
   const [deletingTemplateId, setDeletingTemplateId] = useState(null);
@@ -15,6 +17,14 @@ function SignatureBuilder() {
   // Function to handle template click and set the clicked template ID
   const handleLaunchModal = (templateId) => {
     setClickedTemplateId(templateId);
+  };
+
+  const handleCreateTemplate = (templateName) => {
+    // Handle the template name here if needed
+    console.log("Template Name:", templateName);
+    // Optionally set it in state if you need to use it elsewhere in this component
+    // For now, we'll just navigate to a new page with the captured name
+    navigate(`/dashboard/createsignature/${templateName}`);
   };
 
   useEffect(() => {
@@ -139,9 +149,7 @@ function SignatureBuilder() {
           popuspera="Choose your signature template name"
           popusinputplaceholdername="Signature Template name"
           // onClick={() => setPopupOpen(false)}
-          onSubmit={() => {
-            
-          }}
+          onSubmit={handleCreateTemplate}
           onClose={() => {
             setPopupOpen(false)
           }}
