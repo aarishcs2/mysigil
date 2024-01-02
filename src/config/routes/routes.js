@@ -5,6 +5,7 @@ import NewDepartment from "../../views/Department/New";
 import StatusDepartment from "../../views/Department/Status";
 import Settings from "../../views/Settings";
 import Dashboard from "../../views/dashboard";
+import CreateSignature from "../../views/SignatureBuilder/CreateSignature";
 import EditProfile from "../../views/CoWorker/EditProfile";
 import SignatureBuilder from "../../views/SignatureBuilder";
 import EditTemplate from "../../views/SignatureBuilder/EditTemplate";
@@ -44,6 +45,10 @@ export const privateRoutes = [
   {
     path: "co-worker/add",
     element: <AddProfile />,
+  },
+  {
+    path: "createsignature/:templateName",
+    element: <CreateSignature />,
   },
   {
     path: "settings",

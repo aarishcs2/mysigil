@@ -1,17 +1,18 @@
-// Templatedetail.js
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
-import TemplatesSection from '../TemplatesSection';
-import DetailsSection from '../DetailsSection';
-import ImageSection from '../ImageSection';
-import MarketingSection from '../marketingSection';
-import SocialSection from '../SocialsSection';
-import DesignSection from '../DesignSection';
-import {handleFontChange, handleColorChange, handleNameChange, handleImageChange, handleBannerChange, handleLogoChange, handleBackgroundColorChange } from '../templateFunctions';
-import { fetchAlltemplates, fetchSingletemplates } from '../../../api';
+import { useParams, useNavigate } from 'react-router-dom';
+import TemplatesSection from './TemplatesSection';
+import DetailsSection from './DetailsSection';
+import ImageSection from './ImageSection';
+import MarketingSection from './marketingSection';
+import SocialSection from './SocialsSection';
+import DesignSection from './DesignSection';
+import { fetchFirstTemplate, fetchAllTemplates } from './api';
+import {handleFontChange, handleColorChange, handleNameChange, handleImageChange, 
+    handleBannerChange, handleLogoChange, handleBackgroundColorChange } from './templateFunctions';
 
-export default function Templatedetail() {
-  const { id } = useParams();
+export default function CreateSignature() {
+  const navigate = useNavigate(); 
+  const { templateName } = useParams();
   const [selectedImage, setSelectedImage] = useState(null); // State for selected image
   const [selectedFont, setSelectedFont] = useState('Arial'); // State for selected font
   const [backgroundColor, setBackgroundColor] = useState('#ffffff'); // State for background color
@@ -270,36 +271,30 @@ export default function Templatedetail() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const singleTemplate = await fetchSingletemplates(id);
-        if(singleTemplate){
-          const data = singleTemplate.data
-          setTemplateDetails(data);
-          setModifiedContent(data.html);
-  
-          // Prepopulate inputs with template details
-          if (data) {
-            setTemplateInfo({
-              company: data.company || '',
-              email: data.email || '',
-              website: data.website || '',
-              phone: data.phone || '',
-            });
-          }
-        }
-     
+        const data = await fetchFirstTemplate();
+        // console.log(data[0])
+        setTemplateDetails(data);
+        setModifiedContent(data.html);
 
-        const response = await fetchAlltemplates();
-        if(response){
-          setAllTemplates(response.data);
-
+        // Prepopulate inputs with template details
+        if (data) {
+          setTemplateInfo({
+            company: data.company || '',
+            email: data.email || '',
+            website: data.website || '',
+            phone: data.phone || '',
+          });
         }
+
+        const allTemplatesData = await fetchAllTemplates();
+        setAllTemplates(allTemplatesData);
       } catch (error) {
         console.error('Error:', error);
       }
     }
 
     fetchData();
-  }, [id]);
+  }, []);
 
   const applyStyles = () => {
     if (templateDetails) {
@@ -308,91 +303,100 @@ export default function Templatedetail() {
     }
   };
 
-  const updateTemplate = async () => {
+  const createSignature = async () => {
     try {
-      // Assume you have an API function for updating the template
-      const response = await fetch(`https://api.mysigil.io/updateTemplate/${id}`, {
-        method: 'PUT',
+        const requestData = {
+        html: modifiedContent,
+        workspaceId: '65932ca4a65661de640e82ee',
+        name: templateName,
+        };
+    
+        const response = await fetch('https://api.mysigil.io/createtemplate', {
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ html: modifiedContent }), // Send the updated HTML content
-      });
+        body: JSON.stringify(requestData),
+        });
 
       if (response.ok) {
-        window.location.reload();
+        // window.location.reload();
+        navigate('/dashboard/signaturebuilder')
+    
         // Additional logic after successful update
       } else {
         // Handle error cases
-        alert('Failed to update template');
+        alert('Failed to Create Signature');
       }
     } catch (error) {
-      console.error('Error updating template:', error);
+      console.error('Error Creating Signature', error);
       // Handle error cases
-      alert('Failed to update template');
+      alert('Failed to Create Signature');
     }
   };
 
+
   return (
     <>
-      <h5>Edit Template</h5>
-      <div style={{ display: 'flex' }}>
-      {/* righ side panel  */}
-      <div className="" style={{ 
-        display: 'flex', 
+    <h5 className='fw-bold'>Create Signature</h5>
+    <div style={{ display: 'flex' }}>
+    {/* righ side panel  */}
+    <div className="" style={{ 
+      display: 'flex', 
+      height: '47rem',
+      width: '40%'    
+      }}>
+        
+      <div style={{ 
+        width: '5rem', 
+        backgroundColor: "#065AD8",
         height: '47rem',
-        width: '40%'    
-        }}>
-          
-        <div style={{ 
-          width: '5rem', 
-          backgroundColor: "#065AD8",
-          height: '47rem',
-          borderRadius: "1rem 0rem 0rem 1rem"
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {sections.map((section, index) => (
-              <div className='' key={index} style={{ marginBottom: '10px'}}>
-                <i className={section.icon} style={{ fontSize: '25px', color: 'white', marginTop: '1rem', marginLeft: '40%' }} onClick={() => handleSectionClick(section.title)}></i>
-                <p className='text-light text-center' onClick={() => handleSectionClick(section.title)}>
-                  {section.title}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className='px-2' style={{width: "80%"}}>
-          {/* Content area on the right side */}
-            {activeSection && (
-              <div style={{}}>
-                {sections.find((section) => section.title === activeSection)?.content}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* main screen  */}
-        <div class='bg-light p-4' style={{ width: '60%', borderRadius: "0rem 1rem 1rem 0rem"}}>
-          {templateDetails ? (
-            <div>
-              <div
-                ref={contentRef}
-                className="card-body template-body p-3"
-                style={{ ...fontStyle, backgroundColor, borderRadius: '1rem' }}
-                dangerouslySetInnerHTML={{ __html: modifiedContent || templateDetails.html }}
-              />
+        borderRadius: "1rem 0rem 0rem 1rem"
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {sections.map((section, index) => (
+            <div className='' key={index} style={{ marginBottom: '10px'}}>
+              <i className={section.icon} style={{ fontSize: '25px', color: 'white', marginTop: '1rem', marginLeft: '40%' }} onClick={() => handleSectionClick(section.title)}></i>
+              <p className='text-light text-center' onClick={() => handleSectionClick(section.title)}>
+                {section.title}
+              </p>
             </div>
-          ) : (
-            <p>Loading template details...</p>
-          )}
-
-          <button className='btn btn-primary btn-sm mt-3' onClick={updateTemplate}>
-            Update Template
-          </button>
+          ))}
         </div>
-        {/* main screen ends here  */}
       </div>
-    </>
+
+      <div className='px-2' style={{width: "80%"}}>
+        {/* Content area on the right side */}
+          {activeSection && (
+            <div style={{}}>
+              {sections.find((section) => section.title === activeSection)?.content}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* main screen  */}
+      <div class='bg-light p-4' style={{ width: '60%', borderRadius: "0rem 1rem 1rem 0rem"}}>
+        <h6>Signature Name: {templateName}</h6>
+        {templateDetails ? (
+          <div>
+            <div
+              ref={contentRef}
+              className="card-body template-body p-3"
+              style={{ ...fontStyle, backgroundColor, borderRadius: '1rem' }}
+              dangerouslySetInnerHTML={{ __html: modifiedContent || templateDetails.html }}
+            />
+          </div>
+        ) : (
+          <p>Loading template details...</p>
+        )}
+
+        <button className='btn btn-primary btn-sm mt-3' onClick={createSignature}>
+          Save Template
+        </button>
+      </div>
+      {/* main screen ends here  */}
+    </div>
+  </>
   );
 }
