@@ -4,11 +4,15 @@ const DesignSection = ({
   selectedFont,
   handleFontChange,
   fonts,
+  imageSize,
   fontStyle,
   handleFontWeightChange,
   handleBackgroundColorChange,
+  handleImageSizeChangeWrapper,
+  handleIconSizeChangeWrapper,
   backgroundColor,
   handleFontSizeChange,
+  handleLineSpacingChange,
   handleColorChange,
   handleBoldChange,
   handleItalicChange,
@@ -43,7 +47,7 @@ const DesignSection = ({
             <option value="bolder">Bolder</option>
             {/* Add more font-weight options as needed */}
         </select>
-        </div>
+    </div>
 
     {/* template color  */}
     <div className='d-flex justify-content-between'>
@@ -62,48 +66,41 @@ const DesignSection = ({
       <div style={{ width: '50%', marginLeft: '10px' }}>
         <input
           type="range"
-          min="12"
-          max="24"
-          value={fontStyle.fontSize.replace('px', '')} // Assuming fontSize is in 'px'
-          onChange={handleFontSizeChange}
+          min="14"
+          max="18"
+          value={parseFloat(fontStyle.fontSize)} // Convert fontSize string to a number
+          onChange={(e) => handleFontSizeChange(`${e.target.value}px`)} // Convert and pass as a string with 'px'
           className='form-range'
           style={{ width: '100%' }}
         />
       </div>
-      {/* <span style={{ marginLeft: '10px' }}>{fontStyle.fontSize}</span> */}
     </div>
-
-    {/* <div className='d-flex justify-content-between'>
-        <p>Font size</p>
-        <select className='form-control w-50' 
-        value={fontStyle.fontSize}
-        onChange={handleFontSizeChange} 
-        style={{ fontSize: '0.8rem', height: '1.8rem' }}>
-        <option value="14px">14px</option>
-        <option value="16px">16px</option>
-        <option value="18px">18px</option>
-        </select>
-    </div> */}
 
     {/* text color  */}
     <div className='d-flex justify-content-between'>
         <p>Text Color</p>
-        <input className='form-control w-50' type="color" value={fontStyle.color} onChange={handleColorChange} />
+        <input className='form-control w-50' type="color" 
+        value={fontStyle.color} onChange={handleColorChange} />
     </div>
 
     {/* line spacing  */}
     <div className='d-flex justify-content-between'>
         <p>Line spacing</p>
-        <select className='form-control w-50' 
-        value={fontStyle.fontSize} onChange={handleFontSizeChange} 
-        style={{ fontSize: '0.8rem', height: '1.8rem' }}>
-        <option value="14px">14px</option>
-        <option value="16px">16px</option>
-        <option value="18px">18px</option>
-        {/* Add more font-size options as needed */}
+        <select
+          className='form-control w-50'
+          value={fontStyle.lineHeight}
+          onChange={handleLineSpacingChange}
+          style={{ fontSize: '0.8rem', height: '1.8rem' }}
+        >
+          <option value="1.2">1.2</option>
+          <option value="1.5">1.5</option>
+          <option value="1.8">1.8</option>
+          {/* Add more line spacing options as needed */}
         </select>
+
     </div>
 
+    {/* field styles starts here  */}
     <div>
     <h6 className='fw-bold mt-3'>Field styles</h6>
       <div className='bg-light p-2'>
@@ -172,6 +169,8 @@ const DesignSection = ({
       </div>
     </div>
 
+    {/* field styles ends here  */}
+
     {/* images */}
     <h6 className='fw-bold mt-3'>Images</h6>
     {/* shape  */}
@@ -223,10 +222,10 @@ const DesignSection = ({
         <div style={{ width: '50%', marginLeft: '10px' }}>
           <input
             type="range"
-            min="12"
-            max="24"
-            value={fontStyle.fontSize.replace('px', '')} // Assuming fontSize is in 'px'
-            onChange={handleFontSizeChange}
+            min="50"
+            max="80"
+            value={imageSize} // Use the state variable to track the image size
+            onChange={handleImageSizeChangeWrapper} // Use the passed prop here
             className='form-range'
             style={{ width: '100%' }}
           />
@@ -298,16 +297,16 @@ const DesignSection = ({
         </div>
       </div>
 
-      {/* size  */}
+      {/* adjust size of socila icons  */}
       <div className='d-flex justify-content-between align-items-center'>
         <p>Size</p>
         <div style={{ width: '50%', marginLeft: '10px' }}>
           <input
             type="range"
-            min="12"
-            max="24"
-            value={fontStyle.fontSize.replace('px', '')} // Assuming fontSize is in 'px'
-            onChange={handleFontSizeChange}
+            min="40"
+            max="70"
+            value={imageSize} // Convert fontSize string to a number
+            onChange={handleIconSizeChangeWrapper} // Convert and pass as a string with 'px'
             className='form-range'
             style={{ width: '100%' }}
           />

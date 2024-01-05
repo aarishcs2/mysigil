@@ -18,6 +18,38 @@ export const handleFontChange = (modifiedContent, templateDetails, selectedFont)
   
     return htmlDoc.documentElement.outerHTML;
   };
+
+  export const handleImageSizeChange = (modifiedContent, templateDetails, newSize) => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
+  
+    // Select all image elements in your template
+    const image = htmlDoc.getElementById('userPicture');
+    // Check if the image exists before modifying its size
+    if (image) {
+      // Set the new size for the image
+      image.style.width = `${newSize}px`;
+      image.style.height = `${newSize}px`;
+    }
+  
+    return htmlDoc.documentElement.outerHTML;
+  };
+
+  export const handleIconSizeChange = (modifiedContent, templateDetails, newSize) => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
+    
+    // Select all elements with class 'icons' in your template
+    const icons = htmlDoc.querySelectorAll('.icons');
+    
+    // Loop through each icon and set the new size
+    icons.forEach((icon) => {
+      icon.style.width = `${newSize}px`; // Set the width to the new size
+      icon.style.height = `${newSize}px`; // Set the height to the new size
+    });
+  
+    return htmlDoc.documentElement.outerHTML;
+  };
   
   export const handleColorChange = (e, modifiedContent, templateDetails) => {
     const newColor = e.target.value;
@@ -27,7 +59,7 @@ export const handleFontChange = (modifiedContent, templateDetails, selectedFont)
     const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
   
     // Update color for specific classes or elements
-    ['name', 'position', 'email', 'address', 'website', 'phone', 'mobile', 'company'].forEach((className) => {
+    ['name', 'position', 'email', 'address', 'website', 'phone', 'mobile', 'company', 'disclaimer'].forEach((className) => {
       const elements = htmlDoc.querySelectorAll(`.${className}`);
       elements.forEach((element) => {
         if (className === 'website') {
@@ -38,7 +70,6 @@ export const handleFontChange = (modifiedContent, templateDetails, selectedFont)
         }
       });
     });
-  
     return htmlDoc.documentElement.outerHTML;
   };
   
@@ -137,7 +168,7 @@ export function handleBackgroundColorChange(e, modifiedContent, templateDetails,
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
   
-    const templateBody = htmlDoc.querySelector('.template-body');
+    const templateBody = htmlDoc.querySelector('body');
     if (templateBody) {
       templateBody.style.backgroundColor = e.target.value;
     }

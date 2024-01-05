@@ -7,7 +7,17 @@ import ImageSection from '../ImageSection';
 import MarketingSection from '../marketingSection';
 import SocialSection from '../SocialsSection';
 import DesignSection from '../DesignSection';
-import {handleFontChange, handleColorChange, handleNameChange, handleImageChange, handleBannerChange, handleLogoChange, handleBackgroundColorChange } from '../templateFunctions';
+import {
+  handleFontChange, 
+  handleColorChange, 
+  handleNameChange, 
+  handleImageChange, 
+  handleBannerChange,
+  handleImageSizeChange,
+  handleIconSizeChange,
+  handleLogoChange, 
+  handleBackgroundColorChange
+ } from '../templateFunctions';
 import { fetchAlltemplates, fetchSingletemplates } from '../../../api';
 
 export default function Templatedetail() {
@@ -19,6 +29,8 @@ export default function Templatedetail() {
   const [modifiedContent, setModifiedContent] = useState(null);
   const [allTemplates, setAllTemplates] = useState([]); // State to hold all templates
   const [activeSection, setActiveSection] = useState('Templates');
+  const [activeIcon, setActiveIcon] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const [templateInfo, setTemplateInfo] = useState({
     company: '',
     email: '',
@@ -31,8 +43,12 @@ export default function Templatedetail() {
   
 
   // for selcting active section on the side panel 
+  // const handleSectionClick = (section) => {
+  //   setActiveSection(section === activeSection ? null : section);
+  // };
   const handleSectionClick = (section) => {
     setActiveSection(section === activeSection ? null : section);
+    setActiveIcon(section === activeSection ? null : section);
   };
 
   const contentRef = useRef(null);
@@ -69,6 +85,20 @@ export default function Templatedetail() {
     setModifiedContent(modifiedHTML);
   };
 
+  const handleImageSizeChangeWrapper = (e) => {
+    const newSize = e.target.value; // Get the new size from the event
+  
+    const modifiedHTML = handleImageSizeChange(modifiedContent, templateDetails, newSize);
+    setModifiedContent(modifiedHTML);
+  };
+
+  const handleIconSizeChangeWrapper = (e) => {
+    const newSize = e.target.value; // Get the new size from the event
+  
+    const modifiedHTML = handleIconSizeChange(modifiedContent, templateDetails, newSize);
+    setModifiedContent(modifiedHTML);
+  }; 
+
   const handleColorChangeWrapper = (e) => {
     const modifiedHTML = handleColorChange(e, modifiedContent, templateDetails);
     setModifiedContent(modifiedHTML);
@@ -78,6 +108,22 @@ export default function Templatedetail() {
     handleBackgroundColorChange(e, modifiedContent, templateDetails, setBackgroundColor, setModifiedContent);
     // Any additional logic specific to this component after handleBackgroundColorChange
   };
+
+  const handleLineSpacing = (lineHeight) => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(modifiedContent || templateDetails.html, 'text/html');
+  
+    // Apply line-height to all paragraphs
+    const paragraphs = htmlDoc.querySelectorAll('p'); // Select all <p> tags, adjust this selector as per your template structure
+    if (paragraphs) {
+      paragraphs.forEach((p) => {
+        p.style.lineHeight = lineHeight; // Set the line-height directly in the HTML content
+      });
+    }
+  
+    setModifiedContent(htmlDoc.documentElement.outerHTML);
+  };
+  
 
   const fonts = [
     'Arial',
@@ -100,12 +146,19 @@ export default function Templatedetail() {
     });
   };
 
-  const handleFontSizeChange = (e) => {
+
+  const handleFontSizeChange = (newValue) => {
     setFontStyle({
       ...fontStyle,
-      fontSize: e.target.value
+      fontSize: newValue
     });
   };
+
+  const handleLineSpacingChange = (e) => {
+    handleLineSpacing(e.target.value);
+  };
+  
+  
 
   const uploadBtnStyle = {
     display: 'inline-block',
@@ -255,12 +308,15 @@ export default function Templatedetail() {
         <DesignSection
           selectedFont={selectedFont}
           handleFontChange={handleFontChangeWrapper}
+          handleImageSizeChangeWrapper={handleImageSizeChangeWrapper}
+          handleIconSizeChangeWrapper={handleIconSizeChangeWrapper}
           fonts={fonts}
           fontStyle={fontStyle}
           handleFontWeightChange={handleFontWeightChange}
           handleBackgroundColorChange={handleBackgroundColorChangeWrapper}
           backgroundColor={backgroundColor}
           handleFontSizeChange={handleFontSizeChange}
+          handleLineSpacingChange={handleLineSpacingChange}
           handleColorChange={handleColorChangeWrapper}
         />
       ), 
@@ -320,8 +376,10 @@ export default function Templatedetail() {
       });
 
       if (response.ok) {
-        window.location.reload();
-        // Additional logic after successful update
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 3000); 
       } else {
         // Handle error cases
         alert('Failed to update template');
@@ -336,8 +394,13 @@ export default function Templatedetail() {
   return (
     <>
       <h5>Edit Template</h5>
+      {showAlert && (
+        <div class="alert alert-success" role="alert">
+          Template Updated Succefully
+        </div>
+      )}
       <div style={{ display: 'flex' }}>
-      {/* righ side panel  */}
+      {/* left side panel  */}
       <div className="" style={{ 
         display: 'flex', 
         height: '47rem',
@@ -352,9 +415,25 @@ export default function Templatedetail() {
         }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {sections.map((section, index) => (
-              <div className='' key={index} style={{ marginBottom: '10px'}}>
-                <i className={section.icon} style={{ fontSize: '25px', color: 'white', marginTop: '1rem', marginLeft: '40%' }} onClick={() => handleSectionClick(section.title)}></i>
-                <p className='text-light text-center' onClick={() => handleSectionClick(section.title)}>
+              <div className='' key={index} style={{ marginBottom: '10px', cursor: 'pointer'}} onClick={() => handleSectionClick(section.title)}>
+                <i className={section.icon} 
+                style={{ 
+                  fontSize: '25px', 
+                  marginTop: '1rem',
+                  width: '100%',
+                  paddingLeft: '38%',
+                  paddingTop: activeIcon === section.title ? '0.2rem' : '0rem',
+                  color: activeIcon === section.title ? '#065AD8' : 'white', 
+                  backgroundColor: activeIcon === section.title ? 'white' : '#065AD8',
+                }} 
+                ></i>
+                <p 
+                  className='text-center'
+                  style={{
+                    marginTop: activeIcon === section.title ? '-0.2rem' : '0rem',
+                    color: activeIcon === section.title ? '#065AD8' : 'white', 
+                    backgroundColor: activeIcon === section.title ? 'white' : '#065AD8',}}
+                >
                   {section.title}
                 </p>
               </div>
