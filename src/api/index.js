@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://api.mysigil.io", 
+  baseURL: "https://api.mysigil.io",
   headers: { "X-Custom-Header": "foobar" , jwt: localStorage.getItem("access_token")},
 });
 
